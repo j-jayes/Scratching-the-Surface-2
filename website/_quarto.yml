@@ -1,0 +1,50 @@
+project:
+  type: website
+  # Render directly into the repo's `docs/` folder so GitHub Pages
+  # can serve the static site from the `main` branch (Settings ->
+  # Pages -> Source: `main` / `/docs`).
+  output-dir: ../docs
+  resources:
+    - .nojekyll
+
+website:
+  title: "Scratching the Surface"
+  description: "A cost-effective ML cascade pipeline for real-time rolled-metal defect detection"
+  favicon: assets/favicon.ico
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: slides.qmd
+        text: Slides
+    right:
+      - icon: github
+        href: https://github.com/j-jayes/Scratching-the-Surface-2
+        aria-label: GitHub
+
+  sidebar: false
+
+  page-footer:
+    left: "Scratching the Surface — ML Portfolio"
+    right:
+      - icon: github
+        href: https://github.com/j-jayes/Scratching-the-Surface-2
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    highlight-style: github
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    smooth-scroll: true
+    mermaid:
+      theme: default
+
+execute:
+  freeze: auto
+  cache: false

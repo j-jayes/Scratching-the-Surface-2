@@ -1,0 +1,36 @@
+---
+title: "Scratching the Surface"
+subtitle: "Classical CV vs Vision-Language Models for steel defect detection"
+date: today
+author: "Jonathan Jayes"
+title-slide-attributes:
+  data-background-image: "assets/preview_wide.png"
+  data-background-position: "bottom 10"
+  data-background-size: "90%"
+  data-background-opacity: "0.4"
+format:
+  revealjs:
+    code-overflow: wrap
+    width: 1600
+    height: 900
+    fig-align: center
+    default-image-extension: svg
+    slide-number: c
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    incremental: false
+---
+
+# A. Hook {background-color="#1b9e77"}
+
+## The 30-second pitch
+
+- Same dataset. Same task. Two very different recipes.
+- **Classical CV:** train a ResNet50 on labelled defect images.
+- **VLM few-shot:** send the image to a vision-language model with 3 reference images.
+- Which wins? And which is *cheaper*?
+
+::: {.notes}
+TODO: open with a single side-by-side image showing the two pipelines.
+Goal: get the room to commit to a guess before we show numbers.
+:::
