@@ -5,5 +5,19 @@
     "title": "Scratching the Surface",
     "section": "The 30-second pitch",
     "text": "The 30-second pitch\n\nSame dataset. Same task. Two very different recipes.\nClassical CV: train a ResNet50 on labelled defect images.\nVLM few-shot: send the image to a vision-language model with 3 reference images.\nWhich wins? And which is cheaper?\n\n\nTODO: open with a single side-by-side image showing the two pipelines. Goal: get the room to commit to a guess before we show numbers."
+  },
+  {
+    "objectID": "slides.html#what-is-rolled-metal-defect-detection",
+    "href": "slides.html#what-is-rolled-metal-defect-detection",
+    "title": "Scratching the Surface",
+    "section": "What is rolled-metal defect detection?",
+    "text": "What is rolled-metal defect detection?"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Scratching the Surface",
+    "section": "",
+    "text": "This website holds the write-up for my ML portfolio project, “Scratching the Surface: Classical CV vs Vision-Language Models for steel defect detection”."
   }
 ]

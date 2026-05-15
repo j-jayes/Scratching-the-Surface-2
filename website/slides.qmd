@@ -34,3 +34,9 @@ format:
 TODO: open with a single side-by-side image showing the two pipelines.
 Goal: get the room to commit to a guess before we show numbers.
 :::
+
+# B. Context {background-color="#1b9e77"}
+
+## What is rolled-metal defect detection?
+
+![](assets/Rolling_compressed.gif)  

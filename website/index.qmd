@@ -1,5 +1,6 @@
 ---
-title: "Untitled"
+title: "Scratching the Surface"
 format: html
 ---
 
+This website holds the write-up for my ML portfolio project, "Scratching the Surface: Classical CV vs Vision-Language Models for steel defect detection".
