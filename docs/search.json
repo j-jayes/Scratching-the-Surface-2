@@ -4,14 +4,21 @@
     "href": "slides.html#the-30-second-pitch",
     "title": "Scratching the Surface",
     "section": "The 30-second pitch",
-    "text": "The 30-second pitch\n\nSame dataset. Same task. Two very different recipes.\nClassical CV: train a ResNet50 on labelled defect images.\nVLM few-shot: send the image to a vision-language model with 3 reference images.\nWhich wins? And which is cheaper?\n\n\nTODO: open with a single side-by-side image showing the two pipelines. Goal: get the room to commit to a guess before we show numbers."
+    "text": "The 30-second pitch\n\n\nHow can we prepare for the unknown?\nIs computer vision a solved problem?\nHow can we save time with new tech?\n\n\n\n\nYou at the end of this talk\n\n\n\n\nThe goal of today’s talk is to help us think about preparing for a project when we don’t have all of the information that we need from the client.\nFor AQ Group one of the tasks that we could work on was rolled-metal defect detection. This is a problem that has been worked on for decades, and there are many classical computer vision techniques that can be used to solve it. However, there are also new vision-language models that have been shown to be very effective at a wide range of computer vision tasks.\nSo the question is, how can we use this new technology to save time and resources on a project like this? And how can we prepare for the unknowns that we might encounter along the way?"
   },
   {
-    "objectID": "slides.html#what-is-rolled-metal-defect-detection",
-    "href": "slides.html#what-is-rolled-metal-defect-detection",
+    "objectID": "slides.html#what-is-rolled-metal",
+    "href": "slides.html#what-is-rolled-metal",
     "title": "Scratching the Surface",
-    "section": "What is rolled-metal defect detection?",
-    "text": "What is rolled-metal defect detection?"
+    "section": "What is rolled-metal?",
+    "text": "What is rolled-metal?"
+  },
+  {
+    "objectID": "slides.html#what-are-rolled-metal-defects",
+    "href": "slides.html#what-are-rolled-metal-defects",
+    "title": "Scratching the Surface",
+    "section": "What are rolled-metal defects?",
+    "text": "What are rolled-metal defects?"
   },
   {
     "objectID": "index.html",
@@ -19,5 +26,19 @@
     "title": "Scratching the Surface",
     "section": "",
     "text": "This website holds the write-up for my ML portfolio project, “Scratching the Surface: Classical CV vs Vision-Language Models for steel defect detection”."
+  },
+  {
+    "objectID": "index.html#planning",
+    "href": "index.html#planning",
+    "title": "Scratching the Surface",
+    "section": "Planning",
+    "text": "Planning"
+  },
+  {
+    "objectID": "slides.html#what-is-their-setup",
+    "href": "slides.html#what-is-their-setup",
+    "title": "Scratching the Surface",
+    "section": "What is their setup??",
+    "text": "What is their setup??\n\n\nWe just don’t know what the setup at the various AQ group factories is. Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it’s more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for."
   }
 ]

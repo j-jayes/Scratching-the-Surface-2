@@ -25,18 +25,76 @@ format:
 
 ## The 30-second pitch
 
-- Same dataset. Same task. Two very different recipes.
-- **Classical CV:** train a ResNet50 on labelled defect images.
-- **VLM few-shot:** send the image to a vision-language model with 3 reference images.
-- Which wins? And which is *cheaper*?
+::: {.columns}
+
+::: {.column}
+
+How can we prepare for the unknown?
+
+Is computer vision a solved problem?
+
+How can we save time with new tech?
+
+:::
+
+::: {.column}
+
+![You at the end of this talk](assets/feeling.jpg)
+
+:::
+
+:::
+
 
 ::: {.notes}
-TODO: open with a single side-by-side image showing the two pipelines.
-Goal: get the room to commit to a guess before we show numbers.
+The goal of today's talk is to help us think about preparing for a project when we don't have all of the information that we need from the client.
+
+For AQ Group one of the tasks that we could work on was rolled-metal defect detection. This is a problem that has been worked on for decades, and there are many classical computer vision techniques that can be used to solve it. However, there are also new vision-language models that have been shown to be very effective at a wide range of computer vision tasks.
+
+So the question is, how can we use this new technology to save time and resources on a project like this? And how can we prepare for the unknowns that we might encounter along the way?
 :::
 
 # B. Context {background-color="#1b9e77"}
 
-## What is rolled-metal defect detection?
+## What is rolled-metal?
 
-![](assets/Rolling_compressed.gif)  
+::: {.columns}
+
+::: {.column}
+
+![](assets/rolled-metal/Rolling_compressed.gif)  
+
+![](assets/rolled-metal/warm-walz-werk.jpg)
+
+:::
+
+::: {.column}
+
+![](assets/rolled-metal/4-high-rolling-mill.png)
+
+
+:::
+
+:::
+
+## What are rolled-metal defects?
+
+![](assets/explainers/vlm_few_shot_grid.png)
+
+# C. What do we know from AQ Group? {background-color="#1b9e77"}
+
+## What is their setup??
+
+![](assets/clay-boys/prod-line.png)
+
+::: {.notes}
+We just don't know what the setup at the various AQ group factories is.
+Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it's more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.
+:::
+
+# D. Is computer vision a solved problem? {background-color="#1b9e77"}
+
+::: {.notes}
+We just don't know what the setup at the various AQ group factories is.
+Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it's more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.
+:::

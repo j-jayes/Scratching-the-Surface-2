@@ -149,14 +149,23 @@ Jonathan Jayes
 </section>
 <section id="the-30-second-pitch" class="slide level2">
 <h2>The 30-second pitch</h2>
-<ul>
-<li>Same dataset. Same task. Two very different recipes.</li>
-<li><strong>Classical CV:</strong> train a ResNet50 on labelled defect images.</li>
-<li><strong>VLM few-shot:</strong> send the image to a vision-language model with 3 reference images.</li>
-<li>Which wins? And which is <em>cheaper</em>?</li>
-</ul>
+<div class="columns">
+<div class="column">
+<p>How can we prepare for the unknown?</p>
+<p>Is computer vision a solved problem?</p>
+<p>How can we save time with new tech?</p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/feeling.jpg"></p>
+<figcaption>You at the end of this talk</figcaption>
+</figure>
+</div>
+</div></div>
 <aside class="notes">
-<p>TODO: open with a single side-by-side image showing the two pipelines. Goal: get the room to commit to a guess before we show numbers.</p>
+<p>The goal of today’s talk is to help us think about preparing for a project when we don’t have all of the information that we need from the client.</p>
+<p>For AQ Group one of the tasks that we could work on was rolled-metal defect detection. This is a problem that has been worked on for decades, and there are many classical computer vision techniques that can be used to solve it. However, there are also new vision-language models that have been shown to be very effective at a wide range of computer vision tasks.</p>
+<p>So the question is, how can we use this new technology to save time and resources on a project like this? And how can we prepare for the unknowns that we might encounter along the way?</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -174,12 +183,60 @@ Jonathan Jayes
 <h1>B. Context</h1>
 
 </section>
-<section id="what-is-rolled-metal-defect-detection" class="slide level2">
-<h2>What is rolled-metal defect detection?</h2>
+<section id="what-is-rolled-metal" class="slide level2">
+<h2>What is rolled-metal?</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/rolled-metal/Rolling_compressed.gif"></p>
+<p><img data-src="assets/rolled-metal/warm-walz-werk.jpg"></p>
+</div><div class="column">
+<p><img data-src="assets/rolled-metal/4-high-rolling-mill.png"></p>
+</div></div>
+</section>
+<section id="what-are-rolled-metal-defects" class="slide level2">
+<h2>What are rolled-metal defects?</h2>
+
+<img data-src="assets/explainers/vlm_few_shot_grid.png" class="r-stretch"></section></section>
+<section>
+<section id="c.-what-do-we-know-from-aq-group" class="title-slide slide level1 center" data-background-color="#1b9e77">
+<h1>C. What do we know from AQ Group?</h1>
+
+</section>
+<section id="what-is-their-setup" class="slide level2">
+<h2>What is their setup??</h2>
+
+<img data-src="assets/clay-boys/prod-line.png" class="r-stretch"><aside class="notes">
+<p>We just don’t know what the setup at the various AQ group factories is. Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it’s more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="d.-is-computer-vision-a-solved-problem" class="title-slide slide level1 center" data-background-color="#1b9e77">
+<h1>D. Is computer vision a solved problem?</h1>
+<aside class="notes">
+<p>We just don’t know what the setup at the various AQ group factories is. Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it’s more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 
-
-<img data-src="assets/Rolling_compressed.gif" class="r-stretch"></section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
