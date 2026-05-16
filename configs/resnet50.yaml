@@ -1,0 +1,39 @@
+# ResNet50 binary defect classifier — Phase 2a
+model: resnet50
+input_size: 512
+batch_size: 32
+epochs: 20
+lr: 3.0e-4
+weight_decay: 1.0e-4
+num_workers: 4
+seed: 42
+threshold: 0.5          # binary decision threshold
+checkpoint: models/resnet50_best.pt
+results_dir: results/resnet50
+
+# Training sources (split = "train")
+train_manifests:
+  - data/processed/severstal_manifest.parquet
+  - data/processed/neu_det_manifest.parquet
+
+# Validation source (split = "val") — drives early stopping
+val_manifests:
+  - data/processed/severstal_manifest.parquet
+
+# Evaluation sets (each gets its own metrics JSON)
+eval_sets:
+  severstal_test:
+    manifests: [data/processed/severstal_manifest.parquet]
+    split: test
+  neu_det_val:
+    manifests: [data/processed/neu_det_manifest.parquet]
+    split: val
+  kolektor_test:
+    manifests: [data/processed/kolektor_manifest.parquet]
+    split: test
+  gc10_test:
+    # GC10 is all-defect → supplement with Severstal test normals for binary eval
+    manifests: [data/processed/gc10_manifest.parquet]
+    split: test
+    supplement_normals_from: data/processed/severstal_manifest.parquet
+    supplement_split: test

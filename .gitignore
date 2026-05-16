@@ -217,3 +217,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Project-local additions (appended to .gitignore)
+data/
+models/
+results/
+.vlm_cache/
+*.pt
+*.onnx
+runs/
+
+
+temp/

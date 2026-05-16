@@ -98,3 +98,235 @@ Ideally, we would have a team of engineers who have set up a high quality imagin
 We just don't know what the setup at the various AQ group factories is.
 Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it's more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.
 :::
+
+
+# E. Classical CV vs Vision-Language Models {background-color="#1b9e77"}
+
+```{HTML}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLM Architecture Concept</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0d;
+            --cyan: #00f0ff;
+            --purple: #d000ff;
+            --orange: #ffaa00;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        /* Generic Box Styles */
+        .box {
+            border: 2px solid;
+            border-radius: 6px;
+            padding: 12px 24px;
+            text-align: center;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.6);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .box-subtext {
+            display: block;
+            font-size: 0.65rem;
+            margin-top: 4px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        /* Thematic Colors & Glows */
+        .cyan-theme {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2), inset 0 0 8px rgba(0, 240, 255, 0.1);
+        }
+
+        .purple-theme {
+            border-color: var(--purple);
+            color: var(--purple);
+            box-shadow: 0 0 12px rgba(208, 0, 255, 0.2), inset 0 0 8px rgba(208, 0, 255, 0.1);
+        }
+
+        .orange-theme {
+            border-color: var(--orange);
+            color: var(--orange);
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.25), inset 0 0 10px rgba(255, 170, 0, 0.15);
+        }
+
+        .white-theme {
+            border-color: var(--white);
+            color: var(--white);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* LLM Specific */
+        .box.llm {
+            width: 80%;
+            padding: 20px;
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+
+        /* Tokens Space */
+        .token-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .token {
+            width: 38px;
+            height: 38px;
+            border: 2px solid;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Layout for Bottom Input Paths */
+        .input-paths {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 5px;
+        }
+
+        .path-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 45%;
+        }
+
+        /* Arrows */
+        .arrow-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+        }
+
+        .arrow-head {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 9px solid;
+        }
+
+        .arrow-line {
+            width: 2px;
+            height: 35px;
+        }
+
+        .arrow-wrapper.cyan .arrow-head { border-bottom-color: var(--cyan); }
+        .arrow-wrapper.cyan .arrow-line { background-color: var(--cyan); }
+
+        .arrow-wrapper.purple .arrow-head { border-bottom-color: var(--purple); }
+        .arrow-wrapper.purple .arrow-line { background-color: var(--purple); height: 265px; } /* Stretched so it matches the image box height below */
+
+        .arrow-wrapper.white .arrow-head { border-bottom-color: var(--white); }
+        .arrow-wrapper.white .arrow-line { background-color: var(--white); height: 25px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="diagram-container">
+        <div class="box white-theme">Output Text</div>
+        
+        <div class="arrow-wrapper white">
+            <div class="arrow-head"></div>
+            <div class="arrow-line"></div>
+        </div>
+
+        <div class="box orange-theme llm">LLM</div>
+
+        <div class="input-paths">
+            <div class="path-column image-path">
+                <div class="token-group">
+                    <div class="token cyan-theme"></div>
+                    <div class="token cyan-theme"></div>
+                    <div class="token cyan-theme"></div>
+                </div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">
+                    Projection
+                    <span class="box-subtext">(Feature Vectors)</span>
+                </div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">Vision Encoder</div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">Image Input</div>
+            </div>
+
+            <div class="path-column text-path">
+                <div class="token-group">
+                    <div class="token purple-theme"></div>
+                    <div class="token purple-theme"></div>
+                    <div class="token purple-theme"></div>
+                </div>
+
+                <div class="arrow-wrapper purple">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box purple-theme">Text Prompt</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+```
+
+
+
+In short, a CLIP-based LLM is like a monolingual English speaker relying on a highly skilled translator (the adapter) to understand French (images). A natively multimodal model is truly bilingual from birth, processing and generating text, images, and audio seamlessly with the same "brain."
+
+
