@@ -1,0 +1,48 @@
+# ResNet50 fine-tune v3 — warm start from v2 checkpoint with kolektor oversampling.
+# Continues from the best v2 checkpoint, so the model already has kolektor features.
+# Adds 3× kolektor oversampling so kolektor images appear ~38% of batches (vs ~16% normally).
+# Adds differential LR (backbone 10× slower) + TTA 3-crop eval.
+#
+# Run only if v2 kolektor F1 < 0.60:
+#   uv run python scripts/finetune_resnet_kolektor.py --config configs/resnet50_kolektor_ft_v3.yaml
+model: resnet50
+input_size: 224
+batch_size: 32
+epochs: 15              # fewer epochs — warm start converges faster
+lr: 5.0e-5              # lower LR than v2 — fine-tune from an already-adapted checkpoint
+backbone_lr_factor: 0.1 # backbone gets 5e-6, head gets 5e-5 (standard discriminative LR)
+weight_decay: 1.0e-4
+num_workers: 0
+seed: 42
+threshold: 0.5
+augmentation: rrc                     # RandomResizedCrop — sees full tall kolektor images
+kolektor_holdout_frac: 0.20           # same holdout strategy as v2
+kolektor_oversample_factor: 3.0       # give kolektor images 3× sampling weight
+tta_eval: true                        # 3-crop TTA: top / center / bottom of tall images
+pretrained_weights: models/resnet50_kolektor_ft_v2_best.pt  # warm start from v2
+checkpoint: models/resnet50_kolektor_ft_v3_best.pt
+results_dir: results/resnet50_kolektor_ft_v3
+
+# Training: kolektor domain + severstal (same as v1/v2)
+train_manifests:
+  - data/processed/kolektor_manifest.parquet
+  - data/processed/severstal_manifest.parquet
+  - data/processed/neu_det_manifest.parquet
+
+# Validation: severstal val
+val_manifests:
+  - data/processed/severstal_manifest.parquet
+
+# Evaluation sets (same as previous versions for direct comparison)
+eval_sets:
+  severstal_test:
+    manifests: [data/processed/severstal_manifest.parquet]
+    split: test
+  kolektor_test:
+    manifests: [data/processed/kolektor_manifest.parquet]
+    split: test
+  gc10_test:
+    manifests: [data/processed/gc10_manifest.parquet]
+    split: test
+    supplement_normals_from: data/processed/severstal_manifest.parquet
+    supplement_split: test

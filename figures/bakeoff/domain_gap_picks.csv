@@ -1,0 +1,9 @@
+path,dataset,image_id,prob
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/severstal/train_images/f1c0e4d32.jpg,Severstal,f1c0e4d32.jpg,0.9899475
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/severstal/train_images/a135808ff.jpg,Severstal,a135808ff.jpg,0.9999963
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/neu_det/train_images/rolled-in_scale_127.jpg,NEU-DET,rolled-in_scale_127.jpg,0.99968636
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/neu_det/train_images/scratches_203.jpg,NEU-DET,scratches_203.jpg,0.99999774
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/kolektor/test/20142.png,KolektorSDD2,20142.png,0.8398615
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/kolektor/test/20142.png,KolektorSDD2,20142.png,0.8398615
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/gc10/GC10-DET/images/img_07_424826800_00494.jpg,GC10-DET,img_07_424826800_00494.jpg,0.932198
+/Users/jonathanjayes/Documents/DataScience/Scratching-the-Surface-2/data/raw/gc10/GC10-DET/images/img_04_425237800_01032.jpg,GC10-DET,img_04_425237800_01032.jpg,0.34451777

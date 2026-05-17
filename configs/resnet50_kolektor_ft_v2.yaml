@@ -1,0 +1,48 @@
+# ResNet50 fine-tune v2 — improved augmentation for kolektor's tall/narrow images.
+# Uses RandomResizedCrop(224, scale=0.3-1.0) instead of CenterCrop, so the model
+# sees different vertical regions of the 229×645px kolektor images each epoch.
+# Uses kolektor_holdout_frac=0.20 for composite severstal+kolektor checkpoint selection.
+# Uses lr=1e-4 (2× v1) to adapt faster, with warmup in CosineAnnealingLR.
+#
+# Run AFTER resnet50_kolektor_ft.yaml completes (compare v1 vs v2 results):
+#   uv run python scripts/finetune_resnet_kolektor.py --config configs/resnet50_kolektor_ft_v2.yaml
+model: resnet50
+input_size: 224
+batch_size: 32
+epochs: 20              # more epochs since composite metric may need more time to converge
+lr: 1.0e-4              # 2× v1 — stronger adaptation signal
+weight_decay: 1.0e-4
+num_workers: 0
+seed: 42
+threshold: 0.5
+augmentation: rrc             # RandomResizedCrop — sees full tall kolektor images
+kolektor_holdout_frac: 0.20   # reserve 20% of kolektor train for composite checkpoint metric
+kolektor_oversample_factor: 3.0  # give kolektor images 3× sampling weight vs severstal
+tta_eval: true                # 3-crop TTA at eval: top / center / bottom of tall images
+pretrained_weights: models/resnet50_best.pt
+checkpoint: models/resnet50_kolektor_ft_v2_best.pt
+results_dir: results/resnet50_kolektor_ft_v2
+
+# Training: kolektor domain + severstal (to prevent catastrophic forgetting)
+train_manifests:
+  - data/processed/kolektor_manifest.parquet
+  - data/processed/severstal_manifest.parquet
+  - data/processed/neu_det_manifest.parquet
+
+# Validation: severstal val — ensures we preserve original performance
+val_manifests:
+  - data/processed/severstal_manifest.parquet
+
+# Evaluation sets (same as Phase 2a for direct comparison)
+eval_sets:
+  severstal_test:
+    manifests: [data/processed/severstal_manifest.parquet]
+    split: test
+  kolektor_test:
+    manifests: [data/processed/kolektor_manifest.parquet]
+    split: test
+  gc10_test:
+    manifests: [data/processed/gc10_manifest.parquet]
+    split: test
+    supplement_normals_from: data/processed/severstal_manifest.parquet
+    supplement_split: test

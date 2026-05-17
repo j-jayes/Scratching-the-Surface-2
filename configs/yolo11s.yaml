@@ -1,0 +1,38 @@
+# YOLO11s binary defect detector — Phase 2b
+model: yolo11s.pt          # Ultralytics YOLO11 small, COCO pretrained
+data: data/yolo/defect.yaml
+imgsz: 640
+batch: 16
+epochs: 50
+patience: 10               # early stopping
+lr0: 1.0e-3
+lrf: 0.01                  # final LR = lr0 * lrf
+weight_decay: 5.0e-4
+warmup_epochs: 3
+mosaic: 1.0
+mixup: 0.0
+degrees: 5.0               # rotation augmentation (small — defects are orientation-sensitive)
+flipud: 0.5
+fliplr: 0.5
+hsv_v: 0.2                 # brightness variation
+project: results/yolo
+name: yolo11s_defect
+seed: 42
+device: mps                # M2 Mac; set to 0 for CUDA
+
+# Eval thresholds to sweep for PR curve
+conf_sweep: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50]
+
+# Cross-domain eval sets (run after training)
+eval_sets:
+  severstal_test:
+    manifest: data/processed/severstal_manifest.parquet
+    split: test
+  kolektor_test:
+    manifest: data/processed/kolektor_manifest.parquet
+    split: test
+  gc10_test:
+    manifest: data/processed/gc10_manifest.parquet
+    split: test
+    supplement_normals_from: data/processed/severstal_manifest.parquet
+    supplement_split: test

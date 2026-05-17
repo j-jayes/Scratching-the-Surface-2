@@ -7,11 +7,11 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Jonathan Jayes">
-  <meta name="dcterms.date" content="2026-05-15">
+  <meta name="dcterms.date" content="2026-05-17">
   <title>Scratching the Surface</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-01bb4e66c80d7703791c223c11958418.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -140,7 +206,7 @@ Jonathan Jayes
 </div>
 </div>
 
-  <p class="date">2026-05-15</p>
+  <p class="date">2026-05-17</p>
 </section>
 <section>
 <section id="a.-hook" class="title-slide slide level1 center" data-background-color="#1b9e77">
@@ -196,7 +262,75 @@ Jonathan Jayes
 <section id="what-are-rolled-metal-defects" class="slide level2">
 <h2>What are rolled-metal defects?</h2>
 
-<img data-src="assets/explainers/vlm_few_shot_grid.png" class="r-stretch"></section></section>
+<img data-src="assets/explainers/vlm_few_shot_grid.png" class="r-stretch"></section>
+<section id="what-are-rolled-metal-defects-your-turn" class="slide level2 uncounted">
+<h2>What are rolled-metal defects? — your turn</h2>
+
+<img data-src="../figures/datasets/severstal_quiz/quiz_a_guess.png" style="width:78.0%" class="r-stretch quarto-figure-center"><p class="caption">Two Severstal hot-rolled steel-strip close-ups. One is labelled defective, one is not. Which is which?</p><aside class="notes">
+<p>Pair A: a normal strip and a pitting defect. Let the audience commit before clicking through. The “normal” still has texture — that’s the point: there’s no clean baseline.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="and-here-is-the-pixel-level-ground-truth" class="slide level2 uncounted">
+<h2>…and here is the pixel-level ground truth</h2>
+
+<img data-src="../figures/datasets/severstal_quiz/quiz_a_reveal.png" style="width:78.0%" class="r-stretch quarto-figure-center"><p class="caption">The bottom strip is the defect: a single pit (pink mask). The top strip is what Severstal annotators flagged as normal — texture and rolling marks, no actionable defect.</p><aside class="notes">
+<p>The defect is tiny — maybe 600 pixels in a 1600×256 image. Note how the “normal” still has visible texture. This is exactly why classical CV struggles: the signal-to-noise ratio at the pixel level is brutal.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="try-another-pair-both-have-defects" class="slide level2 uncounted">
+<h2>Try another pair — both have defects</h2>
+
+<img data-src="../figures/datasets/severstal_quiz/quiz_b_guess.png" style="width:78.0%" class="r-stretch quarto-figure-center"><p class="caption">Two more close-ups. Both strips are defective. Can you spot the marks, and would you call them the same kind of defect?</p><aside class="notes">
+<p>Pair B: a class-3 (“scratch”) and a class-4 (“patch”). Audience usually spots <em>something</em> but rarely names the class — that’s the multi-class problem on top of the binary one.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="annotated-by-a-metallurgist-pixel-by-pixel" class="slide level2 uncounted">
+<h2>…annotated by a metallurgist, pixel by pixel</h2>
+
+<img data-src="../figures/datasets/severstal_quiz/quiz_b_reveal.png" style="width:78.0%" class="r-stretch quarto-figure-center"><p class="caption">The top strip carries small “scratch” blobs (orange); the bottom strip has large “patch” regions (purple). Same dataset, same camera, four totally different defect taxonomies — and the annotator decides which one to call.</p><aside class="notes">
+<p>Every coloured pixel was painted by a human. ~12,500 of these images were annotated for the Kaggle Severstal challenge. That’s the bill that classical CV asks you to pay every time the camera changes.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
 <section>
 <section id="c.-what-do-we-know-from-aq-group" class="title-slide slide level1 center" data-background-color="#1b9e77">
 <h1>C. What do we know from AQ Group?</h1>
@@ -218,11 +352,1210 @@ Jonathan Jayes
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="we-make-some-assumptions-about-the-project-spec" class="slide level2">
+<h2>We make some assumptions about the project spec</h2>
+<p>We will treat the problem as if they have no labelled data, but want us to as quickly as possible provide them with a system that can identify defects on the production line.</p>
+<p>Then in this demo, I choose two datasets that have some similarities to what we might expect from AQ Group, and use another two datasets as a holdout set to test how well our models generalise to new domains.</p>
+<p>So how do we go about this??</p>
 </section></section>
+<section>
 <section id="d.-is-computer-vision-a-solved-problem" class="title-slide slide level1 center" data-background-color="#1b9e77">
 <h1>D. Is computer vision a solved problem?</h1>
+
+</section>
+<section id="yes-classical-cv-is-a-mostly-solved-problem" class="slide level2">
+<h2>Yes — classical CV is a (mostly) solved problem!</h2>
+
+<img data-src="assets/explainers/computer-vision-problems.png" style="width:82.0%" class="r-stretch quarto-figure-center"><p class="caption">The standard CV taxonomy: classification, detection, segmentation.</p></section>
+<section id="the-people-who-solved-it" class="slide level2 uncounted">
+<h2>The people who solved it</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/explainers/Geoffrey-Hinton.jpg" style="width:80.0%"></p>
+<figcaption>Geoffrey Hinton</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/explainers/Ilya Sutskever, Geoffrey Hinton, and Alex Krizhevsky.jpeg" style="width:100.0%"></p>
+<figcaption>Ilya Sutskever, Geoffrey Hinton, Alex Krizhevsky</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="and-the-network-that-started-it" class="slide level2 uncounted">
+<h2>…and the network that started it</h2>
+
+<img data-src="assets/explainers/AlexNet.png" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">AlexNet (2012) — the architecture that ended hand-crafted feature engineering and started the deep-learning era of computer vision.</p><aside class="notes">
+<p>Talk about the progression in Computer vision, from Mnist to ImageNet to the present day. Talk about how resnet and yolo models have very fast inference, but need the images that they are trained on to be very similar to the ones that they predict on. They are good at identifying the patterns that they have seen in the training data, but they are not good at generalizing to new domains. This is a problem for AQ group, because we don’t know what the domain of the images that we will be working with is. We might be working with images that are very different from the ones that we have seen in the training data, and this could lead to poor performance.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="but-the-issue-is-when-we-change-the-domain" class="title-slide slide level1 center" data-background-color="#1b9e77">
+<h1>But the issue is when we change the domain…</h1>
+
+</section>
+<section id="the-annotation-bottleneck" class="slide level2">
+<h2>The annotation bottleneck</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<video src="assets/videos/data_annotation.mp4" controls="" autoplay="" muted="" loop="" style="width:100%; border-radius:8px;">
+</video>
+</div><div class="column" style="width:45%;">
+<p><strong>Classical CV runs on labels.</strong></p>
+<p>Every time the camera moves, the lighting changes, or a new defect class shows up, the whole pipeline goes back to the annotator queue.</p>
+<p>For AQ Group we don’t yet know:</p>
+<ul>
+<li>which mill</li>
+<li>which camera, which lighting rig</li>
+<li>which defect taxonomy matters in production</li>
+</ul>
+<p>So the safe bet is a system that can <em>start</em> without labels.</p>
+</div></div>
 <aside class="notes">
-<p>We just don’t know what the setup at the various AQ group factories is. Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it’s more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for.</p>
+<p>The problem is that we will have to spend a lot of time speaking to engineers and asking them to annotate data, and this is a bottleneck that we want to avoid. We want to be able to start working on the problem without having to wait for the annotations to be done, and this is where vision-language models come in.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="datasets-at-a-glance" class="slide level2">
+<h2>Datasets at a glance</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 17%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Dataset</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: right;">n train</th>
+<th style="text-align: right;">n test</th>
+<th style="text-align: left;">Image size</th>
+<th style="text-align: left;">Native taxonomy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Severstal</strong></td>
+<td style="text-align: left;">TRAIN POOL</td>
+<td style="text-align: right;">10 053</td>
+<td style="text-align: right;">1 259</td>
+<td style="text-align: left;">1600 × 256</td>
+<td style="text-align: left;">4 classes (pit, scratch, patch, ridge)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>NEU-DET</strong></td>
+<td style="text-align: left;">TRAIN POOL</td>
+<td style="text-align: right;">1 700</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: left;">200 × 200</td>
+<td style="text-align: left;">6 classes (crazing, inclusion, …)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>KolektorSDD2</strong></td>
+<td style="text-align: left;">HELD-OUT</td>
+<td style="text-align: right;">2 332</td>
+<td style="text-align: right;">1 004</td>
+<td style="text-align: left;">230 × 630–1240</td>
+<td style="text-align: left;">1 binary mask</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>GC10-DET</strong></td>
+<td style="text-align: left;">HELD-OUT</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">2 294</td>
+<td style="text-align: left;">2048 × 1000</td>
+<td style="text-align: left;">10 classes (welding, oil-spot, …)</td>
+</tr>
+</tbody>
+</table>
+<p>All labels collapsed to a single binary <strong>defect / no-defect</strong> target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 and GC10-DET are the new mills — different cameras, different lighting, different defect vocabularies — that the classical models have to generalise to.</p>
+<aside class="notes">
+<p>The point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 and GC10-DET are reserved as held-out <em>domains</em>: same task (“is there a defect?”), totally different pixels. Note GC10 ships with no normals — so it’s effectively “did you spot the defect we know is there?”. NEU-DET is the same, all-defect. This is what real factory data tends to look like before anyone has bothered to annotate a clean baseline.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-domain-gap-problem-visualised" class="slide level2">
+<h2>The domain-gap problem, visualised</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/domain_gap_train_vs_test.png" style="width:100.0%"></p>
+<figcaption>Train: Severstal + NEU-DET (top). Test: KolektorSDD2 + GC10-DET (bottom).</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:20%;">
+<p><strong>Same task — “is this strip defective?” — wildly different pixels.</strong></p>
+</div></div>
+<aside class="notes">
+<p>This is the visceral “look-and-feel” of distribution shift. We didn’t change the task — we changed the camera.</p>
+<ul>
+<li>Different sensors, illumination, exposure, magnification</li>
+<li>Different defect taxonomies (scratches vs silk-spots vs welding lines)</li>
+<li>Different aspect ratios (1600×256 vs 229×645)</li>
+<li>Different surface treatments</li>
+</ul>
+<p>A classifier trained on the top row has never seen anything that looks like the bottom row.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="two-classical-workhorses" class="slide level2">
+<h2>Two classical workhorses</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/explainers/Resnet50_fig1.jpeg" style="width:100.0%"></p>
+<figcaption><strong>ResNet50</strong> — image-level classifier. One number out: <span class="math inline">\(\hat{p}(\text{defect})\)</span>.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/explainers/yolov8.jpeg" style="width:100.0%"></p>
+<figcaption><strong>YOLOv8 / YOLO11s</strong> — object detector. Typed bounding boxes with per-box confidence.</figcaption>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<p>Two architectures we’ll lean on. ResNet50 is the canonical image classifier — convolutional backbone, pooled features, one sigmoid output. YOLO is the canonical real-time detector — same kind of backbone, but the head predicts a grid of bounding boxes with class scores. ResNet gives us “is this strip defective?”. YOLO gives us “and here’s where, with a box per instance”. Both are pre-trained on ImageNet / COCO and then fine-tuned on Severstal + NEU-DET.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-the-baseline-resnet-actually-predicts" class="slide level2">
+<h2>What the baseline ResNet actually predicts</h2>
+
+<img data-src="../figures/bakeoff/domain_gap_with_baseline_preds.png" style="width:78.0%" class="r-stretch quarto-figure-center"><p class="caption">Random test images with ResNet50 prediction overlay. Green border = correct, red = wrong. The model is confidently wrong on the new domains.</p><aside class="notes">
+<p>Calibration is broken too — high confidence on wrong calls. This sets up Grad-CAM and the bake-off.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="grad-cam-peeking-inside-the-black-box" class="slide level2">
+<h2>Grad-CAM: peeking inside the black box</h2>
+<div class="columns">
+<div class="column" style="width:62%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/explainers/gradcam_train_vs_test.png" style="width:100.0%"></p>
+<figcaption>Grad-CAM heatmaps over <code>layer4</code> activations. Top: Severstal+NEU samples — the model lights up on defect-correlated texture. Bottom: KolektorSDD2 + GC10 — attention scatters onto seams, edges, and lighting artefacts unrelated to actual defects.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:38%;">
+<p><strong>Why does the F1 collapse?</strong></p>
+<p>It’s not that the network “forgot how to see.” It’s that the features it learned to chase — strip-aligned texture statistics from Severstal — simply aren’t where the defects live in Kolektor or GC10.</p>
+<p>The model is doing exactly what it was trained to do. The training distribution lied about the world.</p>
+</div></div>
+<aside class="notes">
+<p>Run with: <code>uv run python scripts/make_gradcam_grid.py</code>. Uses pytorch-grad-cam on layer4[-1] of resnet50_kolektor_ft_v2_best.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="more-labels-wont-save-us" class="slide level2">
+<h2>More labels won’t save us</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/f1_comparison_classical.png" style="width:100.0%"></p>
+<figcaption>Held-out F1 for every classical recipe we tried.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p><strong>No classical recipe wins both domains.</strong></p>
+<p>Fine-tuning on Kolektor helps Kolektor — and <strong>breaks</strong> GC10.</p>
+<p>~11 700 labels in, and we still can’t extrapolate to a new mill.</p>
+</div></div>
+<aside class="notes">
+<p>This slide earns the pivot to VLMs. We tried the obvious classical things — bigger model, fine-tune on a slice of the new domain, detection head (YOLO11s), self-labelling Severstal and re-training YOLO on those pseudo-labels. None of them generalise to both held-out domains cleanly. Fine-tuning on Kolektor lifts that score 3.5× but <strong>costs us</strong> on GC10 — catastrophic forgetting. Numbers (held-out F1):</p>
+<ul>
+<li>ResNet50: Kolektor 0.16 / GC10 0.78</li>
+<li>ResNet50+FT: 0.56 / 0.65</li>
+<li>YOLO11s: 0.38 / 0.55</li>
+<li>YOLO-bootstrap: 0.20 / 0.73</li>
+</ul>
+<p>The figure is deliberately <em>all classical</em> — the VLM hasn’t entered the story yet. Audience should leave this slide asking “what else could possibly help?”. Source: <code>results/{resnet50,resnet50_kolektor_ft,yolo,yolo_bootstrap}/metrics.json</code>, rendered by <code>scripts/make_comparison_figures.py</code> (<code>f1_comparison_classical.png</code>).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a-yolo-box-says-something-a-heatmap-cant" class="slide level2">
+<h2>A YOLO box says something a heatmap can’t</h2>
+
+<img data-src="../figures/bakeoff/resnet_vs_yolo_qual.png" style="width:84.0%" class="r-stretch quarto-figure-center"><p class="caption">Same four images, two outputs. <strong>Middle</strong>: ResNet50 Grad-CAM — one scalar <code>p̂(defect)</code> plus a soft “where roughly”. <strong>Right</strong>: YOLO11s — one or more typed bounding boxes, each with its own confidence. Top two rows are in-domain Severstal; bottom two rows are out-of-distribution KolektorSDD2 and GC10-DET.</p><aside class="notes">
+<p>Qualitative companion to the scoreboard. The F1 numbers don’t tell you <em>what each output looks like</em>. Walk the rows:</p>
+<p><strong>Row 1 (Severstal, in-domain):</strong> ResNet fires on the whole bright region (<code>p̂=1.00</code>) — useful as a yes/no, useless if you want to know <em>which</em> defect. YOLO drops four tight boxes on the actual scratches with per-instance confidence. That’s a <em>work order</em> for an operator.</p>
+<p><strong>Row 2 (Severstal, in-domain):</strong> Same story — three crisp boxes vs one broad blob.</p>
+<p><strong>Row 3 (Kolektor, OOD):</strong> Both models break, but differently. ResNet says “no defect” (<code>p̂=0.11</code>) and the CAM is on irrelevant texture. YOLO does fire — two low-confidence boxes — but they’re at the top, not on the actual scratch in the middle.</p>
+<p><strong>Row 4 (GC10, OOD):</strong> ResNet <code>p̂=0.99</code> on the bright edge — confidently wrong about <em>where</em>. YOLO drops two boxes; the bottom-right one is roughly on the right region.</p>
+<p>Neither is great on the OOD rows. The point of the slide is <strong>different output shape, same domain-gap problem</strong> — bringing more classical machinery to bear doesn’t close the gap, it just changes what “failure” looks like. Time to try something different.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="why-are-vlms-better-at-cv-tasks-now" class="slide level2">
+<h2>Why are VLMs better at CV tasks now?</h2>
+<style>
+.vlm-timeline { width: 1450px; max-width: 100%; margin: 0 auto; background: #f4f7f9; border-radius: 12px; padding: 24px 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-sizing: border-box; font-size: 13px; }
+.vlm-timeline * { box-sizing: border-box; }
+
+  /* Timeline Horizontal Layout */
+  .vlm-timeline .timeline-container {
+    position: relative;
+    width: 100%;
+    height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* The central horizontal line */
+  .vlm-timeline .timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    background: #cbd5e1;
+    transform: translateY(-50%);
+    z-index: 1;
+    border-radius: 2px;
+  }
+
+  /* Individual Node */
+  .vlm-timeline .timeline-item {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  /* The dot on the line */
+  .vlm-timeline .timeline-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 6px solid #94a3b8;
+    z-index: 3;
+    box-shadow: 0 0 0 4px #f4f7f9;
+  }
+
+  /* Fusion Type Colors */
+  .vlm-timeline .dot-none { border-color: #64748b; }
+  .vlm-timeline .tag-none { background-color: #64748b; color: #fff; }
+
+  .vlm-timeline .dot-late { border-color: #3b82f6; }
+  .vlm-timeline .tag-late { background-color: #3b82f6; color: #fff; }
+
+  .vlm-timeline .dot-early { border-color: #10b981; }
+  .vlm-timeline .tag-early { background-color: #10b981; color: #fff; }
+
+  /* Connecting stems */
+  .vlm-timeline .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 50px;
+    background: #cbd5e1;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  .vlm-timeline .timeline-item.top::before {
+    bottom: 50%;
+  }
+  .vlm-timeline .timeline-item.bottom::before {
+    top: 50%;
+  }
+
+  /* Content Box */
+  .vlm-timeline .timeline-content {
+    position: absolute;
+    width: 200px;
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    text-align: left;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+  }
+
+  /* Positioning top and bottom */
+  .vlm-timeline .timeline-item.top .timeline-content {
+    bottom: calc(50% + 50px);
+  }
+  .vlm-timeline .timeline-item.bottom .timeline-content {
+    top: calc(50% + 50px);
+  }
+
+  /* Edge alignments to maintain bounds */
+  .vlm-timeline .timeline-item:first-child .timeline-content { left: 0; transform: none; }
+  .vlm-timeline .timeline-item:first-child::before { left: 20px; }
+  .vlm-timeline .timeline-item:first-child .timeline-dot { left: 20px; }
+
+  .vlm-timeline .timeline-item:last-child .timeline-content { left: auto; right: 0; transform: none; }
+  .vlm-timeline .timeline-item:last-child::before { left: auto; right: 20px; transform: none; }
+  .vlm-timeline .timeline-item:last-child .timeline-dot { left: auto; right: 20px; transform: translateY(-50%); }
+
+  /* Typography */
+  .vlm-timeline .timeline-date {
+    font-size: 0.85em;
+    color: #64748b;
+    margin-bottom: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .vlm-timeline .timeline-title {
+    margin: 0 0 6px 0;
+    font-size: 1.25em;
+    color: #0f172a;
+  }
+  .vlm-timeline .tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .vlm-timeline .timeline-desc {
+    line-height: 1.3;
+    margin: 0;
+    color: #475569;
+    font-size: 0.85em;
+  }
+</style>
+
+<div class="vlm-timeline">
+  <div class="timeline-container">
+      <div class="timeline-line"></div>
+      
+      <!-- GPT-3.5 -->
+      <div class="timeline-item top">
+        <div class="timeline-dot dot-none"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Nov 2022</div>
+          <h2 class="timeline-title">GPT-3.5</h2>
+          <span class="tag tag-none">No Fusion</span>
+          <p class="timeline-desc">Launch of ChatGPT. Core engine handles text tokens exclusively.</p>
+        </div>
+      </div>
+
+      <!-- GPT-4 Base -->
+      <div class="timeline-item bottom">
+        <div class="timeline-dot dot-none"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Mar 2023</div>
+          <h2 class="timeline-title">GPT-4 (Base)</h2>
+          <span class="tag tag-none">No Fusion</span>
+          <p class="timeline-desc">Massive logical upgrade, but architecture remains text-only.</p>
+        </div>
+      </div>
+
+      <!-- GPT-4V & Voice -->
+      <div class="timeline-item top">
+        <div class="timeline-dot dot-late"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Sep 2023</div>
+          <h2 class="timeline-title">GPT-4V / Voice</h2>
+          <span class="tag tag-late">Late Fusion</span>
+          <p class="timeline-desc">Stitched pipeline. External vision encoders and audio transcribers translation layers.</p>
+        </div>
+      </div>
+
+      <!-- GPT-4o -->
+      <div class="timeline-item bottom">
+        <div class="timeline-dot dot-early"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">May 2024</div>
+          <h2 class="timeline-title">GPT-4o</h2>
+          <span class="tag tag-early">Early Fusion</span>
+          <p class="timeline-desc">Unified architecture. Processes text, native sight, and live audio in one neural space.</p>
+        </div>
+      </div>
+
+      <!-- GPT-4o mini -->
+      <div class="timeline-item top">
+        <div class="timeline-dot dot-early"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Jul 2024</div>
+          <h2 class="timeline-title">GPT-4o mini</h2>
+          <span class="tag tag-early">Early Fusion</span>
+          <p class="timeline-desc">Streamlined omni variant maintaining native multimodal processing.</p>
+        </div>
+      </div>
+
+      <!-- GPT-5 Family -->
+      <div class="timeline-item bottom">
+        <div class="timeline-dot dot-early"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2025+</div>
+          <h2 class="timeline-title">GPT-5 Family</h2>
+          <span class="tag tag-early">Early Fusion</span>
+          <p class="timeline-desc">Scales early-fusion to native video generation and seamless token blending.</p>
+        </div>
+      </div>
+
+  </div>
+</div>
+<aside class="notes">
+<p><strong>Slide goal:</strong> Highlight the fundamental architectural paradigm shift OpenAI went through in under 3 years.</p>
+<ul>
+<li><strong>GPT-3.5 &amp; GPT-4 base</strong> — traditional, blind LLMs. Text-in, text-out. No fusion: there were no other modalities to handle.</li>
+<li><strong>GPT-4V &amp; classic Voice</strong> — <em>late fusion</em>. Components stitched together; information is lost (tone of voice flattened to plain text; vision pre-filtered through a separate encoder). It’s a pipeline bottleneck.</li>
+<li><strong>GPT-4o onwards</strong> — <em>early fusion</em>. No translators or adapters: images and raw audio go straight into the core network alongside text. Enables human-level latency and native audio outputs.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="e.-how-do-vision-language-models-see-images" class="title-slide slide level1 center" data-background-color="#1b9e77">
+<h1>E. How do Vision-Language Models see images?</h1>
+
+</section>
+<section id="late-fusion" class="slide level2">
+<h2>Late Fusion</h2>
+<style>
+        .vlm-late-host {
+            background: #f4f7f9;
+            color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 640px;
+            margin: 0 auto;
+            max-width: 1100px;
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+        .vlm-late-host * { box-sizing: border-box; }
+
+        .vlm-late-host .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 720px;
+        }
+
+        /* Card-style boxes */
+        .vlm-late-host .box {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #64748b;
+            border-radius: 10px;
+            padding: 12px 22px;
+            text-align: center;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+            letter-spacing: 0.3px;
+            font-size: 1rem;
+        }
+
+        .vlm-late-host .box-subtext {
+            display: block;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            font-weight: 400;
+            color: #64748b;
+            letter-spacing: 0;
+        }
+
+        /* Accent colours (matches timeline palette) */
+        .vlm-late-host .cyan-theme  { border-top-color: #3b82f6; }
+        .vlm-late-host .purple-theme{ border-top-color: #7570b3; }
+        .vlm-late-host .orange-theme{ border-top-color: #d95f02; background: #fff7ed; }
+        .vlm-late-host .white-theme { border-top-color: #94a3b8; }
+
+        /* LLM hero box */
+        .vlm-late-host .box.llm {
+            width: 78%;
+            padding: 18px;
+            font-size: 1.4rem;
+            margin: 14px 0;
+        }
+
+        /* Token chips */
+        .vlm-late-host .token-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+        .vlm-late-host .token {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(15,23,42,0.05);
+        }
+        .vlm-late-host .token.cyan-theme  { background: #3b82f6; border-color: #3b82f6; }
+        .vlm-late-host .token.purple-theme{ background: #7570b3; border-color: #7570b3; }
+
+        /* Bottom input paths */
+        .vlm-late-host .input-paths {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 6px;
+        }
+        .vlm-late-host .path-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 45%;
+        }
+
+        /* Arrows: thin slate lines */
+        .vlm-late-host .arrow-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 4px 0;
+        }
+        .vlm-late-host .arrow-head {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid #94a3b8;
+        }
+        .vlm-late-host .arrow-line {
+            width: 2px;
+            height: 28px;
+            background: #cbd5e1;
+        }
+        .vlm-late-host .arrow-wrapper.purple .arrow-line { height: 240px; }
+        .vlm-late-host .arrow-wrapper.white  .arrow-line { height: 20px; }
+    </style>
+<div class="vlm-late-host">
+
+
+    <div class="diagram-container">
+        <div class="box white-theme">Output Text</div>
+        
+        <div class="arrow-wrapper white">
+            <div class="arrow-head"></div>
+            <div class="arrow-line"></div>
+        </div>
+
+        <div class="box orange-theme llm">LLM</div>
+
+        <div class="input-paths">
+            <div class="path-column image-path">
+                <div class="token-group">
+                    <div class="token cyan-theme"></div>
+                    <div class="token cyan-theme"></div>
+                    <div class="token cyan-theme"></div>
+                </div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">
+                    Projection
+                    <span class="box-subtext">(Feature Vectors)</span>
+                </div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">Vision Encoder</div>
+
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box cyan-theme">Image Input</div>
+            </div>
+
+            <div class="path-column text-path">
+                <div class="token-group">
+                    <div class="token purple-theme"></div>
+                    <div class="token purple-theme"></div>
+                    <div class="token purple-theme"></div>
+                </div>
+
+                <div class="arrow-wrapper purple">
+                    <div class="arrow-head"></div>
+                    <div class="arrow-line"></div>
+                </div>
+
+                <div class="box purple-theme">Text Prompt</div>
+            </div>
+        </div>
+    </div>
+</div>
+<aside class="notes">
+<p>In short, a CLIP-based LLM is like a monolingual English speaker relying on a highly skilled translator (the adapter) to understand French (images). A natively multimodal model is truly bilingual from birth, processing and generating text, images, and audio seamlessly with the same “brain.”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="early-fusion" class="slide level2">
+<h2>Early Fusion</h2>
+<style>
+        .vlm-early-host {
+            background: #f4f7f9;
+            color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 640px;
+            margin: 0 auto;
+            max-width: 1100px;
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+        .vlm-early-host * { box-sizing: border-box; }
+
+        .vlm-early-host .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 720px;
+        }
+
+        /* Card-style boxes */
+        .vlm-early-host .box {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #64748b;
+            border-radius: 10px;
+            padding: 12px 22px;
+            text-align: center;
+            font-weight: 700;
+            color: #0f172a;
+            box-shadow: 0 6px 16px rgba(15,23,42,0.06);
+            letter-spacing: 0.3px;
+            font-size: 1rem;
+        }
+
+        .vlm-early-host .cyan-theme { border-top-color: #10b981; }
+
+        /* MM hero box */
+        .vlm-early-host .box.mm {
+            width: 78%;
+            max-width: 460px;
+            padding: 26px 20px;
+            font-size: 2.4rem;
+            margin: 12px 0;
+            background: #ecfdf5;
+        }
+
+        /* Input/output rows */
+        .vlm-early-host .inputs-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 85%;
+            max-width: 460px;
+            margin-bottom: 6px;
+        }
+        .vlm-early-host .input-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .vlm-early-host .text-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+        .vlm-early-host .outputs-row {
+            display: flex;
+            justify-content: space-around;
+            width: 55%;
+            max-width: 280px;
+            margin-top: 6px;
+            margin-bottom: 28px;
+        }
+
+        /* Arrows: thin slate lines pointing down */
+        .vlm-early-host .arrow-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .vlm-early-host .arrow-head.down {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 9px solid #94a3b8;
+            border-bottom: none;
+        }
+        .vlm-early-host .arrow-line {
+            width: 2px;
+            background: #cbd5e1;
+        }
+        .vlm-early-host .arrow-line.med { height: 36px; }
+
+        /* Angled arrows */
+        .vlm-early-host .rot-cw  { transform: rotate(25deg); }
+        .vlm-early-host .rot-ccw { transform: rotate(-25deg); }
+        .vlm-early-host .text-in  { transform: translateX(12px); }
+        .vlm-early-host .video-in { transform: translateX(-12px); }
+        .vlm-early-host .out-left  { transform: translateX(-12px); }
+        .vlm-early-host .out-right { transform: translateX(12px); }
+
+        /* Bottom title */
+        .vlm-early-host .bottom-title {
+            text-align: center;
+            color: #0f172a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            line-height: 1.25;
+        }
+        .vlm-early-host .bottom-title div:last-child {
+            color: #64748b;
+            font-weight: 500;
+        }
+    </style>
+<div class="vlm-early-host">
+
+
+    <div class="diagram-container">
+        
+        <div class="inputs-row">
+            <div class="input-item text-in">
+                <div class="text-label">Text</div>
+                <div class="arrow-wrapper cyan rot-ccw">
+                    <div class="arrow-line med"></div>
+                    <div class="arrow-head down"></div>
+                </div>
+            </div>
+            
+            <div class="input-item">
+                <div class="text-label">Image</div>
+                <div class="arrow-wrapper cyan">
+                    <div class="arrow-line med"></div>
+                    <div class="arrow-head down"></div>
+                </div>
+            </div>
+            
+            <div class="input-item video-in">
+                <div class="text-label">Video</div>
+                <div class="arrow-wrapper cyan rot-cw">
+                    <div class="arrow-line med"></div>
+                    <div class="arrow-head down"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box cyan-theme mm">MM</div>
+
+        <div class="outputs-row">
+            <div class="arrow-wrapper cyan rot-cw out-left">
+                <div class="arrow-line med"></div>
+                <div class="arrow-head down"></div>
+            </div>
+            <div class="arrow-wrapper cyan rot-ccw out-right">
+                <div class="arrow-line med"></div>
+                <div class="arrow-head down"></div>
+            </div>
+        </div>
+
+        <div class="bottom-title">
+            <div>Any-To-Any</div>
+            <div>Generation</div>
+        </div>
+
+    </div>
+</div>
+<aside class="notes">
+<p>In short, a CLIP-based LLM is like a monolingual English speaker relying on a highly skilled translator (the adapter) to understand French (images). A natively multimodal model is truly bilingual from birth, processing and generating text, images, and audio seamlessly with the same “brain.”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="f.-flagship-vlm-bake-off" class="title-slide slide level1 center" data-background-color="#7570b3">
+<h1>F. Flagship VLM Bake-Off</h1>
+
+</section>
+<section id="same-images-frontier-models-zero-training" class="slide level2">
+<h2>Same images, frontier models, zero training</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/flagship_bakeoff.png" style="width:100.0%"></p>
+<figcaption>F1 and per-call cost for gpt-5.4, gemini-2.5-pro, gpt-4.1-mini on the unseen domains.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<p><strong>Setup</strong></p>
+<ul>
+<li>50 images / dataset (balanced)</li>
+<li>Identical CoT-with-JSON-schema prompt</li>
+<li>3 providers via <code>src/vlm_clients.py</code></li>
+<li>Costs logged to <code>results/cost_ledger.csv</code>, capped at <code>$50</code></li>
+</ul>
+<p><strong>Reading the chart</strong></p>
+<ul>
+<li>All three frontier models beat the supervised ResNet50 on the unseen domain.</li>
+<li>Gemini 2.5 Pro is competitive at lower $/call.</li>
+<li>The Azure mid-tier (gpt-4.1-mini) is the price–performance knee.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Source: results/vlm/flagship_summary_<latest>.json, rendered with scripts/make_flagship_bakeoff_figure.py.</latest></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="g.-prompt-tuning-as-gradient-descent-on-words" class="title-slide slide level1 center" data-background-color="#e7298a">
+<h1>G. Prompt-tuning as gradient descent on words</h1>
+
+</section>
+<section id="a-structured-output-teacher-critiques-a-structured-output-student" class="slide level2">
+<h2>A structured-output teacher critiques a structured-output student</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/vlm/prompt_tuning_curve.png" style="width:100.0%"></p>
+<figcaption>F1 vs prompt-tuning round, per provider. Star = held-out F1 after final addendum.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<p><strong>The loop</strong> (<code>scripts/prompt_tune_vlm.py</code>)</p>
+<ol type="1">
+<li>Score base prompt on a 12-image calibration set</li>
+<li>Collect every disagreement with its parsed reasoning + attributes</li>
+<li>Feed disagreements to <strong>gpt-5.5</strong> as a “domain prompt engineer”</li>
+<li>Tuner emits JSON: <code>summary</code>, <code>common_mistakes[]</code>, <code>prompt_addendum</code></li>
+<li>Append the addendum, re-score, repeat</li>
+</ol>
+<p>The tuner output is <strong>schema-enforced</strong> — strict JSON, no free-form prose. The addendum becomes a <code># DOMAIN-SPECIFIC GUIDANCE</code> block prepended to the student’s user prompt.</p>
+</div></div>
+</section>
+<section id="the-tuners-schema" class="slide level2">
+<h2>The tuner’s schema</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="|3-6|8-15|17-22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>TUNER_SCHEMA <span class="op">=</span> {</span>
+<span id="cb1-2"><a></a>    <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb1-3"><a></a>    <span class="st">"properties"</span>: {</span>
+<span id="cb1-4"><a></a>        <span class="st">"summary"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>},</span>
+<span id="cb1-5"><a></a>        <span class="st">"common_mistakes"</span>: {</span>
+<span id="cb1-6"><a></a>            <span class="st">"type"</span>: <span class="st">"array"</span>,</span>
+<span id="cb1-7"><a></a>            <span class="st">"minItems"</span>: <span class="dv">1</span>,</span>
+<span id="cb1-8"><a></a>            <span class="st">"items"</span>: {</span>
+<span id="cb1-9"><a></a>                <span class="st">"type"</span>: <span class="st">"object"</span>,</span>
+<span id="cb1-10"><a></a>                <span class="st">"properties"</span>: {</span>
+<span id="cb1-11"><a></a>                    <span class="st">"pattern"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>},</span>
+<span id="cb1-12"><a></a>                    <span class="st">"fix"</span>: {<span class="st">"type"</span>: <span class="st">"string"</span>},</span>
+<span id="cb1-13"><a></a>                },</span>
+<span id="cb1-14"><a></a>                <span class="st">"required"</span>: [<span class="st">"pattern"</span>, <span class="st">"fix"</span>],</span>
+<span id="cb1-15"><a></a>            },</span>
+<span id="cb1-16"><a></a>        },</span>
+<span id="cb1-17"><a></a>        <span class="st">"prompt_addendum"</span>: {</span>
+<span id="cb1-18"><a></a>            <span class="st">"type"</span>: <span class="st">"string"</span>,</span>
+<span id="cb1-19"><a></a>            <span class="st">"description"</span>: (</span>
+<span id="cb1-20"><a></a>                <span class="st">"Markdown to append under '# DOMAIN-SPECIFIC GUIDANCE'. "</span></span>
+<span id="cb1-21"><a></a>                <span class="st">"Explains the domain, what counts as a defect, and "</span></span>
+<span id="cb1-22"><a></a>                <span class="st">"the visual heuristics that disambiguate the hard cases."</span></span>
+<span id="cb1-23"><a></a>            ),</span>
+<span id="cb1-24"><a></a>        },</span>
+<span id="cb1-25"><a></a>    },</span>
+<span id="cb1-26"><a></a>    <span class="st">"required"</span>: [<span class="st">"summary"</span>, <span class="st">"common_mistakes"</span>, <span class="st">"prompt_addendum"</span>],</span>
+<span id="cb1-27"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<aside class="notes">
+<p>The “explain the domain” bit is what makes this generalise. We’re not just patching mistakes — the tuner has to teach the student what a hot-rolled steel strip <em>is</em>, what counts as a scratch vs.&nbsp;a silk spot, why oil residue isn’t a defect, etc.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="h.-two-languages-of-explanation" class="title-slide slide level1 center" data-background-color="#66a61e">
+<h1>H. Two languages of explanation</h1>
+
+</section>
+<section id="grad-cam-points.-the-vlm-tells-you-why." class="slide level2">
+<h2>Grad-CAM points. The VLM tells you why.</h2>
+
+<img data-src="../figures/explainers/gradcam_vs_vlm_rationale.png" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">Four images — one normal Severstal frame at the top, then three defective close-ups from KolektorSDD2, Severstal and GC10-DET. <strong>Middle</strong>: ResNet50 Grad-CAM heatmap (red = pixels that pushed <code>p(defect)</code> up). <strong>Right</strong>: live GPT-5.4 reasoning for the same image (no fine-tuning, structured-output prompt).</p><aside class="notes">
+<p>This is the slide that justifies pairing them. Grad-CAM = <em>where</em>. VLM rationale = <em>what &amp; why</em>. Walk through each row: the normal Severstal is correctly called by both (the VLM volunteers “benign longitudinal texture”). The Kolektor scratch is missed by the ResNet (p=0.11, CAM points at the edges) but caught by GPT-5.4 with a clean diagnosis. The Severstal row shows both flagging it as a defect, but Grad-CAM gives you a blob and the VLM gives you “localised bright vertical mark, mechanical scratch or roller contact.” Last row is the honest failure: a partial-occlusion GC10 frame where the ResNet fires on the bright edge and the VLM declines — and tells you it’s declining because “much of the frame is dominated by a large geometric edge/occlusion.” For a process engineer triaging a flagged image, the second column is what closes the loop.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="i.-the-economics-when-does-a-vlm-pay-for-itself" class="title-slide slide level1 center" data-background-color="#e6ab02">
+<h1>I. The economics: when does a VLM pay for itself?</h1>
+
+</section>
+<section id="how-fast-is-each-model-on-one-image" class="slide level2">
+<h2>How fast is each model on one image?</h2>
+
+<img data-src="../figures/bakeoff/inference_speed.png" style="width:86.0%" class="r-stretch quarto-figure-center"><p class="caption">End-to-end inference latency per image (log scale). Classical models are measured on an Azure NC4as_T4_v3 (T4 GPU) and an Apple-silicon CPU; VLM numbers are the mean wall-clock time per call from <code>results/vlm/flagship_summary_*.json</code>.</p><aside class="notes">
+<p>This is the latency reality check. A T4-served ResNet handles an image in ~6 ms — that’s ~160 images per second per GPU. The cheapest VLM in our bake-off (GPT-4.1-mini on Azure) takes ~3 seconds; Gemini-2.5-pro takes ~17. That’s three to four orders of magnitude. A 60 frames-per-second inspection line is fine for the classical model and impossible for the VLM. The point of the next slide isn’t to say VLMs are bad — it’s to say: that latency comes from somewhere, and someone has to pay for it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="and-what-does-each-call-actually-cost" class="slide level2">
+<h2>…and what does each call actually cost?</h2>
+
+<img data-src="../figures/bakeoff/inference_cost.png" style="width:86.0%" class="r-stretch quarto-figure-center"><p class="caption">Same models, but USD per 1 000 images (log scale). Classical bars are pure GPU/CPU rental on Azure ($0.526/hr for a T4); VLM bars are real API token spend pulled from <code>results/cost_ledger.csv</code>.</p><aside class="notes">
+<p>The latency gap shows up almost 1:1 as a cost gap. Running ResNet on a rented T4 costs <strong>fractions of a cent per thousand images</strong> — most of the bill is the VM, not the compute. Calling Gemini-2.5-pro on the same 1 000 images costs about <strong>$4.35</strong> — roughly 5 000× more. GPT-4.1-mini sits in between at ~$0.83. So the choice isn’t “smart vs dumb model” — it’s “is the marginal accuracy from the VLM worth 4 to 5 orders of magnitude of cost?” Which sets up the break-even curve on the next slide.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="one-off-labelling-classical-inference-vs-per-image-vlm" class="slide level2">
+<h2>One-off labelling + classical inference vs per-image VLM</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/labels_vs_vlm_cost.png" style="width:100.0%"></p>
+<figcaption>Break-even between paying a VLM per image forever vs.&nbsp;paying once to label <code>N_train = 2,332</code> images and serving a near-free ResNet/YOLO.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p><strong>Three label-cost worlds</strong></p>
+<ul>
+<li><strong>$0.05 / label</strong> — in-house GPU-side annotators</li>
+<li><strong>$0.20 / label</strong> — offshore crowd workers</li>
+<li><strong>$0.50 / label</strong> — expert metallurgist sign-off</li>
+</ul>
+<p><strong>Break-even images processed</strong> (VLM-only vs label-once-then-classical):</p>
+<ul>
+<li>$0.05/label → ~26k images</li>
+<li>$0.20/label → ~104k images</li>
+<li>$0.50/label → ~261k images</li>
+</ul>
+<p>A line running 24/7 hits 26k images in <strong>hours</strong>. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.</p>
+<p><strong>Learning curve</strong> — <em>forthcoming</em>. <code>scripts/learning_curve_resnet.py</code> sweeps <code>N ∈ {50, 100, 250, 500, 1k, 2k, 2.3k}</code> to find the smallest label budget that lets the classical model match the VLM on Kolektor.</p>
+</div></div>
+<aside class="notes">
+<p>Numbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="j.-the-takeaway" class="title-slide slide level1 center" data-background-color="#a6761d">
+<h1>J. The takeaway</h1>
+
+</section>
+<section id="use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop." class="slide level2">
+<h2>Use VLMs to teach classical CV. Don’t put them in the hot loop.</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>What we showed</strong></p>
+<ol type="1">
+<li>Classical CV fails under realistic domain shift — and Grad-CAM tells you why.</li>
+<li>Frontier VLMs generalise zero-shot to unseen mills and defect taxonomies.</li>
+<li>A prompt-tuning loop, with a structured-output teacher, moves F1 measurably on a 12-image calibration budget.</li>
+<li>VLMs and Grad-CAM give complementary explanations — <em>where</em> and <em>why</em>.</li>
+<li>At line-rate volumes, the break-even versus paid labelling lands in hours, not months.</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<p><strong>The recipe for AQ Group</strong></p>
+<ul>
+<li><strong>Day 1</strong> — drop a VLM in shadow mode behind the existing camera. Zero labels needed.</li>
+<li><strong>Week 1</strong> — harvest the VLM’s pseudo-labels. Tune the prompt against your disagreements.</li>
+<li><strong>Week 2</strong> — train a small ResNet / YOLO on the pseudo-labels. Put <em>that</em> in the hot loop.</li>
+<li><strong>Ongoing</strong> — escalate the bottom-30%-confidence frames back to the VLM. Re-train weekly.</li>
+</ul>
+<p>The VLM is the <strong>teacher and the safety net</strong>, not the production classifier.</p>
+</div></div>
+<aside class="notes">
+<p>This is the punchline. Everything before this slide is evidence; this slide is the recommendation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -236,7 +1569,7 @@ Jonathan Jayes
       }</style></aside>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

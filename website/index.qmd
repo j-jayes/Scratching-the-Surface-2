@@ -1,6 +1,51 @@
 ---
 title: "Scratching the Surface"
+subtitle: "Classical CV vs. Vision-Language Models for rolled-metal defect detection"
 format: html
 ---
 
-This website holds the write-up for my ML portfolio project, "Scratching the Surface: Classical CV vs Vision-Language Models for steel defect detection".
+## Project overview
+
+This project benchmarks five computer-vision approaches for detecting surface defects on rolled steel:
+
+| # | Approach | Description |
+|---|----------|-------------|
+| 1 | **ResNet50** | Fine-tuned ImageNet backbone, binary defect classifier |
+| 2 | **ResNet50+FT** | ResNet50 fine-tuned on kolektor domain data (supervised adaptation) |
+| 3 | **VLM zero-shot** | GPT-4o / Gemini — no task-specific training required |
+| 4 | **Hybrid YOLO→VLM** | YOLO at low conf flags candidates; VLM adjudicates |
+| 5 | **YOLO-bootstrap** | VLM pseudo-labels from GPT-4o used to train YOLO from scratch |
+
+## Datasets
+
+Four public datasets were used across 17,998 images spanning five defect domains:
+
+- **Severstal Steel Defect Detection** — Kaggle, 12,568 images, 4 defect classes
+- **NEU Surface Defect Database** — 1,800 images, 6 classes, all defect
+- **KolektorSDD2** — 3,336 images, binary OK / defect, strong class imbalance
+- **GC10-DET** — 2,294 images, 10 industrial defect classes
+
+## Key findings
+
+ResNet50 training complete (val F1 = **0.9187**). ResNet50+FT complete — kolektor F1 = **0.562** (3.5× improvement over baseline). VLM zero-shot evaluation complete on both Kolektor and GC10. Bootstrap labeling complete (484/500 = 96.8% agreement, $2.33 cost). YOLO-bootstrap training in progress.
+
+| Approach | Severstal F1 | GC10 F1 | Kolektor F1 | Note |
+|----------|-------------|---------|------------|------|
+| **ResNet50** | **0.9196** | **0.7823** | 0.1622 | τ = 0.475, AUC 0.9731 |
+| **ResNet50+FT** | — | 0.647 | **0.562** | supervised domain adaptation |
+| **VLM zero-shot** (gpt-4.1-mini) | — | 0.6575 | **0.7925** | AUC 0.8156 (Kolektor), zero training |
+| Hybrid | — | — | — | pending YOLO weights |
+| **YOLO-bootstrap** | — | **0.729** | 0.198 | trained on $2.33 VLM pseudo-labels |
+
+**Central finding:** VLM (gpt-4.1-mini, zero training) achieves Kolektor F1 = **0.79** vs. ResNet50's F1 = **0.16** — a **5× improvement** with no task-specific fine-tuning. Even with supervised domain adaptation (ResNet50+FT, 2,332 kolektor labels), the VLM still leads: 0.79 vs. 0.562. ResNet50+FT answers "how much do human labels help?" — they do, but the VLM's zero-shot advantage persists.
+
+Bootstrap labeling with gpt-4o achieves **96.8%** annotation agreement at **$2.33 total cost** for 500 images.
+
+## Slide deck
+
+[View the presentation slides →](slides.html)
+
+## Reproduce
+
+See [`README.md`](https://github.com/j-jayes/Scratching-the-Surface-2) for full reproduction steps (~30 min on Apple Silicon).
+

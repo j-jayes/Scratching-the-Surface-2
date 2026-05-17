@@ -40,5 +40,285 @@
     "title": "Scratching the Surface",
     "section": "What is their setup??",
     "text": "What is their setup??\n\n\nWe just don’t know what the setup at the various AQ group factories is. Ideally, we would have a team of engineers who have set up a high quality imaging camera system that is capable of capturing high resolution images of the rolled-metal as it is being produced, as in the top left quadrant of the image. They would also have a team of data annotators who have labeled a large dataset of images with the various types of defects that can occur, as in quadrants two and three. This would allow us to train a supervised learning model to detect the defects in real-time as the metal is being produced. I think this is unlikely to be the case, because if they had gone to all of the work of putting in the cameras and annotating the data, they probably would have already trained a model to do this, and celebrated the completion of a successful project, as in the bottom right quadrant of the image. So I think it’s more likely that we will have to work with a less than ideal setup, which is something that we will have to prepare for."
+  },
+  {
+    "objectID": "slides.html#what-are-rolled-metal-defects-1",
+    "href": "slides.html#what-are-rolled-metal-defects-1",
+    "title": "Scratching the Surface",
+    "section": "What are rolled-metal defects?",
+    "text": "What are rolled-metal defects?\nTODO: add in a few of the images from the severstal and GC10 datasets to show the variety of defects that can occur, and how they can be visually subtle. Make a 2x2 grid with just the images first. Then make another slide with the same title and same image positions, but superimpose the classification and the annotation for the same images, to show how the defects can be subtle and how the annotations can be ambiguous. Choose some good examples from the datasets."
+  },
+  {
+    "objectID": "slides.html#now-you-guess",
+    "href": "slides.html#now-you-guess",
+    "title": "Scratching the Surface",
+    "section": "Now you guess!!",
+    "text": "Now you guess!!\nTODO: make a 2x2 grid of images from the kolektor test set, and ask the audience to guess which ones are defective and which ones are normal. Then reveal the ground truth labels and discuss how difficult it can be to classify these images, even for a human. Either look up on the web absolute position for images in quarto slides and then use the ability of quarto reveal js to progressively reveal the labels, or just make two separate slides with the same images but different annotations. The point is to show that this is a hard problem, and that even with a good camera setup and good lighting, it can be difficult to classify these images correctly."
+  },
+  {
+    "objectID": "slides.html#yes-classical-cv-is-a-solved-problem",
+    "href": "slides.html#yes-classical-cv-is-a-solved-problem",
+    "title": "Scratching the Surface",
+    "section": "Yes Classical CV is a solved problem!",
+    "text": "Yes Classical CV is a solved problem!\n\nTODO: gradually work through the various tasks of CV, and then reveal explainers/Geoffrey-Hinton.jpg and Ilya Sutskever, explainers/Geoffrey Hinton, and Alex Krizhevsky.jpeg images, and then explainers/AlexNet.png to talk about the progress in CV. You can either superimpose these images on the same slide, or make new slides below with the same title and {.uncounted} so I can move through them quickly.\n\nTalk about the progression in Computer vision, from Mnist to ImageNet to the present day. Talk about how resnet and yolo models have very fast inference, but need the images that they are trained on to be very similar to the ones that they predict on. They are good at identifying the patterns that they have seen in the training data, but they are not good at generalizing to new domains. This is a problem for AQ group, because we don’t know what the domain of the images that we will be working with is. We might be working with images that are very different from the ones that we have seen in the training data, and this could lead to poor performance."
+  },
+  {
+    "objectID": "slides.html#late-fusion",
+    "href": "slides.html#late-fusion",
+    "title": "Scratching the Surface",
+    "section": "Late Fusion",
+    "text": "Late Fusion\n\n\n\n\n    \n        Output Text\n        \n        \n            \n            \n        \n\n        LLM\n\n        \n            \n                \n                    \n                    \n                    \n                \n\n                \n                    \n                    \n                \n\n                \n                    Projection\n                    (Feature Vectors)\n                \n\n                \n                    \n                    \n                \n\n                Vision Encoder\n\n                \n                    \n                    \n                \n\n                Image Input\n            \n\n            \n                \n                    \n                    \n                    \n                \n\n                \n                    \n                    \n                \n\n                Text Prompt\n            \n        \n    \n\n\nIn short, a CLIP-based LLM is like a monolingual English speaker relying on a highly skilled translator (the adapter) to understand French (images). A natively multimodal model is truly bilingual from birth, processing and generating text, images, and audio seamlessly with the same “brain.”"
+  },
+  {
+    "objectID": "slides.html#early-fusion",
+    "href": "slides.html#early-fusion",
+    "title": "Scratching the Surface",
+    "section": "Early Fusion",
+    "text": "Early Fusion\n\n\n\n\n    \n        \n        \n            \n                Text\n                \n                    \n                    \n                \n            \n            \n            \n                Image\n                \n                    \n                    \n                \n            \n            \n            \n                Video\n                \n                    \n                    \n                \n            \n        \n\n        MM\n\n        \n            \n                \n                \n            \n            \n                \n                \n            \n        \n\n        \n            Any-To-Any\n            Generation\n        \n\n    \n\n\nIn short, a CLIP-based LLM is like a monolingual English speaker relying on a highly skilled translator (the adapter) to understand French (images). A natively multimodal model is truly bilingual from birth, processing and generating text, images, and audio seamlessly with the same “brain.”"
+  },
+  {
+    "objectID": "slides.html#the-domain-gap-problem-visualised",
+    "href": "slides.html#the-domain-gap-problem-visualised",
+    "title": "Scratching the Surface",
+    "section": "The domain-gap problem, visualised",
+    "text": "The domain-gap problem, visualised\n\n\n\n\n\nTrain: Severstal + NEU-DET (top). Test: KolektorSDD2 + GC10-DET (bottom).\n\n\n\nSame task — “is this strip defective?” — wildly different pixels.\n\n\nThis is the visceral “look-and-feel” of distribution shift. We didn’t change the task — we changed the camera.\n\nDifferent sensors, illumination, exposure, magnification\nDifferent defect taxonomies (scratches vs silk-spots vs welding lines)\nDifferent aspect ratios (1600×256 vs 229×645)\nDifferent surface treatments\n\nA classifier trained on the top row has never seen anything that looks like the bottom row."
+  },
+  {
+    "objectID": "slides.html#what-the-baseline-resnet-actually-predicts",
+    "href": "slides.html#what-the-baseline-resnet-actually-predicts",
+    "title": "Scratching the Surface",
+    "section": "What the baseline ResNet actually predicts",
+    "text": "What the baseline ResNet actually predicts\n\nRandom test images with ResNet50 prediction overlay. Green border = correct, red = wrong. The model is confidently wrong on the new domains.\nCalibration is broken too — high confidence on wrong calls. This sets up Grad-CAM and the bake-off."
+  },
+  {
+    "objectID": "slides.html#grad-cam-peeking-inside-the-black-box",
+    "href": "slides.html#grad-cam-peeking-inside-the-black-box",
+    "title": "Scratching the Surface",
+    "section": "Grad-CAM: peeking inside the black box",
+    "text": "Grad-CAM: peeking inside the black box\n\n\n\n\n\nGrad-CAM heatmaps over layer4 activations. Top: Severstal+NEU samples — the model lights up on defect-correlated texture. Bottom: KolektorSDD2 + GC10 — attention scatters onto seams, edges, and lighting artefacts unrelated to actual defects.\n\n\n\nWhy does the F1 collapse?\nIt’s not that the network “forgot how to see.” It’s that the features it learned to chase — strip-aligned texture statistics from Severstal — simply aren’t where the defects live in Kolektor or GC10.\nThe model is doing exactly what it was trained to do. The training distribution lied about the world.\n\n\nRun with: uv run python scripts/make_gradcam_grid.py. Uses pytorch-grad-cam on layer4[-1] of resnet50_kolektor_ft_v2_best."
+  },
+  {
+    "objectID": "slides.html#same-images-frontier-models-zero-training",
+    "href": "slides.html#same-images-frontier-models-zero-training",
+    "title": "Scratching the Surface",
+    "section": "Same images, frontier models, zero training",
+    "text": "Same images, frontier models, zero training\n\n\n\n\n\nF1 and per-call cost for gpt-5.4, gemini-2.5-pro, gpt-4.1-mini on the unseen domains.\n\n\n\nSetup\n\n50 images / dataset (balanced)\nIdentical CoT-with-JSON-schema prompt\n3 providers via src/vlm_clients.py\nCosts logged to results/cost_ledger.csv, capped at $50\n\nReading the chart\n\nAll three frontier models beat the supervised ResNet50 on the unseen domain.\nGemini 2.5 Pro is competitive at lower $/call.\nThe Azure mid-tier (gpt-4.1-mini) is the price–performance knee.\n\n\n\nSource: results/vlm/flagship_summary_.json, rendered with scripts/make_flagship_bakeoff_figure.py."
+  },
+  {
+    "objectID": "slides.html#a-structured-output-teacher-critiques-a-structured-output-student",
+    "href": "slides.html#a-structured-output-teacher-critiques-a-structured-output-student",
+    "title": "Scratching the Surface",
+    "section": "A structured-output teacher critiques a structured-output student",
+    "text": "A structured-output teacher critiques a structured-output student\n\n\n\n\n\nF1 vs prompt-tuning round, per provider. Star = held-out F1 after final addendum.\n\n\n\nThe loop (scripts/prompt_tune_vlm.py)\n\nScore base prompt on a 12-image calibration set\nCollect every disagreement with its parsed reasoning + attributes\nFeed disagreements to gpt-5.5 as a “domain prompt engineer”\nTuner emits JSON: summary, common_mistakes[], prompt_addendum\nAppend the addendum, re-score, repeat\n\nThe tuner output is schema-enforced — strict JSON, no free-form prose. The addendum becomes a # DOMAIN-SPECIFIC GUIDANCE block prepended to the student’s user prompt."
+  },
+  {
+    "objectID": "slides.html#the-tuners-schema",
+    "href": "slides.html#the-tuners-schema",
+    "title": "Scratching the Surface",
+    "section": "The tuner’s schema",
+    "text": "The tuner’s schema\nTUNER_SCHEMA = {\n    \"type\": \"object\",\n    \"properties\": {\n        \"summary\": {\"type\": \"string\"},\n        \"common_mistakes\": {\n            \"type\": \"array\",\n            \"minItems\": 1,\n            \"items\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"pattern\": {\"type\": \"string\"},\n                    \"fix\": {\"type\": \"string\"},\n                },\n                \"required\": [\"pattern\", \"fix\"],\n            },\n        },\n        \"prompt_addendum\": {\n            \"type\": \"string\",\n            \"description\": (\n                \"Markdown to append under '# DOMAIN-SPECIFIC GUIDANCE'. \"\n                \"Explains the domain, what counts as a defect, and \"\n                \"the visual heuristics that disambiguate the hard cases.\"\n            ),\n        },\n    },\n    \"required\": [\"summary\", \"common_mistakes\", \"prompt_addendum\"],\n}\n\nThe “explain the domain” bit is what makes this generalise. We’re not just patching mistakes — the tuner has to teach the student what a hot-rolled steel strip is, what counts as a scratch vs. a silk spot, why oil residue isn’t a defect, etc."
+  },
+  {
+    "objectID": "slides.html#grad-cam-points.-the-vlm-tells-you-why.",
+    "href": "slides.html#grad-cam-points.-the-vlm-tells-you-why.",
+    "title": "Scratching the Surface",
+    "section": "Grad-CAM points. The VLM tells you why.",
+    "text": "Grad-CAM points. The VLM tells you why.\n\nFour images — one normal Severstal frame at the top, then three defective close-ups from KolektorSDD2, Severstal and GC10-DET. Middle: ResNet50 Grad-CAM heatmap (red = pixels that pushed p(defect) up). Right: live GPT-5.4 reasoning for the same image (no fine-tuning, structured-output prompt).\nThis is the slide that justifies pairing them. Grad-CAM = where. VLM rationale = what & why. Walk through each row: the normal Severstal is correctly called by both (the VLM volunteers “benign longitudinal texture”). The Kolektor scratch is missed by the ResNet (p=0.11, CAM points at the edges) but caught by GPT-5.4 with a clean diagnosis. The Severstal row shows both flagging it as a defect, but Grad-CAM gives you a blob and the VLM gives you “localised bright vertical mark, mechanical scratch or roller contact.” Last row is the honest failure: a partial-occlusion GC10 frame where the ResNet fires on the bright edge and the VLM declines — and tells you it’s declining because “much of the frame is dominated by a large geometric edge/occlusion.” For a process engineer triaging a flagged image, the second column is what closes the loop."
+  },
+  {
+    "objectID": "slides.html#one-off-labelling-classical-inference-vs-per-image-vlm",
+    "href": "slides.html#one-off-labelling-classical-inference-vs-per-image-vlm",
+    "title": "Scratching the Surface",
+    "section": "One-off labelling + classical inference vs per-image VLM",
+    "text": "One-off labelling + classical inference vs per-image VLM\n\n\n\n\n\nBreak-even between paying a VLM per image forever vs. paying once to label N_train = 2,332 images and serving a near-free ResNet/YOLO.\n\n\n\nThree label-cost worlds\n\n$0.05 / label — in-house GPU-side annotators\n$0.20 / label — offshore crowd workers\n$0.50 / label — expert metallurgist sign-off\n\nBreak-even images processed (VLM-only vs label-once-then-classical):\n\n$0.05/label → ~26k images\n$0.20/label → ~104k images\n$0.50/label → ~261k images\n\nA line running 24/7 hits 26k images in hours. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.\nLearning curve — forthcoming. scripts/learning_curve_resnet.py sweeps N ∈ {50, 100, 250, 500, 1k, 2k, 2.3k} to find the smallest label budget that lets the classical model match the VLM on Kolektor.\n\n\nNumbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json."
+  },
+  {
+    "objectID": "slides.html#use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop.",
+    "href": "slides.html#use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop.",
+    "title": "Scratching the Surface",
+    "section": "Use VLMs to teach classical CV. Don’t put them in the hot loop.",
+    "text": "Use VLMs to teach classical CV. Don’t put them in the hot loop.\n\n\nWhat we showed\n\nClassical CV fails under realistic domain shift — and Grad-CAM tells you why.\nFrontier VLMs generalise zero-shot to unseen mills and defect taxonomies.\nA prompt-tuning loop, with a structured-output teacher, moves F1 measurably on a 12-image calibration budget.\nVLMs and Grad-CAM give complementary explanations — where and why.\nAt line-rate volumes, the break-even versus paid labelling lands in hours, not months.\n\n\nThe recipe for AQ Group\n\nDay 1 — drop a VLM in shadow mode behind the existing camera. Zero labels needed.\nWeek 1 — harvest the VLM’s pseudo-labels. Tune the prompt against your disagreements.\nWeek 2 — train a small ResNet / YOLO on the pseudo-labels. Put that in the hot loop.\nOngoing — escalate the bottom-30%-confidence frames back to the VLM. Re-train weekly.\n\nThe VLM is the teacher and the safety net, not the production classifier.\n\n\nThis is the punchline. Everything before this slide is evidence; this slide is the recommendation."
+  },
+  {
+    "objectID": "slides.html#what-are-rolled-metal-defects-your-turn",
+    "href": "slides.html#what-are-rolled-metal-defects-your-turn",
+    "title": "Scratching the Surface",
+    "section": "What are rolled-metal defects? — your turn",
+    "text": "What are rolled-metal defects? — your turn\n\nTwo Severstal hot-rolled steel-strip close-ups. One is labelled defective, one is not. Which is which?\nPair A: a normal strip and a pitting defect. Let the audience commit before clicking through. The “normal” still has texture — that’s the point: there’s no clean baseline."
+  },
+  {
+    "objectID": "slides.html#and-here-are-the-labels",
+    "href": "slides.html#and-here-are-the-labels",
+    "title": "Scratching the Surface",
+    "section": "…and here are the labels",
+    "text": "…and here are the labels\n\nSame images with the baseline ResNet’s prediction overlaid (green = correct, red = wrong). Even a 25M-parameter network trained on millions of images is confidently wrong on the unseen domains.\nThis is the audience-participation moment that motivates the whole talk: if a trained network gets this wrong with high confidence, what hope does a hand-rolled classical pipeline have?"
+  },
+  {
+    "objectID": "slides.html#yes-classical-cv-is-a-mostly-solved-problem",
+    "href": "slides.html#yes-classical-cv-is-a-mostly-solved-problem",
+    "title": "Scratching the Surface",
+    "section": "Yes — classical CV is a (mostly) solved problem!",
+    "text": "Yes — classical CV is a (mostly) solved problem!\n\nThe standard CV taxonomy: classification, detection, segmentation."
+  },
+  {
+    "objectID": "slides.html#the-people-who-solved-it",
+    "href": "slides.html#the-people-who-solved-it",
+    "title": "Scratching the Surface",
+    "section": "The people who solved it",
+    "text": "The people who solved it\n\n\n\n\n\nGeoffrey Hinton\n\n\n\n\n\n\nIlya Sutskever, Geoffrey Hinton, Alex Krizhevsky"
+  },
+  {
+    "objectID": "slides.html#and-the-network-that-started-it",
+    "href": "slides.html#and-the-network-that-started-it",
+    "title": "Scratching the Surface",
+    "section": "…and the network that started it",
+    "text": "…and the network that started it\n\nAlexNet (2012) — the architecture that ended hand-crafted feature engineering and started the deep-learning era of computer vision.\nTalk about the progression in Computer vision, from Mnist to ImageNet to the present day. Talk about how resnet and yolo models have very fast inference, but need the images that they are trained on to be very similar to the ones that they predict on. They are good at identifying the patterns that they have seen in the training data, but they are not good at generalizing to new domains. This is a problem for AQ group, because we don’t know what the domain of the images that we will be working with is. We might be working with images that are very different from the ones that we have seen in the training data, and this could lead to poor performance."
+  },
+  {
+    "objectID": "slides.html#the-annotation-bottleneck",
+    "href": "slides.html#the-annotation-bottleneck",
+    "title": "Scratching the Surface",
+    "section": "The annotation bottleneck",
+    "text": "The annotation bottleneck\n\n\n\n\n\nClassical CV runs on labels.\nEvery time the camera moves, the lighting changes, or a new defect class shows up, the whole pipeline goes back to the annotator queue.\nFor AQ Group we don’t yet know:\n\nwhich mill\nwhich camera, which lighting rig\nwhich defect taxonomy matters in production\n\nSo the safe bet is a system that can start without labels.\n\n\nThe problem is that we will have to spend a lot of time speaking to engineers and asking them to annotate data, and this is a bottleneck that we want to avoid. We want to be able to start working on the problem without having to wait for the annotations to be done, and this is where vision-language models come in."
+  },
+  {
+    "objectID": "slides.html#experimental-setup",
+    "href": "slides.html#experimental-setup",
+    "title": "Scratching the Surface",
+    "section": "Experimental setup",
+    "text": "Experimental setup\n\n\nTrain domain (what we know)\n\nSeverstal — 12,568 hot-rolled strip images, 53% defect, 1600×256 px\nNEU-DET — 1,800 defect patches, 6 classes, 200×200 px\n\nTest domain (unseen at training time)\n\nKolektorSDD2 — 1,004 test images, binary GT mask, 229×645 px\nGC10-DET — 2,294 defect images, 10 classes, Supervisely JSON\n\n\nFour approaches compared (+ fine-tune ablation)\n\n\n\n#\nApproach\nTraining data\n\n\n\n\n1\nResNet50\nSeverstal + NEU-DET\n\n\n2\nResNet50+FT\n+ Kolektor train (supervised adapt.)\n\n\n3\nVLM zero-shot\nNone (prompted only)\n\n\n4\nHybrid YOLO→VLM\nYOLO proposals + VLM filter\n\n\n5\nYOLO-bootstrap\nVLM pseudo-labels only"
+  },
+  {
+    "objectID": "slides.html#cross-domain-f1-bake-off",
+    "href": "slides.html#cross-domain-f1-bake-off",
+    "title": "Scratching the Surface",
+    "section": "Cross-domain F1 — Bake-Off",
+    "text": "Cross-domain F1 — Bake-Off\n\n\n\n\nKey finding:\nClassical CV (ResNet, YOLO) achieves high in-domain F1 but degrades significantly on the unseen domain.\nVLM (gpt-4.1-mini, zero training) achieves F1 = 0.79 on KolektorSDD2 vs. ResNet50’s F1 = 0.16 — a 5× improvement with no task-specific fine-tuning.\nThe hybrid pipeline combines the speed of YOLO with the generalization of the VLM.\n\n\nThis is the central slide. Show the generalisation gap. Classical CV was trained on Severstal/NEU, then tested on KolektorSDD2 and GC10 — completely different cameras, mills, and defect taxonomies."
+  },
+  {
+    "objectID": "slides.html#supervised-adaptation-vs.-zero-shot",
+    "href": "slides.html#supervised-adaptation-vs.-zero-shot",
+    "title": "Scratching the Surface",
+    "section": "Supervised adaptation vs. zero-shot",
+    "text": "Supervised adaptation vs. zero-shot\n\n\nThe key question: if you provide ResNet50 with kolektor training labels, does it match VLM zero-shot?\n\n\n\nApproach\nKolektor F1\nGC10 F1\nLabels needed\n\n\n\n\nResNet50 (baseline)\n0.166\n0.782\n✗ kolektor\n\n\nResNet50+FT\n0.562\n0.647\n✓ kolektor train\n\n\nVLM zero-shot\n0.793\n0.658\n✗ none\n\n\n\nThe finding: supervised adaptation closes the gap significantly (0.166 → 0.562), but the VLM zero-shot still wins.\n\n\n\n\nStandard CenterCrop sees only 35% of each kolektor image\n\n\nWhy ResNet struggles on kolektor: these images are 2.75× taller than wide. Standard CenterCrop(224) sees only the middle 35%. v2 uses RandomResizedCrop to cover the full image. VLM processes the entire image at once — no crop needed.\n\n\nResNet50+FT v1 uses kolektor train split (2332 images: 246 defect / 2086 normal) fine-tuned at lr=5e-5 for 15 epochs starting from the Phase 2a checkpoint. Val set stays as severstal to prevent catastrophic forgetting. v2 uses RandomResizedCrop(224, scale=0.3-1.0) + composite checkpoint metric (severstal val F1 + kolektor holdout F1) / 2 to select the best epoch for both domains. v2 kolektor F1 (TTA 3-crop, τ=0.565) = 0.563 — a 32% improvement over v1. v3 warm-starts from v2 with backbone LR 10× lower to further stabilise kolektor features.\nKey numbers: baseline kolektor F1 = 0.166, v1 fine-tune = 0.426 (2.6×), v2 fine-tune = 0.563 (3.5×), VLM = 0.793 (4.8×). The VLM advantage persists even with supervised adaptation — mostly due to image geometry (VLM sees the full image without crop)."
+  },
+  {
+    "objectID": "slides.html#where-classical-cv-breaks",
+    "href": "slides.html#where-classical-cv-breaks",
+    "title": "Scratching the Surface",
+    "section": "Where classical CV breaks",
+    "text": "Where classical CV breaks\n\n\n\n\n\nResNet50 — GC10 predictions (TP=green, FP=orange, FN=red, TN=blue)\n\n\n\nFailure modes:\n\nFalse negatives (red): subtle surface defects — oil spots, silk spots — look visually “clean” to a model trained on coarser Severstal patterns\nFalse positives (orange): GC10’s high-contrast normal regions confuse the brightness-sensitive ResNet features\nThe VLM can describe why it’s uncertain — the ResNet just outputs a number"
+  },
+  {
+    "objectID": "slides.html#the-problem-zero-labelled-data-at-aq",
+    "href": "slides.html#the-problem-zero-labelled-data-at-aq",
+    "title": "Scratching the Surface",
+    "section": "The problem: zero labelled data at AQ",
+    "text": "The problem: zero labelled data at AQ\n\n\nScenario:\nAQ Group has a camera and a conveyor belt.\nThey have no labelled images.\nClassical CV can’t train.\nYOLO can’t train.\nThe bootstrap experiment:\nCan a frontier VLM label images well enough to train a YOLO from scratch?\n\nSteps:\n\nTake 500 GC10 images — labels hidden from VLM\nRun gpt-4o with structured JSON prompt → pseudo-labels + bbox estimates\nTrain a fresh YOLO-bootstrap on pseudo-labels only\nEvaluate against held-out GC10 ground truth\n\nCost: the entire annotation budget is the VLM API cost ($2.33 for 500 images with gpt-4o)"
+  },
+  {
+    "objectID": "slides.html#bootstrap-results",
+    "href": "slides.html#bootstrap-results",
+    "title": "Scratching the Surface",
+    "section": "Bootstrap results",
+    "text": "Bootstrap results\n\n\n\n\n\nBootstrap comparison\n\n\n\n\n\n\nApproach\nGC10 F1\nKolektor F1\nCost\n\n\n\n\nResNet50\n0.782\n0.166\nhuman labels\n\n\nResNet50+FT\n0.647\n0.562\nhuman labels + kolektor data\n\n\nVLM zero-shot\n0.658\n0.793\nper-call\n\n\nYOLO-bootstrap\n0.729\n0.198\n$2.33 API\n\n\n\n\n\n\n\n\n\nYOLO-bootstrap trained on GC10 pseudo-labels only. Its kolektor F1 reflects zero-shot generalisation from a model never exposed to kolektor.\n\n\n\nAnnotation agreement:\ngpt-4o pseudo-labels agreed with ground truth 96.8% of the time (484/500) — comparable to inter-annotator agreement for ambiguous industrial defects.\n\n\nKey insight: YOLO-bootstrap’s kolektor F1 is expected to be near zero — it was trained only on GC10 pseudo-labels. Compare this with VLM zero-shot’s kolektor F1 = 0.79 with NO training at all. This makes the narrative clear: VLM pseudo-labels let you train a fast YOLO for the domain you have data for, but for a new domain, you still need the VLM’s zero-shot power or new domain-specific data.\nThe $2.33 annotation cost is the compelling number for GC10: we got a trainable YOLO from 500 images at $0.0047/image, vs. human annotation at $0.05–$0.20/image."
+  },
+  {
+    "objectID": "slides.html#what-does-this-cost-in-production",
+    "href": "slides.html#what-does-this-cost-in-production",
+    "title": "Scratching the Surface",
+    "section": "What does this cost in production?",
+    "text": "What does this cost in production?\n\n\n\n\n\nApproach\nCost/image\nLatency\nNotes\n\n\n\n\nResNet50\n~$0\n&lt;5ms\nGPU inference after one-time training\n\n\nYOLO11s\n~$0\n&lt;10ms\nGPU inference\n\n\ngpt-4o-mini\n~$0.003\n1–2s\nAPI call per image\n\n\ngpt-4o\n~$0.011\n2–4s\nMore accurate\n\n\nHybrid YOLO→VLM\n~$0.001\n0.5s\nOnly ~30% of images reach VLM\n\n\n\n\nRecommendation for AQ Group:\n\nWeek 1: Deploy VLM-only on a sample (100 images/day) — immediate insight, no training data needed\nWeek 4: Use VLM pseudo-labels to bootstrap YOLO — cut cost 1000× at production speed\nWeek 8: Hybrid in production — YOLO for speed, VLM for hard cases and engineer handoff\n\nTotal investment to production: &lt; $50 in API costs + 2 engineer-days."
+  },
+  {
+    "objectID": "slides.html#a-3-year-architectural-shift-at-openai",
+    "href": "slides.html#a-3-year-architectural-shift-at-openai",
+    "title": "Scratching the Surface",
+    "section": "A 3-year architectural shift at OpenAI",
+    "text": "A 3-year architectural shift at OpenAI\n\n\n\n  \n      \n      \n      \n      \n        \n        \n          Nov 2022\n          GPT-3.5\n          No Fusion\n          Launch of ChatGPT. Core engine handles text tokens exclusively.\n        \n      \n\n      \n      \n        \n        \n          Mar 2023\n          GPT-4 (Base)\n          No Fusion\n          Massive logical upgrade, but architecture remains text-only.\n        \n      \n\n      \n      \n        \n        \n          Sep 2023\n          GPT-4V / Voice\n          Late Fusion\n          Stitched pipeline. External vision encoders and audio transcribers translation layers.\n        \n      \n\n      \n      \n        \n        \n          May 2024\n          GPT-4o\n          Early Fusion\n          Unified architecture. Processes text, native sight, and live audio in one neural space.\n        \n      \n\n      \n      \n        \n        \n          Jul 2024\n          GPT-4o mini\n          Early Fusion\n          Streamlined omni variant maintaining native multimodal processing.\n        \n      \n\n      \n      \n        \n        \n          2025+\n          GPT-5 Family\n          Early Fusion\n          Scales early-fusion to native video generation and seamless token blending.\n        \n      \n\n  \n\n\nSlide goal: Highlight the fundamental architectural paradigm shift OpenAI went through in under 3 years.\n\nGPT-3.5 & GPT-4 base — traditional, blind LLMs. Text-in, text-out. No fusion: there were no other modalities to handle.\nGPT-4V & classic Voice — late fusion. Components stitched together; information is lost (tone of voice flattened to plain text; vision pre-filtered through a separate encoder). It’s a pipeline bottleneck.\nGPT-4o onwards — early fusion. No translators or adapters: images and raw audio go straight into the core network alongside text. Enables human-level latency and native audio outputs."
+  },
+  {
+    "objectID": "slides.html#why-are-vlms-better-at-cv-tasks-now",
+    "href": "slides.html#why-are-vlms-better-at-cv-tasks-now",
+    "title": "Scratching the Surface",
+    "section": "Why are VLMs better at CV tasks now?",
+    "text": "Why are VLMs better at CV tasks now?\n\n\n\n  \n      \n      \n      \n      \n        \n        \n          Nov 2022\n          GPT-3.5\n          No Fusion\n          Launch of ChatGPT. Core engine handles text tokens exclusively.\n        \n      \n\n      \n      \n        \n        \n          Mar 2023\n          GPT-4 (Base)\n          No Fusion\n          Massive logical upgrade, but architecture remains text-only.\n        \n      \n\n      \n      \n        \n        \n          Sep 2023\n          GPT-4V / Voice\n          Late Fusion\n          Stitched pipeline. External vision encoders and audio transcribers translation layers.\n        \n      \n\n      \n      \n        \n        \n          May 2024\n          GPT-4o\n          Early Fusion\n          Unified architecture. Processes text, native sight, and live audio in one neural space.\n        \n      \n\n      \n      \n        \n        \n          Jul 2024\n          GPT-4o mini\n          Early Fusion\n          Streamlined omni variant maintaining native multimodal processing.\n        \n      \n\n      \n      \n        \n        \n          2025+\n          GPT-5 Family\n          Early Fusion\n          Scales early-fusion to native video generation and seamless token blending.\n        \n      \n\n  \n\n\nSlide goal: Highlight the fundamental architectural paradigm shift OpenAI went through in under 3 years.\n\nGPT-3.5 & GPT-4 base — traditional, blind LLMs. Text-in, text-out. No fusion: there were no other modalities to handle.\nGPT-4V & classic Voice — late fusion. Components stitched together; information is lost (tone of voice flattened to plain text; vision pre-filtered through a separate encoder). It’s a pipeline bottleneck.\nGPT-4o onwards — early fusion. No translators or adapters: images and raw audio go straight into the core network alongside text. Enables human-level latency and native audio outputs."
+  },
+  {
+    "objectID": "slides.html#and-here-is-the-pixel-level-ground-truth",
+    "href": "slides.html#and-here-is-the-pixel-level-ground-truth",
+    "title": "Scratching the Surface",
+    "section": "…and here is the pixel-level ground truth",
+    "text": "…and here is the pixel-level ground truth\n\nThe bottom strip is the defect: a single pit (pink mask). The top strip is what Severstal annotators flagged as normal — texture and rolling marks, no actionable defect.\nThe defect is tiny — maybe 600 pixels in a 1600×256 image. Note how the “normal” still has visible texture. This is exactly why classical CV struggles: the signal-to-noise ratio at the pixel level is brutal."
+  },
+  {
+    "objectID": "slides.html#try-another-pair-both-have-defects",
+    "href": "slides.html#try-another-pair-both-have-defects",
+    "title": "Scratching the Surface",
+    "section": "Try another pair — both have defects",
+    "text": "Try another pair — both have defects\n\nTwo more close-ups. Both strips are defective. Can you spot the marks, and would you call them the same kind of defect?\nPair B: a class-3 (“scratch”) and a class-4 (“patch”). Audience usually spots something but rarely names the class — that’s the multi-class problem on top of the binary one."
+  },
+  {
+    "objectID": "slides.html#annotated-by-a-metallurgist-pixel-by-pixel",
+    "href": "slides.html#annotated-by-a-metallurgist-pixel-by-pixel",
+    "title": "Scratching the Surface",
+    "section": "…annotated by a metallurgist, pixel by pixel",
+    "text": "…annotated by a metallurgist, pixel by pixel\n\nThe top strip carries small “scratch” blobs (orange); the bottom strip has large “patch” regions (purple). Same dataset, same camera, four totally different defect taxonomies — and the annotator decides which one to call.\nEvery coloured pixel was painted by a human. ~12,500 of these images were annotated for the Kaggle Severstal challenge. That’s the bill that classical CV asks you to pay every time the camera changes."
+  },
+  {
+    "objectID": "slides.html#how-fast-is-each-model-on-one-image",
+    "href": "slides.html#how-fast-is-each-model-on-one-image",
+    "title": "Scratching the Surface",
+    "section": "How fast is each model on one image?",
+    "text": "How fast is each model on one image?\n\nEnd-to-end inference latency per image (log scale). Classical models are measured on an Azure NC4as_T4_v3 (T4 GPU) and an Apple-silicon CPU; VLM numbers are the mean wall-clock time per call from results/vlm/flagship_summary_*.json.\nThis is the latency reality check. A T4-served ResNet handles an image in ~6 ms — that’s ~160 images per second per GPU. The cheapest VLM in our bake-off (GPT-4.1-mini on Azure) takes ~3 seconds; Gemini-2.5-pro takes ~17. That’s three to four orders of magnitude. A 60 frames-per-second inspection line is fine for the classical model and impossible for the VLM. The point of the next slide isn’t to say VLMs are bad — it’s to say: that latency comes from somewhere, and someone has to pay for it."
+  },
+  {
+    "objectID": "slides.html#and-what-does-each-call-actually-cost",
+    "href": "slides.html#and-what-does-each-call-actually-cost",
+    "title": "Scratching the Surface",
+    "section": "…and what does each call actually cost?",
+    "text": "…and what does each call actually cost?\n\nSame models, but USD per 1 000 images (log scale). Classical bars are pure GPU/CPU rental on Azure ($0.526/hr for a T4); VLM bars are real API token spend pulled from results/cost_ledger.csv.\nThe latency gap shows up almost 1:1 as a cost gap. Running ResNet on a rented T4 costs fractions of a cent per thousand images — most of the bill is the VM, not the compute. Calling Gemini-2.5-pro on the same 1 000 images costs about $4.35 — roughly 5 000× more. GPT-4.1-mini sits in between at ~$0.83. So the choice isn’t “smart vs dumb model” — it’s “is the marginal accuracy from the VLM worth 4 to 5 orders of magnitude of cost?” Which sets up the break-even curve on the next slide."
+  },
+  {
+    "objectID": "slides.html#so-how-do-the-classical-approaches-actually-score",
+    "href": "slides.html#so-how-do-the-classical-approaches-actually-score",
+    "title": "Scratching the Surface",
+    "section": "So how do the classical approaches actually score?",
+    "text": "So how do the classical approaches actually score?\n\n\n\n\n\nPer-domain F1 across the five non-flagship approaches we tried — out-of-distribution test sets only (KolektorSDD2 + GC10-DET).\n\n\n\n\n\n\nApproach\nKolektor F1\nGC10 F1\n\n\n\n\nResNet50\n0.16\n0.78\n\n\nResNet50 + FT\n0.56\n0.65\n\n\nYOLO11s\n0.38\n0.55\n\n\nVLM zero-shot\n0.79\n0.66\n\n\nYOLO-bootstrap\n0.20\n0.73\n\n\n\nNo single classical recipe wins both domains.\n\nFT lifts Kolektor 3.5× but costs us on GC10 (catastrophic forgetting).\nYOLO11s, trained from scratch on Severstal+NEU, lands mid-table everywhere.\nA frontier VLM, with zero training on either dataset, beats every fine-tuned model on Kolektor.\n\n\n\nThis is the punchline that motivates section H. We tried the obvious things — bigger model, fine-tune on a tiny slice of the new domain, detection-head instead of classification, even bootstrap-labelling Severstal with the FT model and re-training YOLO on that. None of them generalise cleanly to both new domains. The VLM, with literally zero labelled examples from Kolektor or GC10, ties or beats every classical contender on Kolektor and is competitive on GC10. That’s not “VLMs are magic” — it’s “the domain-shift tax is so high that pretrained world knowledge is worth more than 2 332 in-domain labels.” Source: results/{resnet50,resnet50_kolektor_ft,yolo,vlm,yolo_bootstrap}/metrics.json, rendered by scripts/make_comparison_figures.py."
+  },
+  {
+    "objectID": "slides.html#a-yolo-box-says-something-a-heatmap-cant",
+    "href": "slides.html#a-yolo-box-says-something-a-heatmap-cant",
+    "title": "Scratching the Surface",
+    "section": "A YOLO box says something a heatmap can’t",
+    "text": "A YOLO box says something a heatmap can’t\n\nSame four images, two outputs. Middle: ResNet50 Grad-CAM — one scalar p̂(defect) plus a soft “where roughly”. Right: YOLO11s — one or more typed bounding boxes, each with its own confidence. Top two rows are in-domain Severstal; bottom two rows are out-of-distribution KolektorSDD2 and GC10-DET.\nQualitative companion to the scoreboard. The F1 numbers don’t tell you what each output looks like. Walk the rows:\nRow 1 (Severstal, in-domain): ResNet fires on the whole bright region (p̂=1.00) — useful as a yes/no, useless if you want to know which defect. YOLO drops four tight boxes on the actual scratches with per-instance confidence. That’s a work order for an operator.\nRow 2 (Severstal, in-domain): Same story — three crisp boxes vs one broad blob.\nRow 3 (Kolektor, OOD): Both models break, but differently. ResNet says “no defect” (p̂=0.11) and the CAM is on irrelevant texture. YOLO does fire — two low-confidence boxes — but they’re at the top, not on the actual scratch in the middle.\nRow 4 (GC10, OOD): ResNet p̂=0.99 on the bright edge — confidently wrong about where. YOLO drops two boxes; the bottom-right one is roughly on the right region.\nNeither is great on the OOD rows. The point of the slide is different output shape, same domain-gap problem — bringing more classical machinery to bear doesn’t close the gap, it just changes what “failure” looks like. Time to try something different."
+  },
+  {
+    "objectID": "slides.html#datasets-at-a-glance",
+    "href": "slides.html#datasets-at-a-glance",
+    "title": "Scratching the Surface",
+    "section": "Datasets at a glance",
+    "text": "Datasets at a glance\n\n\n\n\n\n\n\n\n\n\n\nDataset\nRole\nn train\nn test\nImage size\nNative taxonomy\n\n\n\n\nSeverstal\nTRAIN POOL\n10 053\n1 259\n1600 × 256\n4 classes (pit, scratch, patch, ridge)\n\n\nNEU-DET\nTRAIN POOL\n1 700\n100\n200 × 200\n6 classes (crazing, inclusion, …)\n\n\nKolektorSDD2\nHELD-OUT\n2 332\n1 004\n230 × 630–1240\n1 binary mask\n\n\nGC10-DET\nHELD-OUT\n—\n2 294\n2048 × 1000\n10 classes (welding, oil-spot, …)\n\n\n\nAll labels collapsed to a single binary defect / no-defect target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 and GC10-DET are the new mills — different cameras, different lighting, different defect vocabularies — that the classical models have to generalise to.\n\nThe point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 and GC10-DET are reserved as held-out domains: same task (“is there a defect?”), totally different pixels. Note GC10 ships with no normals — so it’s effectively “did you spot the defect we know is there?”. NEU-DET is the same, all-defect. This is what real factory data tends to look like before anyone has bothered to annotate a clean baseline."
+  },
+  {
+    "objectID": "slides.html#more-labels-wont-save-us",
+    "href": "slides.html#more-labels-wont-save-us",
+    "title": "Scratching the Surface",
+    "section": "More labels won’t save us",
+    "text": "More labels won’t save us\n\n\n\n\n\nHeld-out F1 for every classical recipe we tried.\n\n\n\nNo classical recipe wins both domains.\nFine-tuning on Kolektor helps Kolektor — and breaks GC10.\n~11 700 labels in, and we still can’t extrapolate to a new mill.\n\n\nThis slide earns the pivot to VLMs. We tried the obvious classical things — bigger model, fine-tune on a slice of the new domain, detection head (YOLO11s), self-labelling Severstal and re-training YOLO on those pseudo-labels. None of them generalise to both held-out domains cleanly. Fine-tuning on Kolektor lifts that score 3.5× but costs us on GC10 — catastrophic forgetting. Numbers (held-out F1):\n\nResNet50: Kolektor 0.16 / GC10 0.78\nResNet50+FT: 0.56 / 0.65\nYOLO11s: 0.38 / 0.55\nYOLO-bootstrap: 0.20 / 0.73\n\nThe figure is deliberately all classical — the VLM hasn’t entered the story yet. Audience should leave this slide asking “what else could possibly help?”. Source: results/{resnet50,resnet50_kolektor_ft,yolo,yolo_bootstrap}/metrics.json, rendered by scripts/make_comparison_figures.py (f1_comparison_classical.png)."
+  },
+  {
+    "objectID": "slides.html#we-make-some-assumptions-about-the-project-spec",
+    "href": "slides.html#we-make-some-assumptions-about-the-project-spec",
+    "title": "Scratching the Surface",
+    "section": "We make some assumptions about the project spec",
+    "text": "We make some assumptions about the project spec\nWe will treat the problem as if they have no labelled data, but want us to as quickly as possible provide them with a system that can identify defects on the production line.\nThen in this demo, I choose two datasets that have some similarities to what we might expect from AQ Group, and use another two datasets as a holdout set to test how well our models generalise to new domains.\nSo how do we go about this??"
+  },
+  {
+    "objectID": "slides.html#two-classical-workhorses",
+    "href": "slides.html#two-classical-workhorses",
+    "title": "Scratching the Surface",
+    "section": "Two classical workhorses",
+    "text": "Two classical workhorses\n\n\n\n\n\nResNet50 — image-level classifier. One number out: \\(\\hat{p}(\\text{defect})\\).\n\n\n\n\n\n\nYOLOv8 / YOLO11s — object detector. Typed bounding boxes with per-box confidence.\n\n\n\n\nTwo architectures we’ll lean on. ResNet50 is the canonical image classifier — convolutional backbone, pooled features, one sigmoid output. YOLO is the canonical real-time detector — same kind of backbone, but the head predicts a grid of bounding boxes with class scores. ResNet gives us “is this strip defective?”. YOLO gives us “and here’s where, with a box per instance”. Both are pre-trained on ImageNet / COCO and then fine-tuned on Severstal + NEU-DET."
   }
 ]

@@ -20,12 +20,13 @@ CONFIGS_DIR = REPO_ROOT / "configs"
 for d in (RAW_DIR, PROCESSED_DIR, MODELS_DIR, RESULTS_DIR, FIGURES_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
-# ── OpenAI native (May 2026 lineup) ──────────────────────────────────────────
+# ── OpenAI native ───────────────────────────────────────────────────────────
 OPENAI_API_KEY = os.getenv("NATIVE_OPENAI_API_KEY", "")
 OPENAI_MODELS = {
-    "flagship": "gpt-5.5",      # $5 / $30 per 1M — qualitative showcase + ablation only
-    "mid": "gpt-5.4",            # $2.50 / $15 — bootstrap pseudo-labels
-    "mini": "gpt-5.4-mini",      # $0.75 / $4.50 — bulk eval, hybrid filter
+    "flagship": "gpt-5.4",       # $2.50 / $15 per 1M — Phase F bake-off flagship
+    "top":      "gpt-5.5",       # $5  / $30 per 1M — reserved for prompt-tuner role
+    "mid":      "gpt-4o",
+    "mini":     "gpt-4o-mini",   # $0.15 / $0.60 — bulk eval, hybrid filter
 }
 
 # ── Azure OpenAI ─────────────────────────────────────────────────────────────
@@ -35,23 +36,30 @@ AOAI_API_VERSION = os.getenv("AOAI_API_VERSION", "2024-08-01-preview")
 AOAI_DEPLOYMENT = os.getenv("AOAI_DEPLOYMENT", "")
 AOAI_MODEL = os.getenv("AOAI_MODEL", "")
 
-# ── GCP / Vertex (Gemini 3.x lineup, May 2026) ───────────────────────────────
+# ── GCP / Vertex (Gemini lineup) ─────────────────────────────────────────────
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID", "")
 GEMINI_MODELS = {
-    "flagship": "gemini-3.1-pro-preview",   # frontier reasoning
-    "mid":      "gemini-3-flash-preview",   # frontier-class, cheaper
-    "mini":     "gemini-3.1-flash-lite",    # stable, bulk/cheap
+    "flagship": "gemini-2.5-pro",            # $1.25 / $10 per 1M — best available in scar-496510
+    "mid":      "gemini-2.5-pro",            # same
+    "mini":     "gemini-2.5-flash-lite",     # $0.10 / $0.40 — cheapest
 }
 
 # ── Pricing table for cost tracking ($ per 1M tokens) ────────────────────────
 PRICING = {
-    "gpt-5.5":      {"in": 5.00,  "out": 30.00},
-    "gpt-5.4":      {"in": 2.50,  "out": 15.00},
-    "gpt-5.4-mini": {"in": 0.75,  "out":  4.50},
-    "gpt-4.1":      {"in": 2.00,  "out":  8.00},   # Azure approx
-    "gemini-3.1-pro-preview":  {"in": 2.00, "out": 12.00},  # approximate, verify on probe
-    "gemini-3-flash-preview":  {"in": 0.30, "out":  2.50},
-    "gemini-3.1-flash-lite":   {"in": 0.10, "out":  0.40},
+    "gpt-4o":           {"in": 2.50,  "out": 10.00},
+    "gpt-4o-mini":      {"in": 0.15,  "out":  0.60},
+    "gpt-4.1":          {"in": 2.00,  "out":  8.00},   # Azure approx
+    "gpt-4.1-mini":     {"in": 0.40,  "out":  1.60},   # Azure gpt-4.1-mini
+    "gpt-5.5":          {"in": 5.00,  "out": 30.00},   # OpenAI native flagship+
+    "gpt-5.4":          {"in": 2.50,  "out": 15.00},   # OpenAI native flagship
+    "gpt-5.4-mini":     {"in": 0.75,  "out":  4.50},
+    "gemini-2.0-flash":         {"in": 0.10,  "out": 0.40},
+    "gemini-2.0-flash-lite":    {"in": 0.075, "out": 0.30},
+    "gemini-2.5-pro":           {"in": 1.25,  "out": 10.00},
+    "gemini-2.5-flash":         {"in": 0.30,  "out":  2.50},
+    "gemini-2.5-flash-lite":    {"in": 0.10,  "out":  0.40},
+    "gemini-3.1-pro-preview":   {"in": 2.00,  "out": 12.00},
+    "gemini-3.1-flash-lite":    {"in": 0.25,  "out":  1.50},
 }
 
 # ── Budget cap ───────────────────────────────────────────────────────────────
@@ -71,6 +79,6 @@ GC10_CLASSES = [
 ]
 
 # ── Image preprocessing targets ──────────────────────────────────────────────
-RESNET_INPUT = 512        # square after centre-crop
-YOLO_IMGSZ = 1024         # letterbox square
+RESNET_INPUT = 224        # square after centre-crop (matches configs/resnet50.yaml input_size)
+YOLO_IMGSZ = 640          # letterbox square (matches configs/yolo11s.yaml imgsz)
 VLM_INPUT_MAX = 1024      # longest side then pad to square

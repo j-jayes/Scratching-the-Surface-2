@@ -20,14 +20,12 @@ def _sh(cmd: list[str]) -> tuple[int, str]:
     return p.returncode, (p.stdout or p.stderr).strip()
 
 
-# Gemini lineup as of May 2026 (https://ai.google.dev/gemini-api/docs/models).
-# Gemini 3 Pro Preview was shut down 2026-03-09 → use 3.1 Pro Preview.
+# Gemini lineup (current stable versions).
 CANDIDATE_MODELS = [
-    "gemini-3.1-pro-preview",       # flagship reasoning
-    "gemini-3-flash-preview",       # frontier-class, cheaper
-    "gemini-3.1-flash-lite",        # stable, bulk/cheap
-    "gemini-2.5-pro",               # stable fallback
-    "gemini-2.5-flash",             # stable fallback
+    "gemini-2.0-flash",             # frontier-class, good balance
+    "gemini-2.0-flash-lite",        # cheapest, bulk/cheap
+    "gemini-1.5-pro",               # stable fallback
+    "gemini-1.5-flash",             # stable fallback
 ]
 
 

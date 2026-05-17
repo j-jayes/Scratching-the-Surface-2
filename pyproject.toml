@@ -31,6 +31,7 @@ dependencies = [
     "jupyter>=1.0",
     "ipykernel>=6.29",
     "ipywidgets>=8.1",
+    "grad-cam>=1.5.5",
 ]
 
 [tool.uv]

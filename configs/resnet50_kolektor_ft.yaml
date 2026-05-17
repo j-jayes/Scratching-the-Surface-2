@@ -1,0 +1,40 @@
+# ResNet50 fine-tune on kolektor domain data (Phase 2a+)
+# Starts from models/resnet50_best.pt and adapts to kolektor visual domain.
+# Goal: show that supervised fine-tuning closes the cross-domain gap
+#       (compare to VLM zero-shot which achieves F1=0.79 with NO kolektor labels)
+model: resnet50
+input_size: 224
+batch_size: 32
+epochs: 15
+lr: 5.0e-5          # 6× smaller than original — fine-tuning regime
+weight_decay: 1.0e-4
+num_workers: 0
+seed: 42
+threshold: 0.5
+pretrained_weights: models/resnet50_best.pt
+checkpoint: models/resnet50_kolektor_ft_best.pt
+results_dir: results/resnet50_kolektor_ft
+
+# Training: kolektor domain + severstal (to prevent catastrophic forgetting)
+train_manifests:
+  - data/processed/kolektor_manifest.parquet
+  - data/processed/severstal_manifest.parquet
+  - data/processed/neu_det_manifest.parquet
+
+# Validation: severstal val — ensures we preserve original performance
+val_manifests:
+  - data/processed/severstal_manifest.parquet
+
+# Evaluation sets (same as Phase 2a for direct comparison)
+eval_sets:
+  severstal_test:
+    manifests: [data/processed/severstal_manifest.parquet]
+    split: test
+  kolektor_test:
+    manifests: [data/processed/kolektor_manifest.parquet]
+    split: test
+  gc10_test:
+    manifests: [data/processed/gc10_manifest.parquet]
+    split: test
+    supplement_normals_from: data/processed/severstal_manifest.parquet
+    supplement_split: test

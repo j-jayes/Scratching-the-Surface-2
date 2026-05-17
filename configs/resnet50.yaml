@@ -1,11 +1,11 @@
 # ResNet50 binary defect classifier — Phase 2a
 model: resnet50
-input_size: 512
+input_size: 224    # standard ResNet input; fine for binary cls; 5× faster than 512
 batch_size: 32
 epochs: 20
 lr: 3.0e-4
 weight_decay: 1.0e-4
-num_workers: 4
+num_workers: 0    # macOS MPS: multiprocessing workers hang; single-process is reliable
 seed: 42
 threshold: 0.5          # binary decision threshold
 checkpoint: models/resnet50_best.pt

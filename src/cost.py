@@ -61,3 +61,28 @@ def assert_budget_available(headroom: float = 1.0) -> None:
         raise BudgetExceeded(
             f"Insufficient budget headroom: ${total:.2f} spent + ${headroom:.2f} requested > ${VLM_BUDGET_USD}"
         )
+
+
+def print_ledger(path: Path = COST_LEDGER_PATH) -> None:
+    """Print a summary of all VLM API costs logged to the ledger."""
+    if not path.exists():
+        print("No cost ledger found — no VLM calls recorded yet.")
+        return
+    rows = []
+    with path.open() as f:
+        r = csv.reader(f)
+        header = next(r, None)
+        for row in r:
+            if len(row) >= 8:
+                rows.append(row)
+    if not rows:
+        print("Ledger exists but is empty.")
+        return
+    print(f"\n{'timestamp':<26} {'provider':<10} {'model':<22} {'in_tok':>8} {'out_tok':>8} {'cost_usd':>10} {'phase':<12} note")
+    print("-" * 120)
+    for row in rows:
+        ts, provider, model, in_tok, out_tok, cost, phase, *note = row
+        print(f"{ts:<26} {provider:<10} {model:<22} {int(in_tok):>8,} {int(out_tok):>8,} ${float(cost):>9.4f} {phase:<12} {note[0] if note else ''}")
+    total = running_total(path)
+    print("-" * 120)
+    print(f"{'TOTAL':<26} {'':>60} ${total:>9.4f}  (cap: ${VLM_BUDGET_USD:.0f})")

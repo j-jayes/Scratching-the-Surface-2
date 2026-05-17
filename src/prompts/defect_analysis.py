@@ -1,4 +1,4 @@
-"""SteelDefectX-style T3 structured + chain-of-thought prompt for defect analysis."""
+"""Structured chain-of-thought (CoT) prompt for VLM defect analysis."""
 from __future__ import annotations
 
 SYSTEM = """You are an automated quality-assurance agent for a rolled-metal production line.
