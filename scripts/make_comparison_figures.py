@@ -165,9 +165,10 @@ def bar_chart(
     ylabel: str,
     out_path: Path,
     ylim: tuple = (0, 1.05),
+    datasets: list[str] | None = None,
 ) -> None:
     approaches = list(data.keys())
-    datasets   = DATASETS_ORDER
+    datasets   = datasets if datasets is not None else DATASETS_ORDER
     x = np.arange(len(datasets))
     width = 0.8 / max(len(approaches), 1)
 
@@ -256,12 +257,36 @@ def main() -> None:
     bar_chart(all_data, "f1",      "Cross-Domain F1 — Bake-Off",      "F1 Score",  FIGURES_DIR / "f1_comparison.png")
     bar_chart(all_data, "roc_auc", "Cross-Domain ROC-AUC — Bake-Off", "ROC-AUC",   FIGURES_DIR / "auc_comparison.png")
 
-    # Classical-only variant (no VLM): used on the slide that motivates the
-    # pivot to VLMs, before the VLM has been introduced.
+    # Classical-only Kolektor-only variant: used on the slide that motivates
+    # the pivot to VLMs, before the VLM has been introduced.
     classical_only = {k: v for k, v in all_data.items() if k not in {"VLM zero-shot", "YOLO→VLM"}}
     if classical_only:
-        bar_chart(classical_only, "f1", "Classical recipes — held-out F1", "F1 Score",
-                  FIGURES_DIR / "f1_comparison_classical.png")
+        bar_chart(classical_only, "f1", "Classical recipes — held-out F1 on KolektorSDD2", "F1 Score",
+                  FIGURES_DIR / "f1_comparison_classical.png",
+                  datasets=["kolektor_test"])
+
+    # VLM-vs-classical Kolektor F1 chart — pull best VLM F1 from latest flagship summary.
+    flagship = sorted(RESULTS_DIR.glob("vlm/flagship_summary_*.json"))
+    if flagship and classical_only:
+        with flagship[-1].open() as f:
+            fs = json.load(f)
+        best_prov, best_f1 = None, -1.0
+        prov_label_map = {"openai": "GPT-5.4", "gemini": "Gemini-2.5-pro", "azure": "GPT-4.1-mini"}
+        for prov, ds in fs.get("results", {}).items():
+            f1v = ds.get("kolektor_test", {}).get("f1")
+            if f1v is not None and f1v > best_f1:
+                best_f1 = f1v
+                best_prov = prov
+        if best_prov is not None:
+            vlm_label = f"VLM ({prov_label_map.get(best_prov, best_prov)}, zero-shot)"
+            combined = dict(classical_only)
+            combined[vlm_label] = {"kolektor_test": {"f1": best_f1}}
+            APPROACH_COLORS[vlm_label] = "#2ca02c"
+            bar_chart(combined, "f1",
+                      "Best VLM vs every classical recipe — KolektorSDD2 F1",
+                      "F1 Score",
+                      FIGURES_DIR / "f1_kolektor_vlm_vs_classical.png",
+                      datasets=["kolektor_test"])
 
     # Print summary table
     print(f"\n{'Approach':<20} {'kolektor F1':>12} {'gc10 F1':>10} {'kolektor AUC':>14} {'gc10 AUC':>10}")

@@ -58,12 +58,6 @@ PICKS: list[dict] = [
         "image_id": "20042.png",
         "path": "data/raw/kolektor/test/20042.png",
     },
-    {
-        "tag": "OUT-OF-DOMAIN",
-        "dataset": "GC10-DET",
-        "image_id": "img_05_425505000_00051.jpg",
-        "path": "data/raw/gc10/GC10-DET/images/img_05_425505000_00051.jpg",
-    },
 ]
 
 

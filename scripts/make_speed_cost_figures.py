@@ -1,7 +1,9 @@
-"""Two horizontal bar charts for the "speed & cost" slides.
+"""Horizontal bar charts for the "speed & cost" slides.
 
-  figures/bakeoff/inference_speed.png   — ms / image (log scale)
-  figures/bakeoff/inference_cost.png    — USD / 1k images (log scale)
+  figures/bakeoff/inference_speed_log.png      — ms / image (log scale)
+  figures/bakeoff/inference_speed_linear.png   — ms / image (linear scale)
+  figures/bakeoff/inference_cost_log.png       — USD / 1k images (log scale)
+  figures/bakeoff/inference_cost_linear.png    — USD / 1k images (linear scale)
 
 VLM latency + per-image cost come from results/vlm/flagship_summary_*.json
 when available, with sensible fallbacks. Classical-model numbers are
@@ -87,20 +89,23 @@ def horizontal_bar(
     colors: list[str],
     xlabel: str,
     value_fmt,
+    log: bool = True,
 ) -> None:
     y = np.arange(len(labels))
     ax.barh(y, values, color=colors, edgecolor="black", linewidth=0.6)
     ax.set_yticks(y)
     ax.set_yticklabels(labels, fontsize=12)
     ax.invert_yaxis()
-    ax.set_xscale("log")
+    if log:
+        ax.set_xscale("log")
     ax.set_xlabel(xlabel, fontsize=13)
     ax.grid(axis="x", which="both", linestyle=":", color="grey", alpha=0.5)
     ax.set_axisbelow(True)
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
+    offset = 1.08 if log else 1.02
     for yi, v in zip(y, values):
-        ax.text(v * 1.08, yi, value_fmt(v), va="center", fontsize=11)
+        ax.text(v * offset, yi, value_fmt(v), va="center", fontsize=11)
 
 
 def make_speed_figure(vlm: dict[str, dict[str, float]]) -> None:
@@ -114,22 +119,31 @@ def make_speed_figure(vlm: dict[str, dict[str, float]]) -> None:
     values = [r[1] for r in rows]
     colors = [r[2] for r in rows]
 
-    fig, ax = plt.subplots(figsize=(11, 5.5))
-    horizontal_bar(
-        ax, labels, values, colors,
-        xlabel="Inference latency  (ms per image, log scale)",
-        value_fmt=lambda v: f"{v:.0f} ms" if v < 1000 else f"{v/1000:.1f} s",
-    )
-    ax.set_title(
-        "One image, end-to-end: a ResNet finishes ~1000× sooner than a VLM",
-        fontsize=14, pad=12,
-    )
-    ax.set_xlim(left=3, right=max(values) * 3.5)
-    fig.tight_layout()
-    out = FIG_DIR / "inference_speed.png"
-    fig.savefig(out, dpi=160, facecolor="white")
-    plt.close(fig)
-    print(f"  → {out}")
+    def _fmt(v: float) -> str:
+        return f"{v:.0f} ms" if v < 1000 else f"{v/1000:.1f} s"
+
+    for log, suffix, scale_note in [(True, "log", "log scale"),
+                                    (False, "linear", "linear scale")]:
+        fig, ax = plt.subplots(figsize=(11, 5.5))
+        horizontal_bar(
+            ax, labels, values, colors,
+            xlabel=f"Inference latency  (ms per image, {scale_note})  —  lower is better ←",
+            value_fmt=_fmt,
+            log=log,
+        )
+        ax.set_title(
+            "One image, end-to-end: a ResNet finishes ~1000× sooner than a VLM",
+            fontsize=14, pad=12,
+        )
+        if log:
+            ax.set_xlim(left=3, right=max(values) * 3.5)
+        else:
+            ax.set_xlim(left=0, right=max(values) * 1.18)
+        fig.tight_layout()
+        out = FIG_DIR / f"inference_speed_{suffix}.png"
+        fig.savefig(out, dpi=160, facecolor="white")
+        plt.close(fig)
+        print(f"  → {out}")
 
 
 def make_cost_figure(vlm: dict[str, dict[str, float]]) -> None:
@@ -151,22 +165,28 @@ def make_cost_figure(vlm: dict[str, dict[str, float]]) -> None:
             return f"${v:.3f}"
         return f"${v:.2f}"
 
-    fig, ax = plt.subplots(figsize=(11, 5.5))
-    horizontal_bar(
-        ax, labels, values, colors,
-        xlabel="Cost  (USD per 1 000 images, log scale)",
-        value_fmt=_fmt,
-    )
-    ax.set_title(
-        "Classical models: Azure T4 GPU time.   VLMs: API token spend.",
-        fontsize=14, pad=12,
-    )
-    ax.set_xlim(left=min(values) * 0.3, right=max(values) * 4)
-    fig.tight_layout()
-    out = FIG_DIR / "inference_cost.png"
-    fig.savefig(out, dpi=160, facecolor="white")
-    plt.close(fig)
-    print(f"  → {out}")
+    for log, suffix, scale_note in [(True, "log", "log scale"),
+                                    (False, "linear", "linear scale")]:
+        fig, ax = plt.subplots(figsize=(11, 5.5))
+        horizontal_bar(
+            ax, labels, values, colors,
+            xlabel=f"Cost  (USD per 1 000 images, {scale_note})  —  lower is better ←",
+            value_fmt=_fmt,
+            log=log,
+        )
+        ax.set_title(
+            "Classical models: Azure T4 GPU time.   VLMs: API token spend.",
+            fontsize=14, pad=12,
+        )
+        if log:
+            ax.set_xlim(left=min(values) * 0.3, right=max(values) * 4)
+        else:
+            ax.set_xlim(left=0, right=max(values) * 1.18)
+        fig.tight_layout()
+        out = FIG_DIR / f"inference_cost_{suffix}.png"
+        fig.savefig(out, dpi=160, facecolor="white")
+        plt.close(fig)
+        print(f"  → {out}")
 
 
 def main() -> None:

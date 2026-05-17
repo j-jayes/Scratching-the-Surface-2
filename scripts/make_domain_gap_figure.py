@@ -42,8 +42,8 @@ TRAIN_PICKS = [
 TEST_PICKS = [
     ("kolektor_manifest.parquet", "KolektorSDD2", "test"),
     ("kolektor_manifest.parquet", "KolektorSDD2", "test"),
-    ("gc10_manifest.parquet",     "GC10-DET",     "test"),
-    ("gc10_manifest.parquet",     "GC10-DET",     "test"),
+    ("kolektor_manifest.parquet", "KolektorSDD2", "test"),
+    ("kolektor_manifest.parquet", "KolektorSDD2", "test"),
 ]
 
 
@@ -81,7 +81,7 @@ def make_grid(rows: list[dict], titles: list[str], colours: list[str], out: Path
     # Row labels
     axes[0, 0].set_ylabel("TRAIN domain\n(Severstal + NEU-DET)",
                           fontsize=13, fontweight="bold", color="#1b9e77")
-    axes[1, 0].set_ylabel("TEST domain\n(KolektorSDD2 + GC10-DET)",
+    axes[1, 0].set_ylabel("TEST domain\n(KolektorSDD2 — held-out)",
                           fontsize=13, fontweight="bold", color="#d95f02")
     fig.suptitle(suptitle, fontsize=15, y=0.995)
     fig.tight_layout()

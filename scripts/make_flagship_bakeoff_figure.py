@@ -29,7 +29,9 @@ def latest_summary() -> Path:
 def main() -> None:
     data = json.loads(latest_summary().read_text())
     providers = list(data["results"].keys())
-    datasets = list(next(iter(data["results"].values())).keys())
+    all_datasets = list(next(iter(data["results"].values())).keys())
+    # Kolektor-only deck — drop other domains if present.
+    datasets = [d for d in all_datasets if "kolektor" in d.lower()] or all_datasets
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
     x = np.arange(len(datasets))

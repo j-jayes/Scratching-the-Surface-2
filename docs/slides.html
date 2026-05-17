@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Jonathan Jayes">
-  <meta name="dcterms.date" content="2026-05-17">
+  <meta name="dcterms.date" content="2026-05-18">
   <title>Scratching the Surface</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -206,7 +206,7 @@ Jonathan Jayes
 </div>
 </div>
 
-  <p class="date">2026-05-17</p>
+  <p class="date">2026-05-18</p>
 </section>
 <section>
 <section id="a.-hook" class="title-slide slide level1 center" data-background-color="#1b9e77">
@@ -486,19 +486,11 @@ Jonathan Jayes
 <td style="text-align: left;">230 × 630–1240</td>
 <td style="text-align: left;">1 binary mask</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;"><strong>GC10-DET</strong></td>
-<td style="text-align: left;">HELD-OUT</td>
-<td style="text-align: right;">—</td>
-<td style="text-align: right;">2 294</td>
-<td style="text-align: left;">2048 × 1000</td>
-<td style="text-align: left;">10 classes (welding, oil-spot, …)</td>
-</tr>
 </tbody>
 </table>
-<p>All labels collapsed to a single binary <strong>defect / no-defect</strong> target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 and GC10-DET are the new mills — different cameras, different lighting, different defect vocabularies — that the classical models have to generalise to.</p>
+<p>All labels collapsed to a single binary <strong>defect / no-defect</strong> target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 is the new mill — different camera, different lighting, different defect vocabulary — that the classical models have to generalise to.</p>
 <aside class="notes">
-<p>The point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 and GC10-DET are reserved as held-out <em>domains</em>: same task (“is there a defect?”), totally different pixels. Note GC10 ships with no normals — so it’s effectively “did you spot the defect we know is there?”. NEU-DET is the same, all-defect. This is what real factory data tends to look like before anyone has bothered to annotate a clean baseline.</p>
+<p>The point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 is reserved as the held-out <em>domain</em>: same task (“is there a defect?”), totally different pixels. NEU-DET ships all-defect (no normals) — that’s what a lot of real factory data looks like before anyone has bothered to annotate a clean baseline.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -518,7 +510,7 @@ Jonathan Jayes
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="../figures/bakeoff/domain_gap_train_vs_test.png" style="width:100.0%"></p>
-<figcaption>Train: Severstal + NEU-DET (top). Test: KolektorSDD2 + GC10-DET (bottom).</figcaption>
+<figcaption>Train: Severstal + NEU-DET (top). Test: KolektorSDD2 (bottom).</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:20%;">
@@ -601,12 +593,12 @@ Jonathan Jayes
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="../figures/explainers/gradcam_train_vs_test.png" style="width:100.0%"></p>
-<figcaption>Grad-CAM heatmaps over <code>layer4</code> activations. Top: Severstal+NEU samples — the model lights up on defect-correlated texture. Bottom: KolektorSDD2 + GC10 — attention scatters onto seams, edges, and lighting artefacts unrelated to actual defects.</figcaption>
+<figcaption>Grad-CAM heatmaps over <code>layer4</code> activations. Top: Severstal+NEU samples — the model lights up on defect-correlated texture. Bottom: KolektorSDD2 — attention scatters onto seams, edges, and lighting artefacts unrelated to actual defects.</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:38%;">
 <p><strong>Why does the F1 collapse?</strong></p>
-<p>It’s not that the network “forgot how to see.” It’s that the features it learned to chase — strip-aligned texture statistics from Severstal — simply aren’t where the defects live in Kolektor or GC10.</p>
+<p>It’s not that the network “forgot how to see.” It’s that the features it learned to chase — strip-aligned texture statistics from Severstal — simply aren’t where the defects live in Kolektor.</p>
 <p>The model is doing exactly what it was trained to do. The training distribution lied about the world.</p>
 </div></div>
 <aside class="notes">
@@ -634,17 +626,17 @@ Jonathan Jayes
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
-<p><strong>No classical recipe wins both domains.</strong></p>
-<p>Fine-tuning on Kolektor helps Kolektor — and <strong>breaks</strong> GC10.</p>
-<p>~11 700 labels in, and we still can’t extrapolate to a new mill.</p>
+<p><strong>No classical recipe gets us there.</strong></p>
+<p>Fine-tuning on Kolektor helps — F1 climbs from 0.16 to 0.56 — but still leaves us far short of production-ready.</p>
+<p>~11 700 labels in, and the ceiling is a <em>passable</em> model on one mill.</p>
 </div></div>
 <aside class="notes">
-<p>This slide earns the pivot to VLMs. We tried the obvious classical things — bigger model, fine-tune on a slice of the new domain, detection head (YOLO11s), self-labelling Severstal and re-training YOLO on those pseudo-labels. None of them generalise to both held-out domains cleanly. Fine-tuning on Kolektor lifts that score 3.5× but <strong>costs us</strong> on GC10 — catastrophic forgetting. Numbers (held-out F1):</p>
+<p>This slide earns the pivot to VLMs. We tried the obvious classical things — bigger model, fine-tune on a slice of the new domain, detection head (YOLO11s), self-labelling Severstal and re-training YOLO on those pseudo-labels. None of them clear the bar on KolektorSDD2. Fine-tuning on Kolektor lifts F1 3.5× but plateaus around 0.56. Numbers (held-out F1 on Kolektor):</p>
 <ul>
-<li>ResNet50: Kolektor 0.16 / GC10 0.78</li>
-<li>ResNet50+FT: 0.56 / 0.65</li>
-<li>YOLO11s: 0.38 / 0.55</li>
-<li>YOLO-bootstrap: 0.20 / 0.73</li>
+<li>ResNet50: 0.16</li>
+<li>ResNet50+FT: 0.56</li>
+<li>YOLO11s: 0.38</li>
+<li>YOLO-bootstrap: 0.20</li>
 </ul>
 <p>The figure is deliberately <em>all classical</em> — the VLM hasn’t entered the story yet. Audience should leave this slide asking “what else could possibly help?”. Source: <code>results/{resnet50,resnet50_kolektor_ft,yolo,yolo_bootstrap}/metrics.json</code>, rendered by <code>scripts/make_comparison_figures.py</code> (<code>f1_comparison_classical.png</code>).</p>
 <style type="text/css">
@@ -662,13 +654,12 @@ Jonathan Jayes
 <section id="a-yolo-box-says-something-a-heatmap-cant" class="slide level2">
 <h2>A YOLO box says something a heatmap can’t</h2>
 
-<img data-src="../figures/bakeoff/resnet_vs_yolo_qual.png" style="width:84.0%" class="r-stretch quarto-figure-center"><p class="caption">Same four images, two outputs. <strong>Middle</strong>: ResNet50 Grad-CAM — one scalar <code>p̂(defect)</code> plus a soft “where roughly”. <strong>Right</strong>: YOLO11s — one or more typed bounding boxes, each with its own confidence. Top two rows are in-domain Severstal; bottom two rows are out-of-distribution KolektorSDD2 and GC10-DET.</p><aside class="notes">
+<img data-src="../figures/bakeoff/resnet_vs_yolo_qual.png" style="width:84.0%" class="r-stretch quarto-figure-center"><p class="caption">Same three images, two outputs. <strong>Middle</strong>: ResNet50 Grad-CAM — one scalar <code>p̂(defect)</code> plus a soft “where roughly”. <strong>Right</strong>: YOLO11s — one or more typed bounding boxes, each with its own confidence. Top two rows are in-domain Severstal; bottom row is out-of-distribution KolektorSDD2.</p><aside class="notes">
 <p>Qualitative companion to the scoreboard. The F1 numbers don’t tell you <em>what each output looks like</em>. Walk the rows:</p>
 <p><strong>Row 1 (Severstal, in-domain):</strong> ResNet fires on the whole bright region (<code>p̂=1.00</code>) — useful as a yes/no, useless if you want to know <em>which</em> defect. YOLO drops four tight boxes on the actual scratches with per-instance confidence. That’s a <em>work order</em> for an operator.</p>
 <p><strong>Row 2 (Severstal, in-domain):</strong> Same story — three crisp boxes vs one broad blob.</p>
 <p><strong>Row 3 (Kolektor, OOD):</strong> Both models break, but differently. ResNet says “no defect” (<code>p̂=0.11</code>) and the CAM is on irrelevant texture. YOLO does fire — two low-confidence boxes — but they’re at the top, not on the actual scratch in the middle.</p>
-<p><strong>Row 4 (GC10, OOD):</strong> ResNet <code>p̂=0.99</code> on the bright edge — confidently wrong about <em>where</em>. YOLO drops two boxes; the bottom-right one is roughly on the right region.</p>
-<p>Neither is great on the OOD rows. The point of the slide is <strong>different output shape, same domain-gap problem</strong> — bringing more classical machinery to bear doesn’t close the gap, it just changes what “failure” looks like. Time to try something different.</p>
+<p>Neither is great on the OOD row. The point of the slide is <strong>different output shape, same domain-gap problem</strong> — bringing more classical machinery to bear doesn’t close the gap, it just changes what “failure” looks like. Time to try something different.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -921,6 +912,7 @@ Jonathan Jayes
 </section>
 <section id="late-fusion" class="slide level2">
 <h2>Late Fusion</h2>
+<p>Train a Large Language Model on text, then add vision as a separate input channel with a translation layer.</p>
 <style>
         .vlm-late-host {
             background: #f4f7f9;
@@ -1121,6 +1113,7 @@ Jonathan Jayes
 </section>
 <section id="early-fusion" class="slide level2">
 <h2>Early Fusion</h2>
+<p>Train a Large Language Model on text and images together, with a shared internal representation.</p>
 <style>
         .vlm-early-host {
             background: #f4f7f9;
@@ -1311,7 +1304,11 @@ Jonathan Jayes
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section></section>
+</section>
+<section id="early-fusion-shared-embedding-space" class="slide level2">
+<h2>Early Fusion shared embedding space</h2>
+
+<img data-src="assets/explainers/multimodal-embeddings.jpeg" class="r-stretch"></section></section>
 <section>
 <section id="f.-flagship-vlm-bake-off" class="title-slide slide level1 center" data-background-color="#7570b3">
 <h1>F. Flagship VLM Bake-Off</h1>
@@ -1324,26 +1321,58 @@ Jonathan Jayes
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="../figures/bakeoff/flagship_bakeoff.png" style="width:100.0%"></p>
-<figcaption>F1 and per-call cost for gpt-5.4, gemini-2.5-pro, gpt-4.1-mini on the unseen domains.</figcaption>
+<figcaption>F1 and per-call cost for gpt-5.4, gemini-2.5-pro, gpt-4.1-mini on the unseen Kolektor domain.</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:45%;">
 <p><strong>Setup</strong></p>
 <ul>
-<li>50 images / dataset (balanced)</li>
+<li>50 images (balanced) from held-out KolektorSDD2</li>
 <li>Identical CoT-with-JSON-schema prompt</li>
 <li>3 providers via <code>src/vlm_clients.py</code></li>
 <li>Costs logged to <code>results/cost_ledger.csv</code>, capped at <code>$50</code></li>
 </ul>
 <p><strong>Reading the chart</strong></p>
 <ul>
-<li>All three frontier models beat the supervised ResNet50 on the unseen domain.</li>
-<li>Gemini 2.5 Pro is competitive at lower $/call.</li>
-<li>The Azure mid-tier (gpt-4.1-mini) is the price–performance knee.</li>
+<li>All three frontier models beat the supervised ResNet50 on Kolektor.</li>
+<li>Gemini 2.5 Pro tops the chart at F1 0.83.</li>
+<li>Azure mid-tier (gpt-4.1-mini) is the price–performance knee at F1 0.80 for ~10× less per call.</li>
 </ul>
 </div></div>
 <aside class="notes">
 <p>Source: results/vlm/flagship_summary_<latest>.json, rendered with scripts/make_flagship_bakeoff_figure.py.</latest></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="best-vlm-vs-every-classical-recipe-kolektorsdd2-f1" class="slide level2">
+<h2>Best VLM vs every classical recipe — KolektorSDD2 F1</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/f1_kolektor_vlm_vs_classical.png" style="width:100.0%"></p>
+<figcaption>Held-out F1 on KolektorSDD2: every classical recipe vs the best frontier VLM (zero-shot).</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p><strong>The headline.</strong></p>
+<ul>
+<li>Best classical recipe (ResNet50 + Kolektor FT): <strong>0.56</strong></li>
+<li>Best zero-shot VLM (Gemini 2.5 Pro): <strong>0.83</strong></li>
+</ul>
+<p>No labels on the new domain, no fine-tuning, no schema changes — just an API call with a prompt.</p>
+</div></div>
+<aside class="notes">
+<p>This is the punch-line of the bake-off. We poured ~11 700 labels and a fine-tune into the classical side; the VLM saw nothing of Kolektor before inference. Same metric, same images, very different ceiling. Rendered by scripts/make_comparison_figures.py (<code>f1_kolektor_vlm_vs_classical.png</code>), VLM number pulled from <code>results/vlm/flagship_summary_*.json</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1434,8 +1463,8 @@ Jonathan Jayes
 <section id="grad-cam-points.-the-vlm-tells-you-why." class="slide level2">
 <h2>Grad-CAM points. The VLM tells you why.</h2>
 
-<img data-src="../figures/explainers/gradcam_vs_vlm_rationale.png" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">Four images — one normal Severstal frame at the top, then three defective close-ups from KolektorSDD2, Severstal and GC10-DET. <strong>Middle</strong>: ResNet50 Grad-CAM heatmap (red = pixels that pushed <code>p(defect)</code> up). <strong>Right</strong>: live GPT-5.4 reasoning for the same image (no fine-tuning, structured-output prompt).</p><aside class="notes">
-<p>This is the slide that justifies pairing them. Grad-CAM = <em>where</em>. VLM rationale = <em>what &amp; why</em>. Walk through each row: the normal Severstal is correctly called by both (the VLM volunteers “benign longitudinal texture”). The Kolektor scratch is missed by the ResNet (p=0.11, CAM points at the edges) but caught by GPT-5.4 with a clean diagnosis. The Severstal row shows both flagging it as a defect, but Grad-CAM gives you a blob and the VLM gives you “localised bright vertical mark, mechanical scratch or roller contact.” Last row is the honest failure: a partial-occlusion GC10 frame where the ResNet fires on the bright edge and the VLM declines — and tells you it’s declining because “much of the frame is dominated by a large geometric edge/occlusion.” For a process engineer triaging a flagged image, the second column is what closes the loop.</p>
+<img data-src="../figures/explainers/gradcam_vs_vlm_rationale.png" style="width:88.0%" class="r-stretch quarto-figure-center"><p class="caption">Four images — one normal Severstal frame at the top, then three defective close-ups from KolektorSDD2 and Severstal. <strong>Middle</strong>: ResNet50 Grad-CAM heatmap (red = pixels that pushed <code>p(defect)</code> up). <strong>Right</strong>: live GPT-5.4 reasoning for the same image (no fine-tuning, structured-output prompt).</p><aside class="notes">
+<p>This is the slide that justifies pairing them. Grad-CAM = <em>where</em>. VLM rationale = <em>what &amp; why</em>. Walk through each row: the normal Severstal is correctly called by both (the VLM volunteers “benign longitudinal texture”). The Kolektor scratch is missed by the ResNet (p=0.11, CAM points at the edges) but caught by GPT-5.4 with a clean diagnosis. The Severstal row shows both flagging it as a defect, but Grad-CAM gives you a blob and the VLM gives you “localised bright vertical mark, mechanical scratch or roller contact.” Last row is the honest failure: a partial-occlusion frame where the ResNet fires on the bright edge and the VLM declines — and tells you it’s declining because “much of the frame is dominated by a large geometric edge/occlusion.” For a process engineer triaging a flagged image, the second column is what closes the loop.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1455,9 +1484,29 @@ Jonathan Jayes
 </section>
 <section id="how-fast-is-each-model-on-one-image" class="slide level2">
 <h2>How fast is each model on one image?</h2>
-
-<img data-src="../figures/bakeoff/inference_speed.png" style="width:86.0%" class="r-stretch quarto-figure-center"><p class="caption">End-to-end inference latency per image (log scale). Classical models are measured on an Azure NC4as_T4_v3 (T4 GPU) and an Apple-silicon CPU; VLM numbers are the mean wall-clock time per call from <code>results/vlm/flagship_summary_*.json</code>.</p><aside class="notes">
-<p>This is the latency reality check. A T4-served ResNet handles an image in ~6 ms — that’s ~160 images per second per GPU. The cheapest VLM in our bake-off (GPT-4.1-mini on Azure) takes ~3 seconds; Gemini-2.5-pro takes ~17. That’s three to four orders of magnitude. A 60 frames-per-second inspection line is fine for the classical model and impossible for the VLM. The point of the next slide isn’t to say VLMs are bad — it’s to say: that latency comes from somewhere, and someone has to pay for it.</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Log scale</a></li><li><a href="#tabset-1-2">Linear scale</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/inference_speed_log.png" style="width:86.0%"></p>
+<figcaption>End-to-end inference latency per image (log scale, <strong>lower is better</strong>). Classical models are measured on an Azure NC4as_T4_v3 (T4 GPU) and an Apple-silicon CPU; VLM numbers are the mean wall-clock time per call from <code>results/vlm/flagship_summary_*.json</code>.</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/inference_speed_linear.png" style="width:86.0%"></p>
+<figcaption>Same data on a linear axis (<strong>lower is better</strong>). The classical bars are visually invisible — that’s the point: VLMs are three to four orders of magnitude slower per call.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>This is the latency reality check. A T4-served ResNet handles an image in ~6 ms — that’s ~160 images per second per GPU. The cheapest VLM in our bake-off (GPT-4.1-mini on Azure) takes ~3 seconds; Gemini-2.5-pro takes ~17. That’s three to four orders of magnitude. A 60 frames-per-second inspection line is fine for the classical model and impossible for the VLM. The point of the next slide isn’t to say VLMs are bad — it’s to say: that latency comes from somewhere, and someone has to pay for it. Flip to the linear tab to make the scale gap visceral.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1472,8 +1521,28 @@ Jonathan Jayes
 </section>
 <section id="and-what-does-each-call-actually-cost" class="slide level2">
 <h2>…and what does each call actually cost?</h2>
-
-<img data-src="../figures/bakeoff/inference_cost.png" style="width:86.0%" class="r-stretch quarto-figure-center"><p class="caption">Same models, but USD per 1 000 images (log scale). Classical bars are pure GPU/CPU rental on Azure ($0.526/hr for a T4); VLM bars are real API token spend pulled from <code>results/cost_ledger.csv</code>.</p><aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Log scale</a></li><li><a href="#tabset-2-2">Linear scale</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/inference_cost_log.png" style="width:86.0%"></p>
+<figcaption>Same models, but USD per 1 000 images (log scale, <strong>lower is better</strong>). Classical bars are pure GPU/CPU rental on Azure ($0.526/hr for a T4); VLM bars are real API token spend pulled from <code>results/cost_ledger.csv</code>.</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/inference_cost_linear.png" style="width:86.0%"></p>
+<figcaption>Same numbers on a linear axis (<strong>lower is better</strong>) — the classical bars collapse to a line at zero next to the VLM bars.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
 <p>The latency gap shows up almost 1:1 as a cost gap. Running ResNet on a rented T4 costs <strong>fractions of a cent per thousand images</strong> — most of the bill is the VM, not the compute. Calling Gemini-2.5-pro on the same 1 000 images costs about <strong>$4.35</strong> — roughly 5 000× more. GPT-4.1-mini sits in between at ~$0.83. So the choice isn’t “smart vs dumb model” — it’s “is the marginal accuracy from the VLM worth 4 to 5 orders of magnitude of cost?” Which sets up the break-even curve on the next slide.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
