@@ -291,7 +291,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#planning" id="toc-planning" class="nav-link active" data-scroll-target="#planning">Planning</a></li>
+  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project overview</a></li>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key findings</a></li>
+  <li><a href="#slide-deck" id="toc-slide-deck" class="nav-link" data-scroll-target="#slide-deck">Slide deck</a></li>
+  <li><a href="#reproduce" id="toc-reproduce" class="nav-link" data-scroll-target="#reproduce">Reproduce</a></li>
   </ul>
 </nav>
     </div>
@@ -302,6 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Scratching the Surface</h1>
+<p class="subtitle lead">Classical CV vs.&nbsp;Vision-Language Models for rolled-metal defect detection</p>
 </div>
 
 
@@ -318,9 +323,129 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This website holds the write-up for my ML portfolio project, “Scratching the Surface: Classical CV vs Vision-Language Models for steel defect detection”.</p>
-<section id="planning" class="level2">
-<h2 class="anchored" data-anchor-id="planning">Planning</h2>
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project overview</h2>
+<p>This project benchmarks five computer-vision approaches for detecting surface defects on rolled steel:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 38%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Approach</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>ResNet50</strong></td>
+<td>Fine-tuned ImageNet backbone, binary defect classifier</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>ResNet50+FT</strong></td>
+<td>ResNet50 fine-tuned on kolektor domain data (supervised adaptation)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>VLM zero-shot</strong></td>
+<td>GPT-4o / Gemini — no task-specific training required</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><strong>Hybrid YOLO→VLM</strong></td>
+<td>YOLO at low conf flags candidates; VLM adjudicates</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>YOLO-bootstrap</strong></td>
+<td>VLM pseudo-labels from GPT-4o used to train YOLO from scratch</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="datasets" class="level2">
+<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
+<p>Four public datasets were used across 17,998 images spanning five defect domains:</p>
+<ul>
+<li><strong>Severstal Steel Defect Detection</strong> — Kaggle, 12,568 images, 4 defect classes</li>
+<li><strong>NEU Surface Defect Database</strong> — 1,800 images, 6 classes, all defect</li>
+<li><strong>KolektorSDD2</strong> — 3,336 images, binary OK / defect, strong class imbalance</li>
+<li><strong>GC10-DET</strong> — 2,294 images, 10 industrial defect classes</li>
+</ul>
+</section>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key findings</h2>
+<p>ResNet50 training complete (val F1 = <strong>0.9187</strong>). ResNet50+FT complete — kolektor F1 = <strong>0.562</strong> (3.5× improvement over baseline). VLM zero-shot evaluation complete on both Kolektor and GC10. Bootstrap labeling complete (484/500 = 96.8% agreement, $2.33 cost). YOLO-bootstrap training in progress.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 18%">
+<col style="width: 24%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Severstal F1</th>
+<th>GC10 F1</th>
+<th>Kolektor F1</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ResNet50</strong></td>
+<td><strong>0.9196</strong></td>
+<td><strong>0.7823</strong></td>
+<td>0.1622</td>
+<td>τ = 0.475, AUC 0.9731</td>
+</tr>
+<tr class="even">
+<td><strong>ResNet50+FT</strong></td>
+<td>—</td>
+<td>0.647</td>
+<td><strong>0.562</strong></td>
+<td>supervised domain adaptation</td>
+</tr>
+<tr class="odd">
+<td><strong>VLM zero-shot</strong> (gpt-4.1-mini)</td>
+<td>—</td>
+<td>0.6575</td>
+<td><strong>0.7925</strong></td>
+<td>AUC 0.8156 (Kolektor), zero training</td>
+</tr>
+<tr class="even">
+<td>Hybrid</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>pending YOLO weights</td>
+</tr>
+<tr class="odd">
+<td><strong>YOLO-bootstrap</strong></td>
+<td>—</td>
+<td><strong>0.729</strong></td>
+<td>0.198</td>
+<td>trained on $2.33 VLM pseudo-labels</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Central finding:</strong> VLM (gpt-4.1-mini, zero training) achieves Kolektor F1 = <strong>0.79</strong> vs.&nbsp;ResNet50’s F1 = <strong>0.16</strong> — a <strong>5× improvement</strong> with no task-specific fine-tuning. Even with supervised domain adaptation (ResNet50+FT, 2,332 kolektor labels), the VLM still leads: 0.79 vs.&nbsp;0.562. ResNet50+FT answers “how much do human labels help?” — they do, but the VLM’s zero-shot advantage persists.</p>
+<p>Bootstrap labeling with gpt-4o achieves <strong>96.8%</strong> annotation agreement at <strong>$2.33 total cost</strong> for 500 images.</p>
+</section>
+<section id="slide-deck" class="level2">
+<h2 class="anchored" data-anchor-id="slide-deck">Slide deck</h2>
+<p><a href="slides.html">View the presentation slides →</a></p>
+</section>
+<section id="reproduce" class="level2">
+<h2 class="anchored" data-anchor-id="reproduce">Reproduce</h2>
+<p>See <a href="https://github.com/j-jayes/Scratching-the-Surface-2"><code>README.md</code></a> for full reproduction steps (~30 min on Apple Silicon).</p>
 
 
 </section>
