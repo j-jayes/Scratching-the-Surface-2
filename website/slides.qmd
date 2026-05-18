@@ -127,9 +127,17 @@ Ideally, we would have a team of engineers who have set up a high quality imagin
 
 ## We make some assumptions about the project spec
 
-We will treat the problem as if they have no labelled data, but want us to as quickly as possible provide them with a system that can identify defects on the production line. 
+We will treat the problem as if they have 
 
-Then in this demo, I choose two datasets that have some similarities to what we might expect from AQ Group, and use another two datasets as a holdout set to test how well our models generalise to new domains.
+- no labelled data, 
+
+- but want us to as quickly as possible provide them with a system that can identify defects on the production line. 
+
+Then in this demo, I choose 
+
+- two datasets that have some similarities to what we might expect from AQ Group as training data 
+
+- and use another dataset as a holdout set to test how well our models generalise to new domains.
 
 So how do we go about this??
 
@@ -202,13 +210,13 @@ The problem is that we will have to spend a lot of time speaking to engineers an
 
 :::
 
-## Datasets at a glance
+## Datasets at a glance {.smaller}
 
-| Dataset           | Role         | n train | n test | Image size       | Native taxonomy                 |
-|:------------------|:-------------|--------:|-------:|:-----------------|:--------------------------------|
-| **Severstal**     | TRAIN POOL   | 10 053  | 1 259  | 1600 × 256       | 4 classes (pit, scratch, patch, ridge) |
-| **NEU-DET**       | TRAIN POOL   |  1 700  |   100  |  200 × 200       | 6 classes (crazing, inclusion, …)      |
-| **KolektorSDD2**  | HELD-OUT     |  2 332  | 1 004  |  230 × 630–1240  | 1 binary mask                          |
+| Dataset           | Role     | Train  | Test  | Image size       | Native taxonomy                        |
+|:------------------|:---------|-------:|------:|:-----------------|:---------------------------------------|
+| **Severstal**     | Train    | 10,053 | 1,259 | 1600 × 256       | 4 classes (pit, scratch, patch, ridge) |
+| **NEU-DET**       | Train    |  1,700 |   100 | 200 × 200        | 6 classes (crazing, inclusion, …)      |
+| **KolektorSDD2**  | Holdout  |  2,332 | 1,004 | 230 × 630–1240   | 1 binary mask                          |
 
 All labels collapsed to a single binary **defect / no-defect** target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 is the new mill — different camera, different lighting, different defect vocabulary — that the classical models have to generalise to.
 
@@ -985,7 +993,7 @@ In short, a CLIP-based LLM is like a monolingual English speaker relying on a hi
 
 # F. Flagship VLM Bake-Off {background-color="#7570b3"}
 
-## Same images, frontier models, zero training
+## Same images, frontier models, zero training {.smaller}
 
 ::: {.columns}
 
@@ -1019,7 +1027,7 @@ Source: results/vlm/flagship_summary_<latest>.json, rendered with scripts/make_f
 :::
 
 
-## Best VLM vs every classical recipe — KolektorSDD2 F1
+## Best VLM vs classical — KolektorSDD2 F1
 
 ::: {.columns}
 
@@ -1049,7 +1057,7 @@ This is the punch-line of the bake-off. We poured ~11 700 labels and a fine-tune
 
 # G. Prompt-tuning as gradient descent on words {background-color="#e7298a"}
 
-## A structured-output teacher critiques a structured-output student
+## A structured-output teacher critiques a structured-output student {.smaller}
 
 ::: {.columns}
 
@@ -1161,7 +1169,7 @@ This is the latency reality check. A T4-served ResNet handles an image in ~6 ms 
 The latency gap shows up almost 1:1 as a cost gap. Running ResNet on a rented T4 costs **fractions of a cent per thousand images** — most of the bill is the VM, not the compute. Calling Gemini-2.5-pro on the same 1 000 images costs about **$4.35** — roughly 5 000× more. GPT-4.1-mini sits in between at ~$0.83. So the choice isn't "smart vs dumb model" — it's "is the marginal accuracy from the VLM worth 4 to 5 orders of magnitude of cost?" Which sets up the break-even curve on the next slide.
 :::
 
-## One-off labelling + classical inference vs per-image VLM
+## One-off labelling + classical inference vs per-image VLM {.smaller}
 
 ::: {.columns}
 
@@ -1187,8 +1195,6 @@ The latency gap shows up almost 1:1 as a cost gap. Running ResNet on a rented T4
 
 A line running 24/7 hits 26k images in **hours**. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.
 
-**Learning curve** — *forthcoming*. `scripts/learning_curve_resnet.py` sweeps `N ∈ {50, 100, 250, 500, 1k, 2k, 2.3k}` to find the smallest label budget that lets the classical model match the VLM on Kolektor.
-
 :::
 
 :::
@@ -1197,10 +1203,43 @@ A line running 24/7 hits 26k images in **hours**. The hybrid (YOLO → escalate 
 Numbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json.
 :::
 
+## Does the student ever catch the teacher? {.smaller}
+
+::: {.columns}
+
+::: {.column width="65%"}
+
+![ResNet50 trained on VLM pseudo-labels at increasing N (3 seeds per N). Dashed line = GPT-5.4 zero-shot F1 = 0.79.](../figures/bakeoff/labelling_curve.png){width="100%"}
+
+:::
+
+::: {.column width="35%"}
+
+**Setup** (`scripts/labelling_curve.py`)
+
+- Pool: Kolektor train (~2 300 images, ~10 % defective)
+- Labels: VLM pseudo-labels with measured noise (TPR=0.68, TNR=0.96)
+- 3 seeds per N — no class balancing
+- 6 epochs, AdamW, ResNet50
+
+**Reading the chart**
+
+- At N ≤ 1 600, the student has not caught the teacher (F1 peaks ~0.37 vs 0.79).
+- The gap signals that **more labels** and/or a cleaner label budget would be needed.
+- The dollar axis makes the trade-off concrete: $10.74 of labelling still falls short.
+
+:::
+
+:::
+
+::: {.notes}
+The student (ResNet50) never catches the teacher (GPT-5.4 zero-shot) within the 1 600-image budget tested. This is an honest result — the teacher is very good and the labels are noisy. The practical implication is that you need either more images, better labels, or a fine-tuned VLM starting point before the classical model matches.
+:::
+
 
 # J. The takeaway {background-color="#a6761d"}
 
-## Use VLMs to teach classical CV. Don't put them in the hot loop.
+## Use VLMs to teach classical CV. Don't put them in the hot loop. {.smaller}
 
 ::: {.columns}
 

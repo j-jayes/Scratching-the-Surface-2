@@ -190,8 +190,12 @@ def request_prompt_edit(domain: str, provider: str, records: list[dict]) -> dict
 
 
 def plot_curve(history: dict, out: Path) -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
-    for ax, domain in zip(axes, history["domains"]):
+    domains = list(history["domains"].keys())
+    n = len(domains)
+    width = 8 if n == 1 else 13
+    fig, axes_raw = plt.subplots(1, n, figsize=(width, 5), sharey=True)
+    axes = [axes_raw] if n == 1 else list(axes_raw)
+    for ax, domain in zip(axes, domains):
         for provider, rounds in history["domains"][domain].items():
             f1s = [r["f1_calib"] for r in rounds]
             xs = list(range(len(f1s)))

@@ -130,7 +130,7 @@
     "href": "slides.html#one-off-labelling-classical-inference-vs-per-image-vlm",
     "title": "Scratching the Surface",
     "section": "One-off labelling + classical inference vs per-image VLM",
-    "text": "One-off labelling + classical inference vs per-image VLM\n\n\n\n\n\nBreak-even between paying a VLM per image forever vs. paying once to label N_train = 2,332 images and serving a near-free ResNet/YOLO.\n\n\n\nThree label-cost worlds\n\n$0.05 / label — in-house GPU-side annotators\n$0.20 / label — offshore crowd workers\n$0.50 / label — expert metallurgist sign-off\n\nBreak-even images processed (VLM-only vs label-once-then-classical):\n\n$0.05/label → ~26k images\n$0.20/label → ~104k images\n$0.50/label → ~261k images\n\nA line running 24/7 hits 26k images in hours. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.\nLearning curve — forthcoming. scripts/learning_curve_resnet.py sweeps N ∈ {50, 100, 250, 500, 1k, 2k, 2.3k} to find the smallest label budget that lets the classical model match the VLM on Kolektor.\n\n\nNumbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json."
+    "text": "One-off labelling + classical inference vs per-image VLM\n\n\n\n\n\nBreak-even between paying a VLM per image forever vs. paying once to label N_train = 2,332 images and serving a near-free ResNet/YOLO.\n\n\n\nThree label-cost worlds\n\n$0.05 / label — in-house GPU-side annotators\n$0.20 / label — offshore crowd workers\n$0.50 / label — expert metallurgist sign-off\n\nBreak-even images processed (VLM-only vs label-once-then-classical):\n\n$0.05/label → ~26k images\n$0.20/label → ~104k images\n$0.50/label → ~261k images\n\nA line running 24/7 hits 26k images in hours. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.\n\n\nNumbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json."
   },
   {
     "objectID": "slides.html#use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop.",
@@ -298,7 +298,7 @@
     "href": "slides.html#datasets-at-a-glance",
     "title": "Scratching the Surface",
     "section": "Datasets at a glance",
-    "text": "Datasets at a glance\n\n\n\n\n\n\n\n\n\n\n\nDataset\nRole\nn train\nn test\nImage size\nNative taxonomy\n\n\n\n\nSeverstal\nTRAIN POOL\n10 053\n1 259\n1600 × 256\n4 classes (pit, scratch, patch, ridge)\n\n\nNEU-DET\nTRAIN POOL\n1 700\n100\n200 × 200\n6 classes (crazing, inclusion, …)\n\n\nKolektorSDD2\nHELD-OUT\n2 332\n1 004\n230 × 630–1240\n1 binary mask\n\n\n\nAll labels collapsed to a single binary defect / no-defect target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 is the new mill — different camera, different lighting, different defect vocabulary — that the classical models have to generalise to.\n\nThe point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 is reserved as the held-out domain: same task (“is there a defect?”), totally different pixels. NEU-DET ships all-defect (no normals) — that’s what a lot of real factory data looks like before anyone has bothered to annotate a clean baseline."
+    "text": "Datasets at a glance\n\n\n\n\n\n\n\n\n\n\n\nDataset\nRole\nTrain\nTest\nImage size\nNative taxonomy\n\n\n\n\nSeverstal\nTrain\n10,053\n1,259\n1600 × 256\n4 classes (pit, scratch, patch, ridge)\n\n\nNEU-DET\nTrain\n1,700\n100\n200 × 200\n6 classes (crazing, inclusion, …)\n\n\nKolektorSDD2\nHoldout\n2,332\n1,004\n230 × 630–1240\n1 binary mask\n\n\n\nAll labels collapsed to a single binary defect / no-defect target. The two TRAIN POOL datasets are what ResNet50 and YOLO11s see during training. KolektorSDD2 is the new mill — different camera, different lighting, different defect vocabulary — that the classical models have to generalise to.\n\nThe point of the table is to be concrete about what the models do and do not see. Severstal + NEU-DET ≈ 11 700 labelled images of two specific imaging setups. KolektorSDD2 is reserved as the held-out domain: same task (“is there a defect?”), totally different pixels. NEU-DET ships all-defect (no normals) — that’s what a lot of real factory data looks like before anyone has bothered to annotate a clean baseline."
   },
   {
     "objectID": "slides.html#more-labels-wont-save-us",
@@ -312,7 +312,7 @@
     "href": "slides.html#we-make-some-assumptions-about-the-project-spec",
     "title": "Scratching the Surface",
     "section": "We make some assumptions about the project spec",
-    "text": "We make some assumptions about the project spec\nWe will treat the problem as if they have no labelled data, but want us to as quickly as possible provide them with a system that can identify defects on the production line.\nThen in this demo, I choose two datasets that have some similarities to what we might expect from AQ Group, and use another two datasets as a holdout set to test how well our models generalise to new domains.\nSo how do we go about this??"
+    "text": "We make some assumptions about the project spec\nWe will treat the problem as if they have\n\nno labelled data,\nbut want us to as quickly as possible provide them with a system that can identify defects on the production line.\n\nThen in this demo, I choose\n\ntwo datasets that have some similarities to what we might expect from AQ Group as training data\nand use another dataset as a holdout set to test how well our models generalise to new domains.\n\nSo how do we go about this??"
   },
   {
     "objectID": "slides.html#two-classical-workhorses",
@@ -334,5 +334,19 @@
     "title": "Scratching the Surface",
     "section": "Best VLM vs every classical recipe — KolektorSDD2 F1",
     "text": "Best VLM vs every classical recipe — KolektorSDD2 F1\n\n\n\n\n\nHeld-out F1 on KolektorSDD2: every classical recipe vs the best frontier VLM (zero-shot).\n\n\n\nThe headline.\n\nBest classical recipe (ResNet50 + Kolektor FT): 0.56\nBest zero-shot VLM (Gemini 2.5 Pro): 0.83\n\nNo labels on the new domain, no fine-tuning, no schema changes — just an API call with a prompt.\n\n\nThis is the punch-line of the bake-off. We poured ~11 700 labels and a fine-tune into the classical side; the VLM saw nothing of Kolektor before inference. Same metric, same images, very different ceiling. Rendered by scripts/make_comparison_figures.py (f1_kolektor_vlm_vs_classical.png), VLM number pulled from results/vlm/flagship_summary_*.json."
+  },
+  {
+    "objectID": "slides.html#best-vlm-vs-classical-kolektorsdd2-f1",
+    "href": "slides.html#best-vlm-vs-classical-kolektorsdd2-f1",
+    "title": "Scratching the Surface",
+    "section": "Best VLM vs classical — KolektorSDD2 F1",
+    "text": "Best VLM vs classical — KolektorSDD2 F1\n\n\n\n\n\nHeld-out F1 on KolektorSDD2: every classical recipe vs the best frontier VLM (zero-shot).\n\n\n\nThe headline.\n\nBest classical recipe (ResNet50 + Kolektor FT): 0.56\nBest zero-shot VLM (Gemini 2.5 Pro): 0.83\n\nNo labels on the new domain, no fine-tuning, no schema changes — just an API call with a prompt.\n\n\nThis is the punch-line of the bake-off. We poured ~11 700 labels and a fine-tune into the classical side; the VLM saw nothing of Kolektor before inference. Same metric, same images, very different ceiling. Rendered by scripts/make_comparison_figures.py (f1_kolektor_vlm_vs_classical.png), VLM number pulled from results/vlm/flagship_summary_*.json."
+  },
+  {
+    "objectID": "slides.html#does-the-student-ever-catch-the-teacher",
+    "href": "slides.html#does-the-student-ever-catch-the-teacher",
+    "title": "Scratching the Surface",
+    "section": "Does the student ever catch the teacher?",
+    "text": "Does the student ever catch the teacher?\n\n\n\n\n\nResNet50 trained on VLM pseudo-labels at increasing N (3 seeds per N). Dashed line = GPT-5.4 zero-shot F1 = 0.79.\n\n\n\nSetup (scripts/labelling_curve.py)\n\nPool: Kolektor train (~2 300 images, ~10 % defective)\nLabels: VLM pseudo-labels with measured noise (TPR=0.68, TNR=0.96)\n3 seeds per N — no class balancing\n6 epochs, AdamW, ResNet50\n\nReading the chart\n\nAt N ≤ 1 600, the student has not caught the teacher (F1 peaks ~0.37 vs 0.79).\nThe gap signals that more labels and/or a cleaner label budget would be needed.\nThe dollar axis makes the trade-off concrete: $10.74 of labelling still falls short.\n\n\n\nThe student (ResNet50) never catches the teacher (GPT-5.4 zero-shot) within the 1 600-image budget tested. This is an honest result — the teacher is very good and the labels are noisy. The practical implication is that you need either more images, better labels, or a fine-tuned VLM starting point before the classical model matches."
   }
 ]

@@ -355,8 +355,16 @@ Jonathan Jayes
 </section>
 <section id="we-make-some-assumptions-about-the-project-spec" class="slide level2">
 <h2>We make some assumptions about the project spec</h2>
-<p>We will treat the problem as if they have no labelled data, but want us to as quickly as possible provide them with a system that can identify defects on the production line.</p>
-<p>Then in this demo, I choose two datasets that have some similarities to what we might expect from AQ Group, and use another two datasets as a holdout set to test how well our models generalise to new domains.</p>
+<p>We will treat the problem as if they have</p>
+<ul>
+<li><p>no labelled data,</p></li>
+<li><p>but want us to as quickly as possible provide them with a system that can identify defects on the production line.</p></li>
+</ul>
+<p>Then in this demo, I choose</p>
+<ul>
+<li><p>two datasets that have some similarities to what we might expect from AQ Group as training data</p></li>
+<li><p>and use another dataset as a holdout set to test how well our models generalise to new domains.</p></li>
+</ul>
 <p>So how do we go about this??</p>
 </section></section>
 <section>
@@ -440,23 +448,23 @@ Jonathan Jayes
           display:block!important;
       }</style></aside>
 </section>
-<section id="datasets-at-a-glance" class="slide level2">
+<section id="datasets-at-a-glance" class="slide level2 smaller">
 <h2>Datasets at a glance</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 18%">
-<col style="width: 13%">
-<col style="width: 8%">
+<col style="width: 9%">
 <col style="width: 7%">
+<col style="width: 6%">
 <col style="width: 17%">
-<col style="width: 32%">
+<col style="width: 39%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Dataset</th>
 <th style="text-align: left;">Role</th>
-<th style="text-align: right;">n train</th>
-<th style="text-align: right;">n test</th>
+<th style="text-align: right;">Train</th>
+<th style="text-align: right;">Test</th>
 <th style="text-align: left;">Image size</th>
 <th style="text-align: left;">Native taxonomy</th>
 </tr>
@@ -464,25 +472,25 @@ Jonathan Jayes
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Severstal</strong></td>
-<td style="text-align: left;">TRAIN POOL</td>
-<td style="text-align: right;">10 053</td>
-<td style="text-align: right;">1 259</td>
+<td style="text-align: left;">Train</td>
+<td style="text-align: right;">10,053</td>
+<td style="text-align: right;">1,259</td>
 <td style="text-align: left;">1600 × 256</td>
 <td style="text-align: left;">4 classes (pit, scratch, patch, ridge)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>NEU-DET</strong></td>
-<td style="text-align: left;">TRAIN POOL</td>
-<td style="text-align: right;">1 700</td>
+<td style="text-align: left;">Train</td>
+<td style="text-align: right;">1,700</td>
 <td style="text-align: right;">100</td>
 <td style="text-align: left;">200 × 200</td>
 <td style="text-align: left;">6 classes (crazing, inclusion, …)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>KolektorSDD2</strong></td>
-<td style="text-align: left;">HELD-OUT</td>
-<td style="text-align: right;">2 332</td>
-<td style="text-align: right;">1 004</td>
+<td style="text-align: left;">Holdout</td>
+<td style="text-align: right;">2,332</td>
+<td style="text-align: right;">1,004</td>
 <td style="text-align: left;">230 × 630–1240</td>
 <td style="text-align: left;">1 binary mask</td>
 </tr>
@@ -1314,7 +1322,7 @@ Jonathan Jayes
 <h1>F. Flagship VLM Bake-Off</h1>
 
 </section>
-<section id="same-images-frontier-models-zero-training" class="slide level2">
+<section id="same-images-frontier-models-zero-training" class="slide level2 smaller">
 <h2>Same images, frontier models, zero training</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -1353,8 +1361,8 @@ Jonathan Jayes
           display:block!important;
       }</style></aside>
 </section>
-<section id="best-vlm-vs-every-classical-recipe-kolektorsdd2-f1" class="slide level2">
-<h2>Best VLM vs every classical recipe — KolektorSDD2 F1</h2>
+<section id="best-vlm-vs-classical-kolektorsdd2-f1" class="slide level2">
+<h2>Best VLM vs classical — KolektorSDD2 F1</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
@@ -1390,7 +1398,7 @@ Jonathan Jayes
 <h1>G. Prompt-tuning as gradient descent on words</h1>
 
 </section>
-<section id="a-structured-output-teacher-critiques-a-structured-output-student" class="slide level2">
+<section id="a-structured-output-teacher-critiques-a-structured-output-student" class="slide level2 smaller">
 <h2>A structured-output teacher critiques a structured-output student</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -1556,7 +1564,7 @@ Jonathan Jayes
           display:block!important;
       }</style></aside>
 </section>
-<section id="one-off-labelling-classical-inference-vs-per-image-vlm" class="slide level2">
+<section id="one-off-labelling-classical-inference-vs-per-image-vlm" class="slide level2 smaller">
 <h2>One-off labelling + classical inference vs per-image VLM</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -1580,10 +1588,48 @@ Jonathan Jayes
 <li>$0.50/label → ~261k images</li>
 </ul>
 <p>A line running 24/7 hits 26k images in <strong>hours</strong>. The hybrid (YOLO → escalate 30% to VLM) buys back another 3×.</p>
-<p><strong>Learning curve</strong> — <em>forthcoming</em>. <code>scripts/learning_curve_resnet.py</code> sweeps <code>N ∈ {50, 100, 250, 500, 1k, 2k, 2.3k}</code> to find the smallest label budget that lets the classical model match the VLM on Kolektor.</p>
 </div></div>
 <aside class="notes">
 <p>Numbers from scripts/make_cost_tradeoff_figure.py, sourcing per-call VLM cost from results/vlm/flagship_summary_*.json.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="does-the-student-ever-catch-the-teacher" class="slide level2 smaller">
+<h2>Does the student ever catch the teacher?</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/bakeoff/labelling_curve.png" style="width:100.0%"></p>
+<figcaption>ResNet50 trained on VLM pseudo-labels at increasing N (3 seeds per N). Dashed line = GPT-5.4 zero-shot F1 = 0.79.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:35%;">
+<p><strong>Setup</strong> (<code>scripts/labelling_curve.py</code>)</p>
+<ul>
+<li>Pool: Kolektor train (~2 300 images, ~10 % defective)</li>
+<li>Labels: VLM pseudo-labels with measured noise (TPR=0.68, TNR=0.96)</li>
+<li>3 seeds per N — no class balancing</li>
+<li>6 epochs, AdamW, ResNet50</li>
+</ul>
+<p><strong>Reading the chart</strong></p>
+<ul>
+<li>At N ≤ 1 600, the student has not caught the teacher (F1 peaks ~0.37 vs 0.79).</li>
+<li>The gap signals that <strong>more labels</strong> and/or a cleaner label budget would be needed.</li>
+<li>The dollar axis makes the trade-off concrete: $10.74 of labelling still falls short.</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>The student (ResNet50) never catches the teacher (GPT-5.4 zero-shot) within the 1 600-image budget tested. This is an honest result — the teacher is very good and the labels are noisy. The practical implication is that you need either more images, better labels, or a fine-tuned VLM starting point before the classical model matches.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1601,7 +1647,7 @@ Jonathan Jayes
 <h1>J. The takeaway</h1>
 
 </section>
-<section id="use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop." class="slide level2">
+<section id="use-vlms-to-teach-classical-cv.-dont-put-them-in-the-hot-loop." class="slide level2 smaller">
 <h2>Use VLMs to teach classical CV. Don’t put them in the hot loop.</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
