@@ -63,14 +63,10 @@ PICKS: list[dict] = [
         "path": "data/raw/severstal/train_images/c6d3371a8.jpg",
         "label": 1,
     },
-    {
-        "tag": "DEFECT",
-        "dataset": "GC10-DET",
-        "image_id": "img_05_425505000_00051.jpg",
-        "path": "data/raw/gc10/GC10-DET/images/img_05_425505000_00051.jpg",
-        "label": 1,
-    },
 ]
+
+# Latest JSONL with pre-computed GPT-5.4 rationales — avoids redundant API calls
+RATIONALE_CACHE = Path("results/vlm/section_j_rationale_20260517_225826.jsonl")
 
 
 def prep_input(path: str) -> tuple[Image.Image, torch.Tensor, np.ndarray]:
@@ -125,8 +121,8 @@ def call_gpt5(image_path: str, image_id: str, dataset: str) -> dict:
 def render(picks: list[dict], rationales: dict[str, dict], model, device) -> None:
     n = len(picks)
     fig, axes = plt.subplots(
-        n, 3, figsize=(15, 3.5 * n),
-        gridspec_kw={"width_ratios": [1, 1, 1.8]},
+        n, 3, figsize=(22, 5 * n),
+        gridspec_kw={"width_ratios": [1, 1, 2.2]},
     )
     if n == 1:
         axes = axes.reshape(1, -1)
@@ -145,14 +141,14 @@ def render(picks: list[dict], rationales: dict[str, dict], model, device) -> Non
         axes[i, 0].set_xticks([]); axes[i, 0].set_yticks([])
         axes[i, 0].set_title(
             f"{pick['tag']} — {pick['dataset']}",
-            fontsize=11, fontweight="bold", color=tag_color,
+            fontsize=15, fontweight="bold", color=tag_color,
         )
 
         axes[i, 1].imshow(overlay)
         axes[i, 1].set_xticks([]); axes[i, 1].set_yticks([])
         axes[i, 1].set_title(
             f"ResNet Grad-CAM   (p̂={prob:.2f})",
-            fontsize=11, fontweight="bold", color="#7570b3",
+            fontsize=15, fontweight="bold", color="#7570b3",
         )
 
         axes[i, 2].axis("off")
@@ -166,25 +162,25 @@ def render(picks: list[dict], rationales: dict[str, dict], model, device) -> Non
         if conf is not None:
             header += f"   (conf {float(conf):.2f})"
         reasoning = r.get("reasoning") or "(no rationale captured)"
-        wrapped = "\n".join(textwrap.wrap(reasoning, width=46))
+        wrapped = "\n".join(textwrap.wrap(reasoning, width=52))
         body = f"{header}\n\n{wrapped}"
         axes[i, 2].text(
-            0.02, 0.5, body, fontsize=10.5, va="center", family="serif",
+            0.04, 0.5, body, fontsize=13, va="center", family="serif",
             bbox=dict(
-                boxstyle="round,pad=0.6",
+                boxstyle="round,pad=0.8",
                 facecolor="#fff8dc",
                 edgecolor="#d95f02",
-                linewidth=1.5,
+                linewidth=2,
             ),
         )
         axes[i, 2].set_title(
             "GPT-5.4 reasoning",
-            fontsize=11, fontweight="bold", color="#d95f02",
+            fontsize=15, fontweight="bold", color="#d95f02",
         )
 
     fig.suptitle(
         "Two languages of explanation — pixel heatmap vs natural-language rationale",
-        fontsize=14, y=0.995,
+        fontsize=16, y=0.995,
     )
     fig.tight_layout()
     OUT_FIG.parent.mkdir(parents=True, exist_ok=True)
@@ -193,28 +189,47 @@ def render(picks: list[dict], rationales: dict[str, dict], model, device) -> Non
     print(f"  → {OUT_FIG}")
 
 
+def load_rationale_cache(jsonl_path: Path) -> dict[str, dict]:
+    """Load pre-computed rationales from a JSONL file keyed by image_id."""
+    rationales: dict[str, dict] = {}
+    if not jsonl_path.exists():
+        print(f"  [WARN] rationale cache not found: {jsonl_path}")
+        return rationales
+    with jsonl_path.open() as f:
+        for line in f:
+            rec = json.loads(line)
+            rationales[rec["image_id"]] = rec
+    print(f"  Loaded {len(rationales)} rationales from {jsonl_path}")
+    return rationales
+
+
 def main() -> None:
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    jsonl_out = RESULTS / f"section_j_rationale_{ts}.jsonl"
     RESULTS.mkdir(parents=True, exist_ok=True)
 
-    print(f"Calling GPT-5.4 on {len(PICKS)} images …")
-    rationales: dict[str, dict] = {}
-    total_cost = 0.0
-    with jsonl_out.open("w") as f:
-        for pick in PICKS:
-            print(f"  [{pick['tag']:6s}] {pick['dataset']:14s} {pick['image_id']}")
-            rec = call_gpt5(pick["path"], pick["image_id"], pick["dataset"])
-            rec["label"] = pick["label"]
-            f.write(json.dumps(rec) + "\n")
-            rationales[pick["image_id"]] = rec
-            total_cost += rec["cost_usd"] or 0
-            print(
-                f"          → has_defect={rec['has_defect']}  "
-                f"conf={rec['confidence']}  ${rec['cost_usd']:.4f}  "
-                f"{rec['latency_s']:.1f}s"
-            )
-    print(f"  → {jsonl_out}   total ≈ ${total_cost:.4f}")
+    # Load rationales from cache — avoids re-calling the API
+    rationales = load_rationale_cache(RATIONALE_CACHE)
+
+    # If any pick is missing from cache, call the API for those only
+    missing = [p for p in PICKS if p["image_id"] not in rationales]
+    if missing:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        jsonl_out = RESULTS / f"section_j_rationale_{ts}.jsonl"
+        print(f"Calling GPT-5.4 on {len(missing)} uncached images …")
+        total_cost = 0.0
+        with jsonl_out.open("w") as f:
+            for pick in missing:
+                print(f"  [{pick['tag']:6s}] {pick['dataset']:14s} {pick['image_id']}")
+                rec = call_gpt5(pick["path"], pick["image_id"], pick["dataset"])
+                rec["label"] = pick["label"]
+                f.write(json.dumps(rec) + "\n")
+                rationales[pick["image_id"]] = rec
+                total_cost += rec["cost_usd"] or 0
+                print(
+                    f"          → has_defect={rec['has_defect']}  "
+                    f"conf={rec['confidence']}  ${rec['cost_usd']:.4f}  "
+                    f"{rec['latency_s']:.1f}s"
+                )
+        print(f"  → {jsonl_out}   total ≈ ${total_cost:.4f}")
 
     print("Rendering figure …")
     device = get_device()

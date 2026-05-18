@@ -54,6 +54,284 @@ For AQ Group one of the tasks that we could work on was rolled-metal defect dete
 So the question is, how can we use this new technology to save time and resources on a project like this? And how can we prepare for the unknowns that we might encounter along the way?
 :::
 
+## What I want you to take away from today's talk
+
+```{=html}
+<style>
+.cv-compare {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 1460px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 670px;
+}
+.cv-compare * { box-sizing: border-box; }
+
+/* ── left / right panels ── */
+.cv-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  padding: 20px 28px 16px;
+  gap: 12px;
+}
+.cv-panel.classical {
+  background: #eaf7f3;
+  border: 2.5px solid #1b9e77;
+  margin-right: 12px;
+}
+.cv-panel.vlm {
+  background: #fff4ec;
+  border: 2.5px solid #d95f02;
+  margin-left: 12px;
+}
+
+.cv-panel-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  margin: 0 0 4px;
+}
+.cv-panel.classical .cv-panel-title { color: #1b9e77; }
+.cv-panel.vlm       .cv-panel-title { color: #d95f02; }
+
+.cv-panel-subtitle {
+  font-size: 1.05rem;
+  color: #64748b;
+  margin: 0 0 10px;
+  font-style: italic;
+}
+
+/* ── trait rows ── */
+.cv-trait {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.cv-trait-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.cv-trait-body {}
+.cv-trait-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+.cv-trait-desc {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.4;
+}
+
+/* ── centre balance column ── */
+.cv-balance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  flex-shrink: 0;
+  gap: 0;
+  position: relative;
+}
+.cv-balance-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+/* scale SVG wrapper */
+.cv-scale-svg {
+  width: 130px;
+}
+
+/* dimension bars */
+.cv-dims {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  margin-top: 24px;
+}
+.cv-dim-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.cv-dim-name {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #64748b;
+}
+.cv-bar-pair {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  gap: 4px;
+}
+.cv-bar {
+  height: 10px;
+  border-radius: 5px;
+}
+.cv-bar.classical { background: #1b9e77; }
+.cv-bar.vlm       { background: #d95f02; }
+</style>
+
+<div class="cv-compare">
+
+  <!-- Classical CV -->
+  <div class="cv-panel classical">
+    <div>
+      <div class="cv-panel-title">Classical CV</div>
+      <div class="cv-panel-subtitle">ResNet · YOLO · SVM</div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">⚡</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Lightning-fast inference</div>
+        <div class="cv-trait-desc">Milliseconds per image on a cheap GPU — suitable for real-time production lines.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">💰</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Negligible inference cost</div>
+        <div class="cv-trait-desc">Fractions of a cent per 1 000 images on rented compute.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">🏷️</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Needs labelled data to work</div>
+        <div class="cv-trait-desc">Requires hundreds to thousands of annotated images <em>per domain</em> to reach production quality.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">📦</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Poor domain generalisation</div>
+        <div class="cv-trait-desc">Change the camera, the lighting, or the defect type — and you are back to the annotator queue.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Balance column -->
+  <div class="cv-balance">
+    <div class="cv-balance-label">vs</div>
+
+    <!-- Simple balance / scale SVG -->
+    <svg class="cv-scale-svg" viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- fulcrum -->
+      <polygon points="65,140 50,160 80,160" fill="#cbd5e1"/>
+      <!-- mast -->
+      <rect x="63" y="60" width="4" height="82" fill="#cbd5e1"/>
+      <!-- beam — tilted: classical (left) heavy = low, VLM (right) high -->
+      <line x1="10" y1="78" x2="120" y2="48" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+      <!-- left pan (classical) — low -->
+      <circle cx="10" cy="78" r="6" fill="#1b9e77"/>
+      <line x1="10" y1="84" x2="10" y2="108" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="0" y="108" width="20" height="6" rx="3" fill="#1b9e77" opacity="0.5"/>
+      <!-- right pan (VLM) — high -->
+      <circle cx="120" cy="48" r="6" fill="#d95f02"/>
+      <line x1="120" y1="54" x2="120" y2="78" stroke="#94a3b8" stroke-width="2"/>
+      <rect x="110" y="78" width="20" height="6" rx="3" fill="#d95f02" opacity="0.5"/>
+      <!-- labels -->
+      <text x="10" y="125" text-anchor="middle" font-size="9" fill="#1b9e77" font-weight="bold">Speed</text>
+      <text x="10" y="136" text-anchor="middle" font-size="9" fill="#1b9e77" font-weight="bold">Cost</text>
+      <text x="120" y="96" text-anchor="middle" font-size="9" fill="#d95f02" font-weight="bold">Generalisation</text>
+    </svg>
+
+    <!-- dimension bars -->
+    <div class="cv-dims">
+      <div class="cv-dim-row">
+        <div class="cv-dim-name">Speed</div>
+        <div class="cv-bar-pair">
+          <div class="cv-bar classical" style="width:90px"></div>
+          <div class="cv-bar vlm"       style="width:10px"></div>
+        </div>
+      </div>
+      <div class="cv-dim-row">
+        <div class="cv-dim-name">Cheapness</div>
+        <div class="cv-bar-pair">
+          <div class="cv-bar classical" style="width:88px"></div>
+          <div class="cv-bar vlm"       style="width:12px"></div>
+        </div>
+      </div>
+      <div class="cv-dim-row">
+        <div class="cv-dim-name">Generalisation</div>
+        <div class="cv-bar-pair">
+          <div class="cv-bar classical" style="width:18px"></div>
+          <div class="cv-bar vlm"       style="width:82px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VLM -->
+  <div class="cv-panel vlm">
+    <div>
+      <div class="cv-panel-title">Vision-Language Models</div>
+      <div class="cv-panel-subtitle">GPT-5 · Gemini 2.5 · Claude</div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">🐢</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Slow inference</div>
+        <div class="cv-trait-desc">Seconds per image via API — three to four orders of magnitude slower than classical CV.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">💸</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Higher inference cost</div>
+        <div class="cv-trait-desc">~$0.80–$4 per 1 000 images depending on provider — token pricing applies per call.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">🌍</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Zero-shot generalisation</div>
+        <div class="cv-trait-desc">Pre-trained on vast internet data — can reason about novel domains without any labelled examples.</div>
+      </div>
+    </div>
+
+    <div class="cv-trait">
+      <div class="cv-trait-icon">💬</div>
+      <div class="cv-trait-body">
+        <div class="cv-trait-label">Explains its reasoning</div>
+        <div class="cv-trait-desc">Returns a natural-language rationale alongside each verdict — not just a number.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+::: {.notes}
+This slide frames the whole talk. Classical CV is fast and cheap but brittle — move the camera and you start over. VLMs are slow and expensive per call but generalise out of the box. The question we spend the rest of the talk answering: can we use the VLM as a teacher to build the cheap classical model, rather than putting it in the hot loop?
+:::
+
 # B. Context {background-color="#1b9e77"}
 
 ## What is rolled-metal?
@@ -192,6 +470,21 @@ Talk about the progression in Computer vision, from Mnist to ImageNet to the pre
 The problem is generalization - these models are exceptionally good at identifying edges, lines, etc, but it needs to see examples of the objects it is trying to predict in our domain. COCO contains 80 everyday object categories built from photographs of the natural world. A rolled-metal surface defect — a pit, a scratch, a silk-spot — looks like nothing in that vocabulary. The model does not fail because it is a bad model; it fails because it has never been shown what a defect looks like. That is the annotation bottleneck in one image.
 :::
 
+
+## What has the model learned to see?
+
+::: {.r-stack}
+![](assets/coco/Screen-Shot-2022-08-25-at-8.59.43-AM.png){.fragment height="700"}
+
+![](assets/coco/Screen-Shot-2022-08-25-at-9.01.49-AM.jpg){.fragment height="700"}
+
+![](assets/coco/Screen-Shot-2022-08-25-at-9.05.45-AM.png){.fragment height="700"}
+
+![](assets/coco/Screen-Shot-2022-08-25-at-9.06.28-AM.jpg){.fragment height="700"}
+
+![](assets/coco/Screen-Shot-2022-08-30-at-4.24.21-PM.png){.fragment height="700"}
+:::
+
 ## The annotation bottleneck
 
 ::: {.columns}
@@ -226,7 +519,7 @@ The problem is that we will have to spend a lot of time speaking to engineers an
 
 :::
 
-## Datasets at a glance {.smaller}
+## Datasets at a glance {.smaller}{visibility="hidden"}
 
 | Dataset           | Role     | Train  | Test  | Image size       | Native taxonomy                        |
 |:------------------|:---------|-------:|------:|:-----------------|:---------------------------------------|
@@ -295,7 +588,7 @@ Two architectures we'll lean on. ResNet50 is the canonical image classifier — 
 :::
 
 
-## What the baseline ResNet actually predicts
+## What the baseline ResNet actually predicts{visibility="hidden"}
 
 ![Random test images with ResNet50 prediction overlay. Green border = correct, red = wrong. The model is confidently wrong on the new domains.](../figures/bakeoff/domain_gap_with_baseline_preds.png){width="78%" fig-align="center"}
 
@@ -304,30 +597,18 @@ Calibration is broken too — high confidence on wrong calls. This sets up Grad-
 :::
 
 
-## Grad-CAM: peeking inside the black box
+## The VLM tells you *why* — not just what
 
-::: {.columns}
-
-::: {.column width="62%"}
-
-![Grad-CAM heatmaps over `layer4` activations. Top: Severstal+NEU samples — the model lights up on defect-correlated texture. Bottom: KolektorSDD2 — attention scatters onto seams, edges, and lighting artefacts unrelated to actual defects.](../figures/explainers/gradcam_train_vs_test.png){width="100%"}
-
-:::
-
-::: {.column width="38%"}
-
-**Why does the F1 collapse?**
-
-It's not that the network "forgot how to see." It's that the features it learned to chase — strip-aligned texture statistics from Severstal — simply aren't where the defects live in Kolektor.
-
-The model is doing exactly what it was trained to do. The training distribution lied about the world.
-
-:::
-
-:::
+![For each image: the raw crop, the ResNet Grad-CAM heatmap, and the GPT-5.4 natural-language rationale. The classical model gives a number; the VLM gives a sentence.](../figures/explainers/gradcam_vs_vlm_rationale.png){width="100%" fig-align="center"}
 
 ::: {.notes}
-Run with: `uv run python scripts/make_gradcam_grid.py`. Uses pytorch-grad-cam on layer4[-1] of resnet50_kolektor_ft_v2_best.
+Row 1 (Severstal, normal): ResNet confidence is low (p̂=0.06) — correctly uncertain. The CAM lights up mid-strip texture. VLM correctly calls NORMAL and explains *why*: "darker vertical streaks are consistent with benign surface texture/illumination variation rather than a distinct localised manufacturing defect."
+
+Row 2 (KolektorSDD2, defect): ResNet says p̂=0.11 — confidently wrong. The CAM scatters attention at the bottom, nowhere near the actual scratch. VLM correctly calls DEFECT (conf 0.94) and explains: "a single bright diagonal linear mark on the left side is inconsistent with the surrounding texture … most plausibly caused by mechanical scratching."
+
+Row 3 (Severstal, defect): ResNet gets it right (p̂=0.75) and CAM fires broadly. VLM also correct (conf 0.79): "a localized bright vertical mark near the center … most consistent with a mechanical scratch or roller contact mark."
+
+The key contrast: the Grad-CAM tells an operator *where* the network looked; the VLM tells them *what it saw and why it matters*. Run with: `uv run python scripts/make_cam_vlm_slide.py`.
 :::
 
 

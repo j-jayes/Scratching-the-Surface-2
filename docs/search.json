@@ -18,7 +18,7 @@
     "href": "slides.html#what-are-rolled-metal-defects",
     "title": "Scratching the Surface",
     "section": "What are rolled-metal defects?",
-    "text": "What are rolled-metal defects?"
+    "text": "What are rolled-metal defects?\n\n\nYou can see that this is quite challenging - the no defect ones still have a lot of visual clutter, and the defects are often very subtle."
   },
   {
     "objectID": "slides.html#what-are-rolled-metal-defects-your-turn",
@@ -60,7 +60,7 @@
     "href": "slides.html#we-make-some-assumptions-about-the-project-spec",
     "title": "Scratching the Surface",
     "section": "We make some assumptions about the project spec",
-    "text": "We make some assumptions about the project spec\nWe will treat the problem as if they have\n\nno labelled data,\nbut want us to as quickly as possible provide them with a system that can identify defects on the production line.\n\nThen in this demo, I choose\n\ntwo datasets that have some similarities to what we might expect from AQ Group as training data\nand use another dataset as a holdout set to test how well our models generalise to new domains.\n\nSo how do we go about this??"
+    "text": "We make some assumptions about the project spec\nWe will treat the problem as if they have\n\nno labelled data,\nbut want us to as quickly as possible provide them with a system that can identify defects on the production line.\n\nThen in this demo, I choose\n\ntwo datasets that have some similarities to what we might expect from AQ Group as training data\nand use another dataset as a holdout set to test how well our models generalise to new domains.\nI collapse all the labels to a single binary “defect / no-defect” target, because we don’t know what the defect taxonomy is at AQ Group.\n\nSo how do we go about this??"
   },
   {
     "objectID": "slides.html#yes-classical-cv-is-a-mostly-solved-problem",
@@ -278,5 +278,40 @@
     "title": "Scratching the Surface",
     "section": "Reproduce",
     "text": "Reproduce\nSee README.md for full reproduction steps (~30 min on Apple Silicon)."
+  },
+  {
+    "objectID": "slides.html#rolled-metal-defects-are-not-objects-the-models-are-trained-on",
+    "href": "slides.html#rolled-metal-defects-are-not-objects-the-models-are-trained-on",
+    "title": "Scratching the Surface",
+    "section": "Rolled metal defects are not objects the models are trained on",
+    "text": "Rolled metal defects are not objects the models are trained on\n\nYOLO11s (COCO pretrained, 80 classes) run on a Severstal hot-rolled steel strip with real defects. The model boxes the actual anomalies — a scratch cluster and a large surface patch — and labels every one a bird. “Steel defect” simply does not exist in its vocabulary.\nThe problem is generalization - these models are exceptionally good at identifying edges, lines, etc, but it needs to see examples of the objects it is trying to predict in our domain. COCO contains 80 everyday object categories built from photographs of the natural world. A rolled-metal surface defect — a pit, a scratch, a silk-spot — looks like nothing in that vocabulary. The model does not fail because it is a bad model; it fails because it has never been shown what a defect looks like. That is the annotation bottleneck in one image."
+  },
+  {
+    "objectID": "slides.html#what-has-the-model-learned-to-see",
+    "href": "slides.html#what-has-the-model-learned-to-see",
+    "title": "Scratching the Surface",
+    "section": "What has the model learned to see?",
+    "text": "What has the model learned to see?"
+  },
+  {
+    "objectID": "slides.html#the-vlm-tells-you-why-not-just-what",
+    "href": "slides.html#the-vlm-tells-you-why-not-just-what",
+    "title": "Scratching the Surface",
+    "section": "The VLM tells you why — not just what",
+    "text": "The VLM tells you why — not just what\n\nFor each image: the raw crop, the ResNet Grad-CAM heatmap, and the GPT-5.4 natural-language rationale. The classical model gives a number; the VLM gives a sentence.\nRow 1 (Severstal, normal): ResNet confidence is low (p̂=0.06) — correctly uncertain. The CAM lights up mid-strip texture. VLM correctly calls NORMAL and explains why: “darker vertical streaks are consistent with benign surface texture/illumination variation rather than a distinct localised manufacturing defect.”\nRow 2 (KolektorSDD2, defect): ResNet says p̂=0.11 — confidently wrong. The CAM scatters attention at the bottom, nowhere near the actual scratch. VLM correctly calls DEFECT (conf 0.94) and explains: “a single bright diagonal linear mark on the left side is inconsistent with the surrounding texture … most plausibly caused by mechanical scratching.”\nRow 3 (Severstal, defect): ResNet gets it right (p̂=0.75) and CAM fires broadly. VLM also correct (conf 0.79): “a localized bright vertical mark near the center … most consistent with a mechanical scratch or roller contact mark.”\nThe key contrast: the Grad-CAM tells an operator where the network looked; the VLM tells them what it saw and why it matters. Run with: uv run python scripts/make_cam_vlm_slide.py."
+  },
+  {
+    "objectID": "slides.html#two-tools-one-trade-off",
+    "href": "slides.html#two-tools-one-trade-off",
+    "title": "Scratching the Surface",
+    "section": "Two tools, one trade-off",
+    "text": "Two tools, one trade-off\n\n\n\n\n  \n  \n    \n      Classical CV\n      ResNet · YOLO · SVM\n    \n\n    \n      ⚡\n      \n        Lightning-fast inference\n        Milliseconds per image on a cheap GPU — suitable for real-time production lines.\n      \n    \n\n    \n      💰\n      \n        Negligible inference cost\n        Fractions of a cent per 1 000 images on rented compute.\n      \n    \n\n    \n      🏷️\n      \n        Needs labelled data to work\n        Requires hundreds to thousands of annotated images per domain to reach production quality.\n      \n    \n\n    \n      📦\n      \n        Poor domain generalisation\n        Change the camera, the lighting, or the defect type — and you are back to the annotator queue.\n      \n    \n  \n\n  \n  \n    vs\n\n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      Speed\n      Cost\n      Generalisation\n    \n\n    \n    \n      \n        Speed\n        \n          \n          \n        \n      \n      \n        Cheapness\n        \n          \n          \n        \n      \n      \n        Generalisation\n        \n          \n          \n        \n      \n    \n  \n\n  \n  \n    \n      Vision-Language Models\n      GPT-5 · Gemini 2.5 · Claude\n    \n\n    \n      🐢\n      \n        Slow inference\n        Seconds per image via API — three to four orders of magnitude slower than classical CV.\n      \n    \n\n    \n      💸\n      \n        Higher inference cost\n        ~$0.80–$4 per 1 000 images depending on provider — token pricing applies per call.\n      \n    \n\n    \n      🌍\n      \n        Zero-shot generalisation\n        Pre-trained on vast internet data — can reason about novel domains without any labelled examples.\n      \n    \n\n    \n      💬\n      \n        Explains its reasoning\n        Returns a natural-language rationale alongside each verdict — not just a number.\n      \n    \n  \n\n\n\nThis slide frames the whole talk. Classical CV is fast and cheap but brittle — move the camera and you start over. VLMs are slow and expensive per call but generalise out of the box. The question we spend the rest of the talk answering: can we use the VLM as a teacher to build the cheap classical model, rather than putting it in the hot loop?"
+  },
+  {
+    "objectID": "slides.html#what-i-want-you-to-take-away-from-todays-talk",
+    "href": "slides.html#what-i-want-you-to-take-away-from-todays-talk",
+    "title": "Scratching the Surface",
+    "section": "What I want you to take away from today’s talk",
+    "text": "What I want you to take away from today’s talk\n\n\n\n\n  \n  \n    \n      Classical CV\n      ResNet · YOLO · SVM\n    \n\n    \n      ⚡\n      \n        Lightning-fast inference\n        Milliseconds per image on a cheap GPU — suitable for real-time production lines.\n      \n    \n\n    \n      💰\n      \n        Negligible inference cost\n        Fractions of a cent per 1 000 images on rented compute.\n      \n    \n\n    \n      🏷️\n      \n        Needs labelled data to work\n        Requires hundreds to thousands of annotated images per domain to reach production quality.\n      \n    \n\n    \n      📦\n      \n        Poor domain generalisation\n        Change the camera, the lighting, or the defect type — and you are back to the annotator queue.\n      \n    \n  \n\n  \n  \n    vs\n\n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      Speed\n      Cost\n      Generalisation\n    \n\n    \n    \n      \n        Speed\n        \n          \n          \n        \n      \n      \n        Cheapness\n        \n          \n          \n        \n      \n      \n        Generalisation\n        \n          \n          \n        \n      \n    \n  \n\n  \n  \n    \n      Vision-Language Models\n      GPT-5 · Gemini 2.5 · Claude\n    \n\n    \n      🐢\n      \n        Slow inference\n        Seconds per image via API — three to four orders of magnitude slower than classical CV.\n      \n    \n\n    \n      💸\n      \n        Higher inference cost\n        ~$0.80–$4 per 1 000 images depending on provider — token pricing applies per call.\n      \n    \n\n    \n      🌍\n      \n        Zero-shot generalisation\n        Pre-trained on vast internet data — can reason about novel domains without any labelled examples.\n      \n    \n\n    \n      💬\n      \n        Explains its reasoning\n        Returns a natural-language rationale alongside each verdict — not just a number.\n      \n    \n  \n\n\n\nThis slide frames the whole talk. Classical CV is fast and cheap but brittle — move the camera and you start over. VLMs are slow and expensive per call but generalise out of the box. The question we spend the rest of the talk answering: can we use the VLM as a teacher to build the cheap classical model, rather than putting it in the hot loop?"
   }
 ]
